@@ -118,7 +118,7 @@ button:hover {
 
 h1 {
   font-weight: 400;
-  margin: 0;
+  margin: -10;
 }
 
 h2 {
@@ -191,5 +191,18 @@ a:hover {
   height: 15px;
 }
 .bio.show {
+  display: block;
+}
+
+.news {
+  display: none;
+  line-height: 24px;
+}
+.news br {
+  display: block;
+  content: "";
+  height: 15px;
+}
+.news.show {
   display: block;
 }
