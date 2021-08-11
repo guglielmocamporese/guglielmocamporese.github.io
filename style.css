@@ -151,6 +151,7 @@ a:hover {
   height: 100%;
 }
 
+
 .links {
   margin: 25px 0;
 }
@@ -195,9 +196,8 @@ a:hover {
 }
 
 .news {
-  font-size: 12px;
   display: none;
-  line-height: 17px;
+  line-height: 24px;
 }
 .news br {
   display: block;
@@ -206,4 +206,40 @@ a:hover {
 }
 .news.show {
   display: block;
+}
+
+.paper-title {
+  font-weight: bold;
+}
+
+.paper-authors {
+  font-style: italic;
+}
+
+.publication_container {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.paper-image {
+  position: relative;
+  width: 400px;
+  margin: 0 0 10px 0;
+  border-radius: 0%;
+  overflow: hidden;
+}
+/*.paper-image {
+  position: relative;
+  width: 300px;
+  margin: 0 0 10px 0;
+  border-radius: 0%;
+  overflow: hidden;
+}*/
+.paper-image img {
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 100%;
 }
