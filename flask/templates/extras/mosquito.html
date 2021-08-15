@@ -1,0 +1,87 @@
+{% extends "./layout.html" %}
+
+{% block imports %}
+	{{ super() }}
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript"
+	  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+{% endblock imports %}
+
+{% block body%}
+    <h1>Computing the Probability of Catching a Mosquito by Hands</h1>
+
+Let's consider that you are resting in bed trying to falling asleep, and suddenly a mosquito comes in to play. What is the chance that you are going to catch the mosquito with your hands? Let's trying to answer this question by modeling this situation!
+
+<br><br>
+
+<div class="header-frame">
+  <img id="propic" src="{{ base_dir }}{{ url_for('static', filename='img/body.png') }}" alt="" />
+</div>
+
+<br>
+
+The involved variables are:
+
+<ul>
+	<li>the velocity of the mosquito $v_m$,</li>
+	<li>the velocity of the arm $v_a$,</li>
+	<li>the lenght of your arm $l_a$,</li>
+	<li>the distance between your ear and its relative shoulder $d_{es}$.</li>
+</ul>
+
+In this scenario, we assume that the mosquito is exactly in the position of the ear $e.$
+
+When you decide to move the arm in order to catch the mosquito, instantaneously, the mosquito starts to fly away. In this setting, after an interval of $\nabla t$ seconds, the mosquito is close to the ear in the half-sphere of radius $d_m$.
+
+<br><br>
+
+<div class="header-frame">
+  <img id="propic" src="{{ base_dir }}{{ url_for('static', filename='img/mosquito.png') }}" alt="" />
+</div>
+
+<br>
+
+Considering the max speed of the mosquito $v_m$ flight in a straight line, the radius of the half-sphere $H\text{-}S$ can be computed as follows:
+
+$$d_m = v_m \cdot \nabla t \ [m]$$
+
+where the interval $\nabla t$ is the amount of time required for the arm to reach the ear (assuming a linear trajectory of the hand):
+
+$$\nabla t = \frac{d_{es}  + l_a}{v_a} \ [s].$$
+
+Assuming a uniform spatial distribution of the mosquito in the sphere region, the probability $P_{catch}$ of catching it in a region ball of radius $h$ (this region coincides with your closed hand once you try to catch the mosquito) is: 
+
+$$
+\begin{split}
+P_{catch} &= \int_{H\text{-}S} 1 \cdot dx dy dz \\
+&= \int_0^h \int_0^\pi \int_0^\pi \frac{2}{\frac{4}{3}\pi d_m^3} r^2 sin\phi \ d\theta \ d\phi \ dr \\
+&= \left( \frac{v_a}{v_m} \frac{h}{d_{es} + l_a} \right)^3
+\end{split}
+$$
+
+Now it's time to get some numbers. Searching online I found that: 
+
+<ul>
+	<li>the velocity of an average mosquito is $v_m = 0.56 \pm 0.1 \left[ \frac{m}{s} \right]$,</li>
+	<li><strong>[1]</strong> the velocity of a young man arm is $v_a = 2.5 \left[ \frac{m}{s} \right]$,</li>
+	<li>the average length of an arm is $l_a = 0.6 \ [m]$</li>
+	<li>the distance between the ear and the shoulder is $d_{es} = 0.2 \ [m]$,</li>
+	<li>the radius of a closed hand $h = 0.04 \ [m]$.</li>
+</ul>
+
+Using such number values we get the probability of catching the mosquito in your ear is:
+
+$$P_{catch} = \left( \frac{2.5}{0.56} \frac{0.04}{0.6 + 0.2} \right)^3 \approx 1.11\%$$
+
+The mosquito will probably fly away :)
+<br><br>
+
+<h3>References</h3>
+<strong>[1]</strong> - Kurt M. DeGoede, James A. Ashton-Miller, Jimmy M. Liao, Neil B. Alexander, How Quickly Can Healthy Adults Move Their Hands to Intercept an Approaching Object? Age and Gender Effects, _The Journals of Gerontology: Series A_, Volume 56, Issue 9, 1 September 2001, Pages M584–M588, [https://doi.org/10.1093/gerona/56.9.M584](https://doi.org/10.1093/gerona/56.9.M584)
+ 
+
+
+{% endblock body %}
