@@ -61,7 +61,7 @@ button:hover {
 .header-section {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 
@@ -117,8 +117,8 @@ button:hover {
 }
 
 h1 {
-  font-weight: 400;
-  margin: -10;
+  font-weight: bold;
+  font-size: 1.9em;
 }
 
 h2 {
@@ -136,8 +136,8 @@ a:hover {
 
 .img-frame {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   margin: 0 0 10px 0;
   border-radius: 50%;
   overflow: hidden;
@@ -208,38 +208,113 @@ a:hover {
   display: block;
 }
 
-.paper-title {
-  font-weight: bold;
+.news-date {
+  font-weight: 900;
 }
 
-.paper-authors {
-  font-style: italic;
-}
 
-.publication_container {
-  overflow: hidden;
-  display: inline-block;
+/* Publications */
+.paper-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .paper-image {
   position: relative;
-  width: 400px;
   margin: 0 0 10px 0;
   border-radius: 0%;
   overflow: hidden;
+  max-width: 40%;
+  height: auto;
 }
-/*.paper-image {
+
+.paper-image img {
   position: relative;
-  width: 300px;
+  top: 50%;
+  left: 0%;
+  max-width: 90%;
+  height: auto;
+}
+
+.paper-text {
+  position: relative;
   margin: 0 0 10px 0;
   border-radius: 0%;
   overflow: hidden;
-}*/
-.paper-image img {
-  position: absolute;
-  top: 50%;
-  left: 55%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  height: 100%;
+  max-width: 60%;
+  height: auto;
+}
+
+.paper-title {
+  font-weight: 900;
+  font-size: 12pt;
+  margin: 8px 0 8px 0;
+  text-align: justify;
+}
+
+.paper-authors {
+  font-style: italic;
+  font-size: 9pt;
+  margin: 8px 0 8px 0;
+  text-align: justify;
+}
+
+.paper-conference {
+  margin: 8px 0 8px 0;
+  font-size: 9pt;
+  font-weight: 900;
+}
+
+.paper-link {
+  margin: 8px 0 8px 0;
+  font-size: 9pt;
+}
+
+
+/* Extra */
+.extra-container {
+  margin: 20px 0 20px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.extra-links {
+  position: relative;
+  margin: 0 0 10px 0;
+  border-radius: 0%;
+  overflow: hidden;
+  max-width: 35%;
+  height: auto;
+}
+
+.extra-title {
+  position: relative;
+  margin: 0 0 10px 0;
+  border-radius: 0%;
+  overflow: hidden;
+  max-width: 65%;
+  height: auto;
+  text-align: justify;
+}
+
+
+/* Image */
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0 50px 0;
+}
+
+.image-container img {
+  max-width: 60%;
+}
+
+/* Formula */
+.formula {
+  margin: 50px 0 50px 0;
 }

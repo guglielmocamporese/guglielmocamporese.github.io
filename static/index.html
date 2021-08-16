@@ -2,40 +2,36 @@
 <html lang="en">
   <!-- HEAD -->
   <head>
+
     
     <title>Guglielmo Camporese</title>
-    <meta
-      name="description"
-      content="Guglielmo Camporese, Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy."
-    />
+    <meta name="description" content="Guglielmo Camporese, Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy."/>
     <meta charset="utf-8"/>
 
     <!-- Favicon/theme -->
-<link rel="apple-touch-icon" sizes="180x180" href="./static/img/icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="./static/img/icon.png">
-<link rel="icon" type="image/png" sizes="16x16" href="./static/img/icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./static/img/icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./static/img/icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./static/img/icon.png">
 
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1"
-    />
+    <!-- responsive webpabe -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto+Mono"
-      rel="stylesheet"
-    />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet"/>
     <link rel="stylesheet" href="./static/style.css">
     
+
   </head>
 
   <!-- imports -->
   
-
   
 
   <!-- BODY -->
   <body>
     <div class="container">
+
+      <!-- header -->
       <div class="header-section">
         <div class="header-frame">
           <h1>Guglielmo Camporese</h1>
@@ -43,9 +39,11 @@
           <h6>guglielmo.camporese[at]phd.unipd.it</h6>
         </div>
         <div class="img-frame">
-          <img id="propic" src="./static/img/15.JPG" alt="" />
+          <img src="./static/img/15.JPG" alt="" />
         </div>
       </div>
+
+      <!-- links -->
       <div class="links">
         <a href="./index.html">bio</a>
         <a href="./news.html">news</a>
@@ -53,31 +51,28 @@
         <a href="https://scholar.google.com/citations?user=Yu6im9cAAAAJ&hl=en/" target="_blank">scholar</a>
         <a href="https://github.com/guglielmocamporese" target="_blank">github</a>
         <a href="https://www.linkedin.com/in/guglielmocamporese/" target="_blank">linkedin</a>
-        <!-- <script language="JavaScript" type="text/javascript">
-          var part1 = "guglielmo.camporese";
-          var part2 = Math.pow(2,6);
-          var part3 = "contact";
-          var part4 = "phd.unipd.it";
-          var part5 = part1 + String.fromCharCode(part2) + part4;
-          document.write("<a href=" + "mai" + "lto" + ":" + part5 + ">" + part3 + "</a>");
-        </script> -->
         <a href="./static/guglielmo_camporese_cv.pdf" target="_blank">cv</a>
         <a href="./extra.html">extra</a>
-
       </div>
+
       
 
-			<div class="bio show">
-        <h3>Bio</h3>
+			<div class="bio show" style="text-align: justify">
+        <h3 style="text-align: center">Bio</h3>
         I'm a Ph.D. Student in Brain, Mind and Computer Science at the University of Padova and I'm part of the <a href="http://vimp.math.unipd.it/" target="_blank">Visual Intelligence and Machine Perception Group</a> (VIMP). Previously I worked as a machine learning engineer at Aquifi Inc., Palo Alto (CA) and I interned at Amazon Science in Turin (IT) in the European team of Alexa as an Applied Scientist. In general, my research interests are in machine learning, neural networks, computer vision and speech recognition. Specifically, I'm interested in video understanding for predictive problems such as early action recognition and action anticipation.
       </div>
 
 
+
+      <!-- toggle -->
       <div class="dark-mode-toggler">
         <input type="checkbox" id="toggler"/>
         <label for="toggler" aria-label="Toggler for Dark Mode"></label>
       </div>
-
+    
+    </div>
+    
+    <!-- js -->
     <script src="./static/script.js"></script>
   </body>
 </html>

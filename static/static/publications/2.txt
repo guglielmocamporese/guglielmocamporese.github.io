@@ -1,0 +1,4 @@
+Improved Robustness to Disfluencies in Rnn-Transducer Based Speech Recognition
+Valentin Mendelev*, Tina Raissi*, Guglielmo Camporese, Manuel Giollo
+ICASSP 2021
+https://arxiv.org/abs/2012.06259

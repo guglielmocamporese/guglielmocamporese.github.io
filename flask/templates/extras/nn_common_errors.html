@@ -12,21 +12,21 @@
 
 {% block body%}
 
-<h1>Common Errors on Training Neural Networks</h1>
-<h2>List of common errors that people do when they train NNs.</h2>
+<h1 style="text-align: center">Common Errors on Training Neural Networks</h1>
+<h2 style="text-align: center">List of common errors that people do when they train NNs.</h2>
 
 <br><br>
 In random order:<br>
 <ul>
 	<li>
-		<strong>[Dropout Usage]</strong> remember to use dropout only during training! (and remember to scale by the dropout probaility during training, see the original paper at <a href='https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf' target="_blank">[https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf]</a>). There are also works that use dropout also at test time, but this is not done for the same reason as the initial idea of dropout (regularization, ...)
-	</li><br>
+		<p style="text-align: justify"><strong>[Dropout Usage]</strong> remember to use dropout only during training! (and remember to scale by the dropout probaility during training, see the original paper at <a href='https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf' target="_blank">[https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf]</a>). There are also works that use dropout also at test time, but this is not done for the same reason as the initial idea of dropout (regularization, ...)</p>
+	</li>
 	<li>
-		<strong>[Batch Norm Usage]</strong> remeber to set <mark>bias=False</mark> on the layer just before the batch normalization: the bias is alredy inclueded in the batch norm computation.
-	</li><br>
+		<p style="text-align: justify"><strong>[Batch Norm Usage]</strong> remeber to set <mark class="rnd-bkg-color">bias=False</mark> on the layer just before the batch normalization: the bias is alredy inclueded in the batch norm computation.</p>
+	</li>
 	<li>
-		<strong>[PyTorch Train vs Eval mode]</strong>: remeber to call <mark>model.train()</mark> before training and <mark>model.eval()</mark>  before validation/test.
-	</li><br>
+		<p style="text-align: justify"><strong>[PyTorch Train vs Eval mode]</strong>: remeber to call <mark class="rnd-bkg-color">model.train()</mark> before training and <mark class="rnd-bkg-color">model.eval()</mark>  before validation/test.</p>
+	</li>
 </ul>
 
 {% endblock body %}

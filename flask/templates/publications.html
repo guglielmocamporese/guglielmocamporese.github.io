@@ -1,94 +1,54 @@
 {% extends "./layout.html" %}
 
 {% block body%}
-    <div class="news show" id="publications">
-        <h3>Publications</h3>
+      <h3 style="text-align: center">Publications</h3>
 
-        <div class='header-section'>
-          <div class='col-xs-9'>
-            <div class='paper-title'>
-              SlowFast Rolling-Unrolling LSTMs for Action Anticipation in Egocentric Videos
-            </div>
-            <div class='paper-authors'>
-              Nada Osman, 
-              <u>Guglielmo Camporese</u>, 
-              Pasquale Coscia, 
-              Lamberto Ballan
-            </div>
-            <div>ICCVW 2021</div>
-            <div>
-              <a href=''>[arXiv]</a>
-            </div>
-          </div>
-          <div class='header-frame'>
-            <img class='paper-image' src="{{ base_dir }}{{ url_for('static', filename='img/slowfast_rulstm.png') }}">
-          </div>
-        </div><br>
+      <!-- PUBLICATIONS -->
+      {% for pub in pubs %}
+      <div class='paper-container'>
 
-        <div class='header-section'>
-          <div class='col-xs-9'>
-            <div class='paper-title'>
-              Conditional Variational Capsule Networks for Open Set Recognition
-            </div>
-            <div class='paper-authors'>
-              Yunrui Guo*, 
-              <u>Guglielmo Camporese*</u>, 
-              Wenjing Yang, 
-              Alessandro Sperduti, 
-              Lamberto Ballan
-            </div>
-            <div>ICCV 2021</div>
-            <div>
-              <a href='https://arxiv.org/abs/2104.09159' target="_blank">[arXiv]</a>
-              <a href='https://github.com/guglielmocamporese/cvaecaposr' target="_blank">[code]</a>
-            </div>
-          </div>
-          <div class='header-frame'>
-            <img class='paper-image' src="{{ base_dir }}{{ url_for('static', filename='img/cvaecaposr.png') }}">
-          </div>
+        <!-- paper image -->
+        <div class='paper-image'>
+          <center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + pub.number + '.png') }}"></center>
         </div>
 
-        <div class='header-section'>
-          <div class='col-xs-9'>
-            <div class='paper-title'>
-              Improved Robustness to Disfluencies in Rnn-Transducer Based Speech Recognition
-            </div>
-            <div class='paper-authors'>
-              Valentin Mendelev*, 
-              Tina Raissi*,
-              <u>Guglielmo Camporese</u>, 
-              Manuel Giollo
-            </div>
-            <div>ICASSP 2021</div>
-            <div>
-              <a href='https://arxiv.org/abs/2012.06259' target="_blank">[arXiv]</a>
-            </div>
+        <!-- paper text -->
+        <div class='paper-text'>
+          <div class='paper-title'>
+            {{ pub.title }}
           </div>
-          <div class='header-frame'>
-            <img class='paper-image' src="{{ base_dir }}{{ url_for('static', filename='img/stutter.png') }}">
+          <div class='paper-authors'>
+            {% for a in pub.authors.split(', ') %}
+              {% if (a == 'Guglielmo Camporese') or (a == 'Guglielmo Camporese*') %}
+                {% if not loop.last %}
+                  <u>{{ a }}</u>,
+                {% else %}
+                  {{ a }},
+                {% endif %}
+
+              {% else %}
+                {% if not loop.last %}
+                  {{ a }},
+                {% else %}
+                  {{ a }},
+                {% endif %}
+              {% endif %}
+              
+            {% endfor %}
           </div>
+
+          {% if pub.link %}
+            {% if pub.code %}
+            <div class='paper-conference'>{{ pub.conference }} <a class='paper-link' href='{{ pub.link }}' target="_blank">[arXiv]</a> <a class='paper-link' href='{{ pub.code }}' target="_blank">[code]</a></div>
+            {% else %}
+            <div class='paper-conference'>{{ pub.conference }} <a class='paper-link' href='{{ pub.link }}' target="_blank">[arXiv]</a></div>
+            {% endif %}
+          {% else %}
+          <div class='paper-conference'>{{ pub.conference }}</div>
+          {% endif %}
         </div>
 
-        <div class='header-section'>
-          <div class='col-xs-9'>
-            <div class='paper-title'>
-              Knowledge Distillation for Action Anticipation via Label Smoothing
-            </div>
-            <div class='paper-authors'>
-              <u>Guglielmo Camporese</u>, 
-              Pasquale Coscia, 
-              Antonino Furnari, 
-              Giovanni Maria Farinella, 
-              Lamberto Ballan
-            </div>
-            <div>ICPR 2020</div>
-            <div>
-              <a href='https://arxiv.org/abs/2004.07711' target="_blank">[arXiv]</a>
-            </div>
-          </div>
-          <div class='header-frame'>
-            <img class='paper-image' src="{{ base_dir }}{{ url_for('static', filename='img/label_smoothing.png') }}">
-          </div>
-        </div>
-      </div>
+      </div><br>
+      {% endfor %}
+      
 {% endblock body %}

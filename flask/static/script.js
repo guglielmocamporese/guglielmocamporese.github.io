@@ -47,6 +47,9 @@ function setRandomLinkColor() {
   Array.from(document.getElementsByTagName("a")).forEach(e => {
     e.style.color = getRandomColor();
   });
+  Array.from(document.getElementsByClassName("rnd-bkg-color")).forEach(e => {
+    e.style.background = getRandomColor();
+  });
 }
 
 function setColorHoverListener() {
