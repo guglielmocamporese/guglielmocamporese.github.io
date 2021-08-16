@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- HEAD -->
+  <head>
+    
+    <title>Guglielmo Camporese</title>
+    <meta
+      name="description"
+      content="Guglielmo Camporese, Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy."
+    />
+    <meta charset="utf-8"/>
+
+    <!-- Favicon/theme -->
+<link rel="apple-touch-icon" sizes="180x180" href="../static/img/icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../static/img/icon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../static/img/icon.png">
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto+Mono"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../static/style.css">
+    
+  </head>
+
+  <!-- imports -->
+  
+	
+
+  
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript"
+	  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+
+  <!-- BODY -->
+  <body>
+    <div class="container">
+      <div class="header-section">
+        <div class="header-frame">
+          <h1>Guglielmo Camporese</h1>
+          <h2>Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy.</h2>
+          <h6>guglielmo.camporese[at]phd.unipd.it</h6>
+        </div>
+        <div class="img-frame">
+          <img id="propic" src="../static/img/15.JPG" alt="" />
+        </div>
+      </div>
+      <div class="links">
+        <a href="../index.html">bio</a>
+        <a href="../news.html">news</a>
+        <a href="../publications.html">publications</a>
+        <a href="https://scholar.google.com/citations?user=Yu6im9cAAAAJ&hl=en/" target="_blank">scholar</a>
+        <a href="https://github.com/guglielmocamporese" target="_blank">github</a>
+        <a href="https://www.linkedin.com/in/guglielmocamporese/" target="_blank">linkedin</a>
+        <!-- <script language="JavaScript" type="text/javascript">
+          var part1 = "guglielmo.camporese";
+          var part2 = Math.pow(2,6);
+          var part3 = "contact";
+          var part4 = "phd.unipd.it";
+          var part5 = part1 + String.fromCharCode(part2) + part4;
+          document.write("<a href=" + "mai" + "lto" + ":" + part5 + ">" + part3 + "</a>");
+        </script> -->
+        <a href="../static/guglielmo_camporese_cv.pdf" target="_blank">cv</a>
+        <a href="../extra.html">extra</a>
+
+      </div>
+      
+
+<h1>Common Errors on Training Neural Networks</h1>
+<h2>List of common errors that people do when they train NNs.</h2>
+
+<br><br>
+In random order:<br>
+<ul>
+	<li>
+		<strong>[Dropout Usage]</strong> remember to use dropout only during training! (and remember to scale by the dropout probaility during training, see the original paper at [https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf](https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf)). There are also works that use dropout also at test time, but this is not done for the same reason as the initial idea of dropout (regularization, ...)
+	</li><br>
+	<li>
+		<strong>[Batch Norm Usage]</strong> remeber to set `bias=False` on the layer just before the batch normalization: the bias is alredy inclueded in the batch norm computation.
+	</li><br>
+	<li>
+		<strong>[PyTorch]</strong> Train vs Eval mode**: remeber to call `model.train()` before training and `model.eval()`  before validation/test.
+	</li><br>
+</ul>
+
+
+      <div class="dark-mode-toggler">
+        <input type="checkbox" id="toggler"/>
+        <label for="toggler" aria-label="Toggler for Dark Mode"></label>
+      </div>
+
+    <script src="../static/script.js"></script>
+  </body>
+</html>
