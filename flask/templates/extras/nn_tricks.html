@@ -1,0 +1,63 @@
+{% extends "./layout.html" %}
+
+{% block imports %}
+	{{ super() }}
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript"
+	  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+{% endblock imports %}
+
+{% block body%}
+
+<h1>Bag of Tricks for Training Neural Networks</h1>
+<h2>List of useful tricks that I collected during my experience for training NNs.</h2>
+
+<h4>Model Backbones</h4>
+<ul><li>ResNet and his variants (ReNext, WideResNet, ResNest), especially with pre-trained weights from ImageNet</li></ul>
+  
+<h4>Optimizer</h4>
+
+<ul><li>Adam: <a href='https://arxiv.org/pdf/1412.6980.pdf' target="_blank">[https://arxiv.org/pdf/1412.6980.pdf]</a></li></ul>
+    
+
+<h4>Learning Rate Scheduling</h4>
+
+<ul><li>ReduceLROnPlateau with sufficiently number of epochs</li></ul>
+    
+
+<h4>Augmentations</h4>
+<ul>
+<li>[general] - MixUp: <a href='https://arxiv.org/pdf/1710.09412.pdf' target="_blank">[https://arxiv.org/pdf/1710.09412.pdf]</a></li>
+    
+<li>[audio] - SpecAugment: <a href='https://arxiv.org/pdf/1904.08779.pdf' target="_blank">[https://arxiv.org/pdf/1904.08779.pdf]</a></li>
+</ul>
+
+<h4>Test Time Augmentations</h4>
+
+<ul><li>Augment the test sample in parallel with multiple augmentation strategies and then average the predictions</li></ul>
+    
+
+<h4>Early stopping</h4>
+
+<ul><li>Select the checkpoint over the epochs that maximises/minimises a metric relevant for the task on the validation set</li></ul>
+    
+
+<h4>K-Fold Cross Validation</h4>
+
+<ul><li>K=5 is generally a good value</li></ul>
+    
+
+<h4>Stochastic Weights Averaging</h4>
+
+<ul><li><a href='https://arxiv.org/pdf/1803.05407.pdf' target="_blank">[https://arxiv.org/pdf/1803.05407.pdf]</a></li></ul>
+    
+
+<h4>Model Ensemble</h4>
+<ul>
+	<li>arithmetic average of the output probabilities of the models</li>
+	<li>geometric average on the output probabilities of the models</li>
+</ul>
+{% endblock body %}

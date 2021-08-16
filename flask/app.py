@@ -15,6 +15,7 @@ def news():
 def publications():
     return render_template('publications.html', base_dir='.')
 
+# Extras
 @app.route('/extra.html')
 def extra():
     return render_template('extra.html', base_dir='.')
@@ -22,6 +23,14 @@ def extra():
 @app.route('/extras/mosquito.html')
 def extra_mosquito():
     return render_template('extras/mosquito.html', base_dir='..')
+
+@app.route('/extras/nn_tricks.html')
+def extra_nn_tricks():
+    return render_template('extras/nn_tricks.html', base_dir='..')
+
+@app.route('/extras/nn_common_errors.html')
+def extra_nn_common_errors():
+    return render_template('extras/nn_common_errors.html', base_dir='..')
 
 if __name__ == '__main__':
 	app.run(debug=True)

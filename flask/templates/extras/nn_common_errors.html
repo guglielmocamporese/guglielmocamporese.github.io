@@ -1,0 +1,33 @@
+{% extends "./layout.html" %}
+
+{% block imports %}
+	{{ super() }}
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript"
+	  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+{% endblock imports %}
+
+{% block body%}
+
+<h1>Common Errors on Training Neural Networks</h1>
+<h2>List of common errors that people do when they train NNs.</h2>
+
+<br><br>
+In random order:<br>
+<ul>
+	<li>
+		<strong>[Dropout Usage]</strong> remember to use dropout only during training! (and remember to scale by the dropout probaility during training, see the original paper at [https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf](https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf)). There are also works that use dropout also at test time, but this is not done for the same reason as the initial idea of dropout (regularization, ...)
+	</li><br>
+	<li>
+		<strong>[Batch Norm Usage]</strong> remeber to set `bias=False` on the layer just before the batch normalization: the bias is alredy inclueded in the batch norm computation.
+	</li><br>
+	<li>
+		<strong>[PyTorch]</strong> Train vs Eval mode**: remeber to call `model.train()` before training and `model.eval()`  before validation/test.
+	</li><br>
+</ul>
+
+{% endblock body %}
+

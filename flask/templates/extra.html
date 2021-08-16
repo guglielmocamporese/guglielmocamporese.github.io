@@ -2,7 +2,24 @@
 
 {% block body%}
     <h3>Extra</h3>
+    	<ul>
+    		<li>
+    			Computing the Probability of Catching a Mosquito by Hands<br>
+    			<strong>[2021-08-16]</strong><a href="{{ base_dir }}{{ url_for('extra_mosquito') }}">[open]</a>
+    		</li><br>
+    		<li>
+    			Fun fact: apparently I'm the only Guglielmo Camporese in the world!<br>
+    			<strong>[2021-08-16]</strong>
+    		</li><br>
+    		<li>
+    			Bag of Tricks for Training Neural Networks<br>
+    			<strong>[2020-12-16]</strong><a href="{{ base_dir }}{{ url_for('extra_nn_tricks') }}">[open]</a>
+    		</li><br>
+    		<li>
+    			Common Errors on Training Neural Networks<br>
+    			<strong>[2020-12-16]</strong><a href="{{ base_dir }}{{ url_for('extra_nn_common_errors') }}">[open]</a>
+    		</li><br>
+    	</ul>
 
-      <a href=""><h2>Fun fact: I'm the only Guglielmo Camporese in the world!</h2></a>
-      <a href="{{ base_dir }}{{ url_for('extra_mosquito') }}"><h2>Computing the Probability of Catching a Mosquito by Hands</h2></a>
+      
 {% endblock body %}
