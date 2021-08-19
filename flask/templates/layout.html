@@ -15,8 +15,6 @@
 
     <!-- responsive webpabe -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet"/>
     <link rel="stylesheet" href="{{ base_dir }}{{ url_for('static', filename='style.css') }}">
     {% endblock head %}
@@ -55,6 +53,7 @@
         <a href="{{ base_dir }}{{ url_for('extra') }}">extra</a>
       </div>
 
+      <h1 style="text-align: center; margin: 50px 0 50px 0; font-size: 16pt">{{ page_title }}</h1>
       {% block body %}
       {% endblock body %}
 

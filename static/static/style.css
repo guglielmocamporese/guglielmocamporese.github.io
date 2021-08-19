@@ -61,12 +61,15 @@ button:hover {
 .header-section {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
+  flex-grow: 0;
+  margin: 0 0 0 0;
 }
 
 .header-frame {
-  max-width: 350px;
+  max-width: 60%;
+  margin: 0 0 0 0;
 }
 
 .dark-mode-toggler {
@@ -138,12 +141,12 @@ a:hover {
   position: relative;
   width: 250px;
   height: 250px;
-  margin: 0 0 10px 0;
+  margin: 0 0 0 0;
   border-radius: 50%;
   overflow: hidden;
 }
 .img-frame img {
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 55%;
   -webkit-transform: translate(-50%, -50%);
@@ -182,32 +185,19 @@ a:hover {
   }
 }
 
+
+/* Bio */
 .bio {
-  display: none;
-  line-height: 24px;
-}
-.bio br {
-  display: block;
-  content: "";
-  height: 15px;
-}
-.bio.show {
-  display: block;
+  text-align: justify;
+  margin: 0 0 2em 0;
 }
 
-.news {
-  display: none;
-  line-height: 24px;
-}
-.news br {
-  display: block;
-  content: "";
-  height: 15px;
-}
-.news.show {
-  display: block;
-}
 
+/* News */
+.news-container {
+  text-align: justify;
+  margin: 0 0 2em 0;
+}
 .news-date {
   font-weight: 900;
 }
@@ -217,40 +207,41 @@ a:hover {
 .paper-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
+  margin: 0 0 40px 0;
+  /*background-color: #eb4888;*/
 }
 
 .paper-image {
   position: relative;
-  margin: 0 0 10px 0;
-  border-radius: 0%;
+  margin: 0 0 0 0;
   overflow: hidden;
   max-width: 40%;
   height: auto;
+  /*background-color: #aa4383;*/
 }
 
 .paper-image img {
   position: relative;
-  top: 50%;
-  left: 0%;
   max-width: 90%;
-  height: auto;
+  max-height: 100%;
 }
 
 .paper-text {
   position: relative;
-  margin: 0 0 10px 0;
+  margin: 0 1em 0 0;
   border-radius: 0%;
   overflow: hidden;
-  max-width: 60%;
+  max-width: 55%;
   height: auto;
+  /*background-color: #aa4383;*/
 }
 
 .paper-title {
   font-weight: 900;
   font-size: 12pt;
-  margin: 8px 0 8px 0;
+  margin: 0em 0 0em 0;
   text-align: justify;
 }
 
@@ -275,31 +266,19 @@ a:hover {
 
 /* Extra */
 .extra-container {
-  margin: 20px 0 20px 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.extra-links {
-  position: relative;
-  margin: 0 0 10px 0;
-  border-radius: 0%;
-  overflow: hidden;
-  max-width: 35%;
-  height: auto;
+  margin: 0 0 2em 0;
 }
 
 .extra-title {
-  position: relative;
-  margin: 0 0 10px 0;
-  border-radius: 0%;
-  overflow: hidden;
-  max-width: 65%;
-  height: auto;
+  font-weight: 900;
+  font-size: 14pt;
+  margin: 0em 0 0.5em 0;
   text-align: justify;
+}
+
+.extra-links {
+  margin: 0 0 10px 0;
+  font-size: 9pt;
 }
 
 

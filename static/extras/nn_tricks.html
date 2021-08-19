@@ -15,8 +15,6 @@
 
     <!-- responsive webpabe -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet"/>
     <link rel="stylesheet" href="../static/style.css">
     
@@ -63,12 +61,12 @@
         <a href="../extra.html">extra</a>
       </div>
 
+      <h1 style="text-align: center; margin: 50px 0 50px 0; font-size: 16pt">Bag of Tricks for Training Neural Networks</h1>
       
 
-<h1 style="text-align: center">Bag of Tricks for Training Neural Networks</h1>
-<h2 style="text-align: center">List of useful tricks that I collected during my experience for training NNs.</h2>
+<p>This is a list of useful tricks that I collected during my experience for training NNs.</p>
 
-<h4>Model Backbones</h4>
+<h4><mark class="rnd-bkg-color-alpha">Model Backbones</mark></h4>
 <ul><li>ResNet and his variants (ReNext, WideResNet, ResNest), especially with pre-trained weights from ImageNet</li></ul>
   
 <h4>Optimizer</h4>
@@ -76,24 +74,24 @@
 <ul><li>Adam: <a href='https://arxiv.org/pdf/1412.6980.pdf' target="_blank">[https://arxiv.org/pdf/1412.6980.pdf]</a></li></ul>
     
 
-<h4>Learning Rate Scheduling</h4>
+<h4><mark class="rnd-bkg-color-alpha">Learning Rate Scheduling</mark></h4>
 
 <ul><li>ReduceLROnPlateau with sufficiently number of epochs</li></ul>
     
 
-<h4>Augmentations</h4>
+<h4><mark class="rnd-bkg-color-alpha">Augmentations</mark></h4>
 <ul>
 <li>[general] - MixUp: <a href='https://arxiv.org/pdf/1710.09412.pdf' target="_blank">[https://arxiv.org/pdf/1710.09412.pdf]</a></li>
     
 <li>[audio] - SpecAugment: <a href='https://arxiv.org/pdf/1904.08779.pdf' target="_blank">[https://arxiv.org/pdf/1904.08779.pdf]</a></li>
 </ul>
 
-<h4>Test Time Augmentations</h4>
+<h4><mark class="rnd-bkg-color-alpha">Test Time Augmentations</mark></h4>
 
 <ul><li>Augment the test sample in parallel with multiple augmentation strategies and then average the predictions</li></ul>
     
 
-<h4>Early stopping</h4>
+<h4><mark class="rnd-bkg-color-alpha">Early stopping</mark></h4>
 
 <ul><li>Select the checkpoint over the epochs that maximises/minimises a metric relevant for the task on the validation set</li></ul>
     
@@ -103,12 +101,12 @@
 <ul><li>K=5 is generally a good value</li></ul>
     
 
-<h4>Stochastic Weights Averaging</h4>
+<h4><mark class="rnd-bkg-color-alpha">Stochastic Weights Averaging</mark></h4>
 
 <ul><li><a href='https://arxiv.org/pdf/1803.05407.pdf' target="_blank">[https://arxiv.org/pdf/1803.05407.pdf]</a></li></ul>
     
 
-<h4>Model Ensemble</h4>
+<h4><mark class="rnd-bkg-color-alpha">Model Ensemble</mark></h4>
 <ul>
 	<li>arithmetic average of the output probabilities of the models</li>
 	<li>geometric average on the output probabilities of the models</li>

@@ -6,11 +6,11 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 @app.route('/')
 @app.route('/index.html')
 def home():
-	return render_template('home.html', base_dir='.')
+	return render_template('home.html', base_dir='.', page_title='Bio')
 
 @app.route('/news.html')
 def news():
-	return render_template('news.html', base_dir='.')
+	return render_template('news.html', base_dir='.', page_title='News')
 
 # Puplications
 @app.route('/publications.html')
@@ -40,20 +40,20 @@ def publications():
 		pub = read_publication_file(pub_path)
 		pub['number'] = f
 		pubs += [pub]
-	return render_template('publications.html', base_dir='.', pubs=pubs)
+	return render_template('publications.html', base_dir='.', pubs=pubs, page_title='Publications')
 
 # Extras
 @app.route('/extra.html')
 def extra():
-	return render_template('extra.html', base_dir='.')
+	return render_template('extra.html', base_dir='.', page_title='Extra')
 
 @app.route('/extras/mosquito.html')
 def extra_mosquito():
-	return render_template('extras/mosquito.html', base_dir='..')
+	return render_template('extras/mosquito.html', base_dir='..', page_title='Computing the Probability of Catching a Mosquito by Hands')
 
 @app.route('/extras/nn_tricks.html')
 def extra_nn_tricks():
-	return render_template('extras/nn_tricks.html', base_dir='..')
+	return render_template('extras/nn_tricks.html', base_dir='..', page_title='Bag of Tricks for Training Neural Networks')
 
 @app.route('/extras/nn_common_errors.html')
 def extra_nn_common_errors():

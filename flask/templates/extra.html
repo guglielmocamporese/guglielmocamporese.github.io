@@ -1,40 +1,44 @@
 {% extends "./layout.html" %}
 
 {% block body%}
-    <h3 style="text-align: center">Extra</h3>
-
     <div class="extra-container">
-        <div class="extra-links">
-            <strong>[2021-08-16]</strong><a href="{{ base_dir }}{{ url_for('extra_mosquito') }}">[open]</a>
-        </div>
         <div class="extra-title">
-            Computing the Probability of Catching a Mosquito by Hands. 
+            <mark class="rnd-bkg-color-alpha">Computing the Probability of Catching a Mosquito by Hands.</mark> 
         </div>
+        <div class="extra-links">
+            <strong>[2021-08-16]</strong>[<a href="{{ base_dir }}{{ url_for('extra_mosquito') }}">open</a>]
+        </div>
+        
     </div>
 
     <div class="extra-container">
+        <div class="extra-title">
+            <mark class="rnd-bkg-color-alpha">Fun fact: apparently I'm the only Guglielmo Camporese in the world!</mark> 
+        </div>
         <div class="extra-links">
             <strong>[2021-08-16]</strong>
         </div>
+        
+    </div>
+
+    <div class="extra-container">
         <div class="extra-title">
-            Fun fact: apparently I'm the only Guglielmo Camporese in the world! 
+            <mark class="rnd-bkg-color-alpha">Bag of Tricks for Training Neural Networks.</mark>
         </div>
+        <div class="extra-links">
+            <strong>[2020-12-16]</strong>[<a href="{{ base_dir }}{{ url_for('extra_nn_tricks') }}">open</a>]
+        </div>
+        
     </div>
 
     <div class="extra-container">
+        <div class="extra-title">
+            <mark class="rnd-bkg-color-alpha">Common Errors on Training Neural Networks.</mark>
+        </div>
         <div class="extra-links">
-            <strong>[2020-12-16]</strong><a href="{{ base_dir }}{{ url_for('extra_nn_tricks') }}">[open]</a>
+            <strong>[2020-12-16]</strong>[<a href="{{ base_dir }}{{ url_for('extra_nn_common_errors') }}">open</a>]
         </div>
-        <div class="extra-title">Bag of Tricks for Training Neural Networks.
-        </div>
-    </div>
-
-    <div class="extra-container">
-        <div class="extra-links">
-            <strong>[2020-12-16]</strong><a href="{{ base_dir }}{{ url_for('extra_nn_common_errors') }}">[open]</a>
-        </div>
-        <div class="extra-title">Common Errors on Training Neural Networks.
-        </div>
+        
     </div>
 
       

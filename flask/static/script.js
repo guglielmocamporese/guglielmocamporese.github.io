@@ -10,6 +10,8 @@
 // camera lens
 //let colors = ["blue", "yellow", "rosa", "gray"];
 let colors = ["#0099DC", "#FFA500", "#FF446B", "#4A4A4D"];
+let rgb_colors = ["rgb(0, 153, 220)", "rgb(255, 165, 0)", "rgb(255, 68, 107)", "rgb(74, 74, 77)"];
+let rgba_colors = ["rgba(0, 153, 220, 0.4)", "rgba(255, 165, 0, 0.4)", "rgba(255, 68, 107, 0.4)", "rgba(74, 74, 77, 0.4)"];
 
 (function() {
   setModeEventListener();
@@ -33,14 +35,34 @@ let colors = ["#0099DC", "#FFA500", "#FF446B", "#4A4A4D"];
 function setModeEventListener() {
   let list = document.body.classList;
   document.getElementById("toggler").addEventListener("change", event => {
-    event.target.checked ? list.add("dark-mode") : list.remove("dark-mode");
+    if (event.target.checked) {
+      list.add("dark-mode");
+    } else {
+      list.remove("dark-mode");
+    }
   });
+  
+}
+
+function checkDarkMode() {
+  let list = document.body.classList;
+  var e = document.getElementById("toggler");
+  if (e.checked) {
+    list.add("dark-mode");
+  } else {
+    list.remove("dark-mode");
+  }
 }
 
 /* Colors */
 
-function getRandomColor() {
-  return colors[Math.floor(Math.random() * colors.length)];
+function getRandomColor(alpha=false) {
+  if (alpha) {
+    return rgba_colors[Math.floor(Math.random() * colors.length)];
+  }
+  else {
+    return rgb_colors[Math.floor(Math.random() * colors.length)];
+  }
 }
 
 function setRandomLinkColor() {
@@ -49,6 +71,9 @@ function setRandomLinkColor() {
   });
   Array.from(document.getElementsByClassName("rnd-bkg-color")).forEach(e => {
     e.style.background = getRandomColor();
+  });
+  Array.from(document.getElementsByClassName("rnd-bkg-color-alpha")).forEach(e => {
+    e.style.background = getRandomColor(true);
   });
 }
 
@@ -93,3 +118,6 @@ function off(bioType) {
     e.classList.remove("show");
   });
 }
+
+
+checkDarkMode()

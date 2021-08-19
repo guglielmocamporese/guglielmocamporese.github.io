@@ -12,10 +12,9 @@
 
 {% block body%}
 
-<h1 style="text-align: center">Bag of Tricks for Training Neural Networks</h1>
-<h2 style="text-align: center">List of useful tricks that I collected during my experience for training NNs.</h2>
+<p>This is a list of useful tricks that I collected during my experience for training NNs.</p>
 
-<h4>Model Backbones</h4>
+<h4><mark class="rnd-bkg-color-alpha">Model Backbones</mark></h4>
 <ul><li>ResNet and his variants (ReNext, WideResNet, ResNest), especially with pre-trained weights from ImageNet</li></ul>
   
 <h4>Optimizer</h4>
@@ -23,24 +22,24 @@
 <ul><li>Adam: <a href='https://arxiv.org/pdf/1412.6980.pdf' target="_blank">[https://arxiv.org/pdf/1412.6980.pdf]</a></li></ul>
     
 
-<h4>Learning Rate Scheduling</h4>
+<h4><mark class="rnd-bkg-color-alpha">Learning Rate Scheduling</mark></h4>
 
 <ul><li>ReduceLROnPlateau with sufficiently number of epochs</li></ul>
     
 
-<h4>Augmentations</h4>
+<h4><mark class="rnd-bkg-color-alpha">Augmentations</mark></h4>
 <ul>
 <li>[general] - MixUp: <a href='https://arxiv.org/pdf/1710.09412.pdf' target="_blank">[https://arxiv.org/pdf/1710.09412.pdf]</a></li>
     
 <li>[audio] - SpecAugment: <a href='https://arxiv.org/pdf/1904.08779.pdf' target="_blank">[https://arxiv.org/pdf/1904.08779.pdf]</a></li>
 </ul>
 
-<h4>Test Time Augmentations</h4>
+<h4><mark class="rnd-bkg-color-alpha">Test Time Augmentations</mark></h4>
 
 <ul><li>Augment the test sample in parallel with multiple augmentation strategies and then average the predictions</li></ul>
     
 
-<h4>Early stopping</h4>
+<h4><mark class="rnd-bkg-color-alpha">Early stopping</mark></h4>
 
 <ul><li>Select the checkpoint over the epochs that maximises/minimises a metric relevant for the task on the validation set</li></ul>
     
@@ -50,12 +49,12 @@
 <ul><li>K=5 is generally a good value</li></ul>
     
 
-<h4>Stochastic Weights Averaging</h4>
+<h4><mark class="rnd-bkg-color-alpha">Stochastic Weights Averaging</mark></h4>
 
 <ul><li><a href='https://arxiv.org/pdf/1803.05407.pdf' target="_blank">[https://arxiv.org/pdf/1803.05407.pdf]</a></li></ul>
     
 
-<h4>Model Ensemble</h4>
+<h4><mark class="rnd-bkg-color-alpha">Model Ensemble</mark></h4>
 <ul>
 	<li>arithmetic average of the output probabilities of the models</li>
 	<li>geometric average on the output probabilities of the models</li>
