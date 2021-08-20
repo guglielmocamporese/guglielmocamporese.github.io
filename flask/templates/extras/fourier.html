@@ -1,0 +1,32 @@
+{% extends "./layout.html" %}
+
+{% block imports %}
+	{{ super() }}
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript"
+	  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+	<script type="text/javascript" src="../../static/fourier.js"></script>
+{% endblock imports %}
+
+{% block body%}
+
+<div class="two-cols-container">
+	<div class="first-col">
+		<img id="img-example-fourier" style="width: 500px" src="{{ base_dir }}{{ url_for('static', filename='img/guglielmo.jpg') }}" alt="">
+	</div>
+	<div id="p5-container" class="second-col"></div>
+</div>
+
+<!--In general one can represent the edges extracted from an image using a Fourier Transform.
+Considering $x \in [0, 1]$ be an input variable and $f(\cdot) : [0, 1] \rightarrow \mathbb{C}$ being the complex signal that represent the edges in the 2D complex plane, we can represent the signal using the Fourier Transform as follows:
+<div class="formula">$$f_N(x) = \sum_{n=-N}^N c_n e^{i \frac{2 \pi n}{T} x} $$</div>
+
+where: 
+
+<div class="formula">$$c_n = \frac{1}{T}\int_0^1 f(x) e^{-i \frac{2 \pi n}{T} x} dx$$</div>
+-->
+{% endblock body %}

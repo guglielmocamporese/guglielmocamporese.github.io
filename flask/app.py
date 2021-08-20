@@ -57,7 +57,11 @@ def extra_nn_tricks():
 
 @app.route('/extras/nn_common_errors.html')
 def extra_nn_common_errors():
-	return render_template('extras/nn_common_errors.html', base_dir='..')
+	return render_template('extras/nn_common_errors.html', base_dir='..', page_title='Common Errors on Training Neural Networks')
+
+@app.route('/extras/fourier.html')
+def extra_fourier():
+	return render_template('extras/fourier.html', base_dir='..', page_title='Fourier representation meets images')
 
 if __name__ == '__main__':
 	app.run(debug=True)

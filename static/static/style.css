@@ -297,3 +297,48 @@ a:hover {
 .formula {
   margin: 50px 0 50px 0;
 }
+
+/* Extra */
+.two-cols-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 0 0 40px 0;
+  /*background-color: #eb4888;*/
+}
+
+.first-col {
+  position: relative;
+  margin: 0 1em 0 0;
+  overflow: hidden;
+  max-width: 45%;
+  height: auto;
+  /*background-color: #aa4383;*/
+}
+
+.first-col img {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+
+}
+
+.second-col {
+  position: relative;
+  margin: 0 0 0 0;
+  border-radius: 0%;
+  overflow: hidden;
+  max-width: 45%;
+  height: max-width;
+  /*background-color: #aa4383;*/
+}
+
+.p5Canvas {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  height: 10vw;
+  width: 10vw;
+  aspect-ratio: 1.0;
+}
