@@ -298,52 +298,6 @@ a:hover {
   margin: 50px 0 50px 0;
 }
 
-/* Extra */
-.three-cols-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin: 0 0 40px 0;
-  /*background-color: #eb4888;*/
-}
-
-.first-col {
-  position: relative;
-  margin: 0 1em 0 0;
-  overflow: hidden;
-  max-width: 30%;
-  height: auto;
-  /*background-color: #aa4383;*/
-}
-
-/*.first-col img {
-  position: relative;
-  max-width: 100%;
-  max-height: 100%;
-
-}*/
-
-.second-col {
-  position: relative;
-  margin: 0 0 0 0;
-  border-radius: 0%;
-  overflow: hidden;
-  max-width: 30%;
-  height: max-width;
-  /*background-color: #aa4383;*/
-}
-
-.third-col {
-  position: relative;
-  margin: 0 0 0 0;
-  border-radius: 0%;
-  overflow: hidden;
-  max-width: 30%;
-  height: max-width;
-  /*background-color: #aa4383;*/
-}
-
 .p5Canvas {
   position: relative;
   max-width: 100%;

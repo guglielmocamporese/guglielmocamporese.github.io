@@ -117,8 +117,8 @@ url = 'https://guglielmocamporese.github.io/static/static/img/fourier/image.png'
 image = np.array(Image.open(requests.get(url, stream=True).raw))
 </code></pre>
 
-<div class="image-container">
-	<img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/image.png') }}" alt="">
+<div class="image-container" style="max-width: 100%">
+	<img style="max-width: 90%" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/image.png') }}" alt="">
 </div>
 </p>
 
@@ -136,8 +136,8 @@ def get_edges(x):
 edges = get_edges(image) 
 </code></pre>
 
-<div class="image-container">
-	<img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges.png') }}" alt="">
+<div class="image-container" style="max-width: 100%">
+	<img style="max-width: 90%" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges.png') }}" alt="">
 </div>
 </p>
 
@@ -154,16 +154,16 @@ kmeans = KMeans(n_clusters=2000, random_state=0).fit(edges_pts)
 edges_centers = kmeans.cluster_centers_
 </code></pre>
 
-<div class="image-container">
-	<img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges_clustered.png') }}" alt="">
+<div class="image-container" style="max-width: 100%">
+	<img style="max-width: 90%" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges_clustered.png') }}" alt="">
 </div>
 The image above shows the cluster centers that fit the edges.
 </p>
 
 <p style="text-align: justify">
 For now we have a set of points that builds up the edge signal, but this set is un-ordered since each point does not have the meaning of "neighbors". In the image below you can see this fact by connecting adjacent points in the set.
-<div class="image-container">
-	<img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges_clustered_not_ordered.png') }}" alt="">
+<div class="image-container" style="max-width: 100%">
+	<img style="max-width: 90%" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges_clustered_not_ordered.png') }}" alt="">
 </div>
 </p>
 
@@ -188,8 +188,8 @@ def sort_points(points):
 edges_centers_sorted = sort_points(edges_centers)
 </code></pre>
 
-<div class="image-container">
-	<img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges_clustered_ordered.png') }}" alt="">
+<div class="image-container" style="max-width: 100%">
+	<img style="max-width: 90%" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges_clustered_ordered.png') }}" alt="">
 </div>
 The image above shows the same points of the previous image, but with sorted points.
 </p>
@@ -242,7 +242,7 @@ y = f_transform(edges_centers_sorted, N=550)
 </code></pre>
 
 <div class="image-container" style="max-width: 100%">
-	<img style="width: 2000px" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/fourier_approxiamtion.png') }}" alt="">
+	<img style="max-width: 100%" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/fourier_approxiamtion.png') }}" alt="">
 </div>
 </p>
 
