@@ -251,7 +251,7 @@ The equation in (1) returns complex values whereas the edge signal that I'm inte
 		\begin{split}
 			f_N(t) &= \sum_{n=-N}^N c_n e^{i \theta_n t} \\
 				&= \sum_{n=-N}^N \Big[ Re\{c_n\} cos(\theta_n t) - Im\{c_n\} sin(\theta_n t) \Big] + \\
-				&\ \ \ \ + i \sum_{n=-N}^N \Big[ - Re\{ c_n \} sin(\theta_n t) + Im\{c_n\} cos(\theta_n t) \Big] dt
+				&\ \ \ \ + i \sum_{n=-N}^N \Big[ - Re\{ c_n \} sin(\theta_n t) + Im\{c_n\} cos(\theta_n t) \Big]
 		\end{split}$$
 </div>
 
@@ -259,12 +259,12 @@ where the coefficients are:
 
 <div class="formula">
 	$$
-	Re\{c_n\} = \frac{\Delta t}{T} \int_\mathcal{T} \Big[ Re\{f(t)\} cos(\theta_n t) + Im\{f(t)\} sin(\theta_n t)\Big]
+	Re\{c_n\} = \frac{1}{T} \int_\mathcal{T} \Big[ Re\{f(t)\} cos(\theta_n t) + Im\{f(t)\} sin(\theta_n t)\Big]dt
 	$$
 </div>
 <div class="formula">
 	$$
-	Im\{c_n\} = \frac{\Delta t}{T} \int_\mathcal{T} \Big[ -Re\{f(t)\} sin(\theta_n t) + Im\{f(t)\} cos(\theta_n t)\Big]
+	Im\{c_n\} = \frac{1}{T} \int_\mathcal{T} \Big[ -Re\{f(t)\} sin(\theta_n t) + Im\{f(t)\} cos(\theta_n t)\Big]dt
 	$$
 </div>
 
