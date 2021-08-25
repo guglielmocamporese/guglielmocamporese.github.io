@@ -299,7 +299,7 @@ a:hover {
 }
 
 /* Extra */
-.two-cols-container {
+.three-cols-container {
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -312,24 +312,34 @@ a:hover {
   position: relative;
   margin: 0 1em 0 0;
   overflow: hidden;
-  max-width: 45%;
+  max-width: 30%;
   height: auto;
   /*background-color: #aa4383;*/
 }
 
-.first-col img {
+/*.first-col img {
   position: relative;
   max-width: 100%;
   max-height: 100%;
 
-}
+}*/
 
 .second-col {
   position: relative;
   margin: 0 0 0 0;
   border-radius: 0%;
   overflow: hidden;
-  max-width: 45%;
+  max-width: 30%;
+  height: max-width;
+  /*background-color: #aa4383;*/
+}
+
+.third-col {
+  position: relative;
+  margin: 0 0 0 0;
+  border-radius: 0%;
+  overflow: hidden;
+  max-width: 30%;
   height: max-width;
   /*background-color: #aa4383;*/
 }
@@ -341,4 +351,41 @@ a:hover {
   height: 10vw;
   width: 10vw;
   aspect-ratio: 1.0;
+}
+
+code {
+  border-radius: 5px;
+}
+
+pre:first-line {
+    line-height: 0;
+
+}
+
+.images-row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+/* Create two equal columns that sits next to each other */
+.images-column {
+  flex: 50%;
+  padding: 0 4px;
+}
+
+.images-row figure {
+  margin: 0 0 2em 0;
+  vertical-align: middle;
+  max-width: 30%;
+}
+
+.images-row img {
+  margin: 0 0 0 0;
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+figure figcaption {
+    text-align: center;
 }

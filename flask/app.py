@@ -61,7 +61,11 @@ def extra_nn_common_errors():
 
 @app.route('/extras/fourier.html')
 def extra_fourier():
-	return render_template('extras/fourier.html', base_dir='..', page_title='Fourier representation meets images')
+	return render_template('extras/fourier.html', base_dir='..', page_title='Fourier Representation Meets Images')
+
+#@app.route('/extras/lightning.html')
+#def extra_lightning():
+#	return render_template('extras/lightning.html', base_dir='..', page_title='Lightning Simulation Through Breadth First Search.')
 
 if __name__ == '__main__':
 	app.run(debug=True)
