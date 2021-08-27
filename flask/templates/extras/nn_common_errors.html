@@ -15,6 +15,7 @@
 {% block body%}
 
 <applause-button class="mb6" color="red" url="{{ url_for(request.endpoint) }}"></applause-button>
+{{ super() }}
 
 <p>List of common errors that people do when they train NNs.</p>
 

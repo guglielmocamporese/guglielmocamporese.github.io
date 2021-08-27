@@ -347,5 +347,11 @@ figure figcaption {
 applause-button {
   width: 3em; 
   height: 3em; 
-  margin: 0 auto 4em auto;
+  margin: 3em auto -0.5em auto;
+}
+
+.count-container {
+  font-size: 1em;
+  margin: 0 0 0 0;
+  transform: translate(2.8em, 1.9em);
 }

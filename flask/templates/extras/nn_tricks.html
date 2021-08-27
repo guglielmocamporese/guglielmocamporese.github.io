@@ -14,7 +14,7 @@
 
 {% block body%}
 <applause-button class="mb6" color="red" url="{{ url_for(request.endpoint) }}"></applause-button>
-
+{{ super() }}
 <p>This is a list of useful tricks that I collected during my experience for training NNs.</p>
 
 <h4><mark class="rnd-bkg-color-alpha">Model Backbones</mark></h4>

@@ -25,17 +25,8 @@
 {% endblock imports %}
 
 {% block body%}
-
-<!--
-<div class="two-cols-container">
-	<div class="first-col">
-		<img id="img-example-fourier" style="width: 500px" src="{{ base_dir }}{{ url_for('static', filename='img/guglielmo.jpg') }}" alt="">
-	</div>
-	<div id="p5-container" class="second-col"></div>
-</div>
--->
 <applause-button class="mb6" color="red" url="{{ url_for(request.endpoint) }}"></applause-button>
-
+{{ super() }}
 
 <div class="images-column">
 	<div class="images-row">
