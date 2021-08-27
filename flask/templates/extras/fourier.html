@@ -20,7 +20,8 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
 	<script type="text/javascript" src="{{ base_dir }}{{ url_for('static', filename='fourier.js') }}"></script>
 	-->
-	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v11.0" nonce="s9lC437y"></script>
+	<link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
 {% endblock imports %}
 
 {% block body%}
@@ -33,7 +34,7 @@
 	<div id="p5-container" class="second-col"></div>
 </div>
 -->
-<div class="fb-like" data-href="https://guglielmocamporese.github.io/static/extras/fourier.html" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true" style="text-align: center"></div>
+<applause-button class="mb6" color="red" url="{{ url_for(request.endpoint) }}"></applause-button>
 
 
 <div class="images-column">

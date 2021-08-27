@@ -343,3 +343,9 @@ pre:first-line {
 figure figcaption {
     text-align: center;
 }
+
+applause-button {
+  width: 3em; 
+  height: 3em; 
+  margin: 0 auto 4em auto;
+}
