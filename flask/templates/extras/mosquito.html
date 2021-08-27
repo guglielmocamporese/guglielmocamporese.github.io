@@ -49,11 +49,11 @@
 
 	<div class="formula">$$\nabla t = \frac{d_{es}  + l_a}{v_a} \ [s].$$</div>
 
-	Assuming a uniform spatial distribution of the mosquito in the sphere region, the probability $P_{catch}$ of catching it in a region ball of radius $h$ (this region coincides with your closed hand once you try to catch the mosquito) is: 
+	Assuming a uniform spatial distribution of the mosquito in the sphere region, the probability $P_{catch}$ of catching it in a region ball of radius $d_m$ (this region coincides with your closed hand once you try to catch the mosquito) is: 
 
 	<div class="formula">$$
 	\begin{split}
-	P_{catch} &= \int_{H\text{-}S(h)} \frac{1}{Volume(H\text{-}S)} \cdot dx dy dz \\
+	P_{catch} &= \int_{H\text{-}S(d_m)} \frac{1}{Volume(H\text{-}S)} \cdot dx dy dz \\
 	&= \int_0^h \int_0^\pi \int_0^\pi \frac{2}{\frac{4}{3}\pi d_m^3} r^2 sin\phi \ d\theta \ d\phi \ dr \\
 	&= \left( \frac{v_a}{v_m} \frac{h}{d_{es} + l_a} \right)^3
 	\end{split}
