@@ -7,16 +7,12 @@
 {% endblock imports %}
 
 {% block body%}
-<applause-button class="mb6" color="red" url="{{ url_for(request.endpoint) }}"></applause-button>
-{{ super() }}
+	<applause-button class="mb6" color="red" url="{{ url_for(request.endpoint) }}"></applause-button>
+	{{ super() }}
 
-<div id="map"></div>
-<!--
-<script
-      src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
-      async
-    ></script>
--->
+	<p style="margin-bottom: 3em">These are the places I've seen so far. I traveled around almost all the Europe and California. Next stops hopefully will be Seattle (WA), Iceland, Japan and North Pole!</p>
+
+	<div id="map"></div>
 	<script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtNTe8sGCXFOYw8R_qV7-BQSkjsgOpemw&callback=initMap">
    </script>
