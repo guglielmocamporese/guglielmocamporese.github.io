@@ -397,9 +397,14 @@ applause-button {
 
 
 #map {
-
   margin: 0 auto;
   height: 400px;
   width: 100%;
-  align-items: center
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  #map {
+    zoom: 0.6;
+  }
 }
