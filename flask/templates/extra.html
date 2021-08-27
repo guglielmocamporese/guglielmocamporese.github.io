@@ -2,6 +2,18 @@
 
 {% block body%}
     {{ super() }}
+
+    <div class="extra-container">
+        <div class="extra-title">
+            <mark class="rnd-bkg-color-alpha">Places I've seen so far..</mark> 
+        </div>
+        <div class="extra-links">
+            <strong>[2021-08-27]</strong>[<a href="{{ base_dir }}{{ url_for('extra_places') }}">open</a>]
+        </div>
+        
+    </div>
+
+
     <div class="extra-container">
         <div class="extra-title">
             <mark class="rnd-bkg-color-alpha">Fourier representation meets images.</mark> 

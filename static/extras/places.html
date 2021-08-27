@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- HEAD -->
+  <head>
+
+    
+    <title>Guglielmo Camporese</title>
+    <meta name="description" content="Guglielmo Camporese, Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy."/>
+    <meta charset="utf-8"/>
+
+    <!-- Favicon/theme -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/img/icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/img/icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/img/icon.png">
+
+    <!-- responsive webpabe -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet"/>
+    <link rel="stylesheet" href="../static/style.css">
+    
+
+  </head>
+
+  <!-- imports -->
+  
+	
+  
+	<link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+
+  <!-- BODY -->
+  <body>
+    <div class="container">
+
+      <!-- header -->
+      <div class="header-section">
+        <div class="header-frame">
+          <h1>Guglielmo Camporese</h1>
+          <h2>Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy.</h2>
+          <h6>guglielmo.camporese [at] phd.unipd.it</h6>
+        </div>
+        <div class="img-frame">
+          <img src="../static/img/15.JPG" alt="" />
+        </div>
+      </div>
+
+      <!-- links -->
+      <div class="links">
+        <a href="../index.html">bio</a>
+        <a href="../news.html">news</a>
+        <a href="../publications.html">publications</a>
+        <a href="https://scholar.google.com/citations?user=Yu6im9cAAAAJ&hl=en/" target="_blank">scholar</a>
+        <a href="https://github.com/guglielmocamporese" target="_blank">github</a>
+        <a href="https://www.linkedin.com/in/guglielmocamporese/" target="_blank">linkedin</a>
+        <a href="../static/guglielmo_camporese_cv.pdf" target="_blank">cv</a>
+        <a href="../extra.html">extra</a>
+      </div>
+
+      
+<applause-button class="mb6" color="red" url="/extras/places.html"></applause-button>
+
+        <h1 style="text-align: center; margin: 50px 0 50px 0; font-size: 16pt">Places I&#39;ve Seen So Far</h1>
+      
+
+<div id="map"></div>
+<!--
+<script
+      src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+-->
+	<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtNTe8sGCXFOYw8R_qV7-BQSkjsgOpemw&callback=initMap">
+   </script>
+
+	<script type="text/javascript">
+		function initMap() {
+		  var points = [
+		  	{lat: 45.532233, lng: 11.966760}, 
+		  	{lat: 37.427190, lng: -122.120052},
+		  	{lat: 48.862939, lng: 2.352463},
+		  	{lat: 51.507607, lng: -0.127758},
+		  	{lat: 52.369936, lng: 4.903216},
+		  	{lat: 50.080015, lng: 14.430835},
+		  	{lat: 52.507303, lng: 13.439504},
+		  	{lat: 41.901493, lng: 12.499782},
+		  	{lat: 37.777225, lng: -122.417269},
+		  	{lat: 44.424665, lng: 26.107417},
+		  	{lat: 47.374379, lng: 8.541080},
+		  	{lat: 48.137047, lng: 11.594276},
+		  	{lat: 59.923361, lng: 10.748127},
+		  	{lat: 43.777674, lng: 11.255386},
+		  	{lat: 41.134105, lng: 16.869053},
+		  	{lat: 44.411735, lng: 8.926565},
+		  	{lat: 39.228120, lng: 9.123479},
+		  	{lat: 45.079016, lng: 7.684885},
+		  	{lat: 34.013843, lng: -118.502556},
+		  	{lat: 52.230153, lng: 21.011844},
+		  	{lat: 48.208616, lng: 16.371040},
+		  	{lat: 45.435092, lng: 12.338438},
+		  	{lat: 60.402901, lng: 5.320810},
+		  	{lat: 47.803133, lng: 13.043835},
+		  	{lat: 50.063771, lng: 19.936668},
+		  	{lat: 46.003548, lng: 8.951567},
+		  	{lat: 45.464438, lng: 9.191993},
+		  	{lat: 45.439573, lng: 10.994412},
+		  	{lat: 43.110988, lng: 12.390922},
+		  	{lat: 40.352461, lng: 18.175159},
+		  	{lat: 42.463042, lng: 14.216223},
+		  	{lat: 42.463042, lng: 14.216223},
+		  	{lat: 44.842870, lng: 11.621200},
+		  	{lat: 45.158926, lng: 10.794873},
+		  	{lat: 45.540329, lng: 10.220374},
+		  	{lat: 45.078264, lng: 7.683577}
+		  	];
+		  var map = new google.maps.Map(
+		      document.getElementById('map'), {zoom: 2.2, center: {lat: 42.876272, lng: -44.592385}});
+
+		  for (var p of points) {
+		  	var marker = new google.maps.Marker({position: p, map: map});
+		  }
+		  
+		}
+	</script>
+
+
+
+
+
+      <!-- toggle -->
+      <div class="dark-mode-toggler">
+        <input type="checkbox" id="toggler"/>
+        <label for="toggler" aria-label="Toggler for Dark Mode"></label>
+      </div>
+    
+    </div>
+    
+    <!-- js -->
+    <script src="../static/script.js"></script>
+  </body>
+</html>

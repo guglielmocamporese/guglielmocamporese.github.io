@@ -48,7 +48,7 @@ button:hover {
 }
 @media (max-width: 600px) {
   .container {
-    padding: 15px;
+    padding: 20px;
   }
 }
 
@@ -75,9 +75,25 @@ button:hover {
 @media (max-width: 600px) {
   .header-frame {
     max-width: 100%;
-    margin: 0 0 0 0;
     text-align: center;
   }
+}
+
+.img-frame {
+  position: relative;
+  max-width: 15em;
+  height: 15em;
+  margin: 0 0 0 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.img-frame img {
+  position: relative;
+  top: 50%;
+  left: 55%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  height: 100%;
 }
 
 .dark-mode-toggler {
@@ -132,6 +148,12 @@ h1 {
   font-size: 1.9em;
 }
 
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.7em;
+  }
+}
+
 h2 {
   color: #96979c;
   font-weight: 300;
@@ -145,22 +167,7 @@ a:hover {
   font-style: italic;
 }
 
-.img-frame {
-  position: relative;
-  width: 250px;
-  height: 250px;
-  margin: 0 0 0 0;
-  border-radius: 50%;
-  overflow: hidden;
-}
-.img-frame img {
-  position: relative;
-  top: 50%;
-  left: 55%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  height: 100%;
-}
+
 
 
 .links {
@@ -174,6 +181,7 @@ a:hover {
 @media (max-width: 600px) {
   .links {
     text-align: center;
+    font-size: 1em;
   }
 }
 
@@ -385,4 +393,13 @@ applause-button {
   font-size: 1em;
   margin: 0 0 0 0;
   transform: translate(2.8em, 1.9em);
+}
+
+
+#map {
+
+  margin: 0 auto;
+  height: 400px;
+  width: 100%;
+  align-items: center
 }
