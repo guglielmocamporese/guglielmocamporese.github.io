@@ -439,3 +439,10 @@ applause-button {
     color: rgb(255, 255, 255)
   }
 }
+
+#footer {
+  position: relative;
+  text-align: center;
+  bottom: -35px;
+
+}
