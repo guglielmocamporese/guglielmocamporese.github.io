@@ -1,54 +1,55 @@
 {% extends "./layout.html" %}
-
 {% block body%}
-      {{ super() }}
-      
-      <!-- PUBLICATIONS -->
-      {% for pub in pubs %}
-      <div class='paper-container'>
-
-        <!-- paper image -->
-        <div class='paper-image'>
-          <center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + pub.number + '.png') }}"></center>
-        </div>
-
-        <!-- paper text -->
-        <div class='paper-text'>
-          <div class='paper-title'>
-            {{ pub.title }}
-          </div>
-          <div class='paper-authors'>
-            {% for a in pub.authors.split(', ') %}
-              {% if (a == 'Guglielmo Camporese') or (a == 'Guglielmo Camporese*') %}
-                {% if not loop.last %}
-                  <u>{{ a }}</u>,
-                {% else %}
-                  {{ a }}
-                {% endif %}
-
-              {% else %}
-                {% if not loop.last %}
-                  {{ a }},
-                {% else %}
-                  {{ a }}
-                {% endif %}
-              {% endif %}
-              
-            {% endfor %}
-          </div>
-
-          {% if pub.link %}
-            {% if pub.code %}
-            <div class='paper-conference'>{{ pub.conference }} <a class='paper-link' href='{{ pub.link }}' target="_blank">[arXiv]</a> <a class='paper-link' href='{{ pub.code }}' target="_blank">[code]</a></div>
-            {% else %}
-            <div class='paper-conference'>{{ pub.conference }} <a class='paper-link' href='{{ pub.link }}' target="_blank">[arXiv]</a></div>
-            {% endif %}
-          {% else %}
-          <div class='paper-conference'>{{ pub.conference }}</div>
-          {% endif %}
-        </div>
-
+  {{ super() }}
+  
+  <!-- PUBLICATIONS -->
+  {%- for pub in pubs %}
+  <div class='paper-container'>
+    <div class='paper-image'>
+      <center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + pub.number + '.png') }}"></center>
+    </div>
+    <div class='paper-text'>
+      <div class='paper-title'>
+        <p style="display: inline;">{{ pub.title }}</p>
       </div>
-      {% endfor %}
-      
+      <div class='paper-authors'>
+        <p style="display: inline;">
+        {%- for a in pub.authors.split(', ') -%}
+          {%- if (a == 'Guglielmo Camporese') or (a == 'Guglielmo Camporese*') -%}
+            {%- if not loop.last -%}
+              <u>{{ a }}</u>{{ ", " }}
+            {%- else -%}
+              {{ a }}
+            {%- endif -%}
+          {%- else %}
+            {%- if not loop.last -%}
+              {{ a }}{{ ", " }}
+            {%- else -%}
+              {{ a }}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+        </p>
+      </div>
+      {%- if pub.link -%}
+        {%- if pub.code -%}
+      <div class='paper-conference'>
+        <p style="display: inline;">{{ pub.conference }}</p>
+        <a class='paper-link' href='{{ pub.link }}' target="_blank">[arXiv]</a>
+        <a class='paper-link' href='{{ pub.code }}' target="_blank">[code]</a>
+      </div>
+        {%- else %}
+      <div class='paper-conference'>
+        <p style="display: inline;">{{ pub.conference }}</p>
+        <a class='paper-link' href='{{ pub.link }}' target="_blank">[arXiv]</a>
+      </div>
+        {%- endif -%}
+      {% else -%}
+      <div class='paper-conference'>
+        <p style="display: inline;">{{ pub.conference }}</p>
+      </div>
+      {%- endif %}
+    </div>
+  </div>
+  {%- endfor -%}  
 {% endblock body %}

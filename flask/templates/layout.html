@@ -1,72 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- HEAD -->
-  <head>
 
-    {% block head %}
-    <title>Guglielmo Camporese</title>
-    <meta name="description" content="Guglielmo Camporese, Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy."/>
-    <meta charset="utf-8"/>
+<!-- HEAD -->
+<head>
+  {%- block head %}
+  <title>Guglielmo Camporese</title>
+  <meta name="description" content="Guglielmo Camporese, Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy."/>
+  <meta charset="utf-8"/>
 
-    <!-- Favicon/theme -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ base_dir }}{{ url_for('static', filename='img/icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ base_dir }}{{ url_for('static', filename='img/icon.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ base_dir }}{{ url_for('static', filename='img/icon.png') }}">
+  <!-- Favicon/theme -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ base_dir }}{{ url_for('static', filename='img/icon.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ base_dir }}{{ url_for('static', filename='img/icon.png') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ base_dir }}{{ url_for('static', filename='img/icon.png') }}">
 
-    <!-- responsive webpabe -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet"/>
-    <link rel="stylesheet" href="{{ base_dir }}{{ url_for('static', filename='style.css') }}">
-    {% endblock head %}
+  <!-- responsive webpabe -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ base_dir }}{{ url_for('static', filename='style.css') }}">
+  {%- endblock head %}
+</head>
 
-  </head>
+{%- block imports %}
+{%- endblock imports %}
 
-  <!-- imports -->
-  {% block imports %}
-  {% endblock imports %}
+<!-- BODY -->
+<body>
+<div class="container">
 
-  <!-- BODY -->
-  <body>
-    <div class="container">
-
-      <!-- header -->
-      <div class="header-section">
-        <div class="header-frame">
-          <h1>Guglielmo Camporese</h1>
-          <h2>Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy.</h2>
-          <h6>guglielmo.camporese [at] phd.unipd.it</h6>
-        </div>
-        <div class="img-frame">
-          <img src="{{ base_dir }}{{ url_for('static', filename='img/15.JPG') }}" alt="" />
-        </div>
-      </div>
-
-      <!-- links -->
-      <div class="links">
-        <a href="{{ base_dir }}{{ url_for('home') }}">bio</a>
-        <a href="{{ base_dir }}{{ url_for('news') }}">news</a>
-        <a href="{{ base_dir }}{{ url_for('publications') }}">publications</a>
-        <a href="https://scholar.google.com/citations?user=Yu6im9cAAAAJ&hl=en/" target="_blank">scholar</a>
-        <a href="https://github.com/guglielmocamporese" target="_blank">github</a>
-        <a href="https://www.linkedin.com/in/guglielmocamporese/" target="_blank">linkedin</a>
-        <a href="{{ base_dir }}{{ url_for('static', filename='guglielmo_camporese_cv.pdf') }}" target="_blank">cv</a>
-        <a href="{{ base_dir }}{{ url_for('extra') }}">extra</a>
-      </div>
-
-      {% block body %}
-        <h1 style="text-align: center; margin: 50px 0 50px 0; font-size: 16pt">{{ page_title }}</h1>
-      {% endblock body %}
-
-      <!-- toggle -->
-      <div class="dark-mode-toggler">
-        <input type="checkbox" id="toggler" name="dark-checkbox"/>
-        <label for="toggler" aria-label="Toggler for Dark Mode"></label>
-      </div>
-    
+  <!-- header -->
+  <div class="header-section">
+    <div class="header-frame">
+      <h1>Guglielmo Camporese</h1>
+      <h2>Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy.</h2>
+      <h6>guglielmo.camporese [at] phd.unipd.it</h6>
     </div>
-    
-    <!-- js -->
-    <script src="{{ base_dir }}{{ url_for('static', filename='script.js') }}"></script>
+    <div class="img-frame">
+      <img src="{{ base_dir }}{{ url_for('static', filename='img/15.JPG') }}" alt="" />
+    </div>
+  </div>
 
-  </body>
+  <!-- links -->
+  <div class="links">
+    <a href="{{ base_dir }}{{ url_for('home') }}">bio</a>
+    <a href="{{ base_dir }}{{ url_for('news') }}">news</a>
+    <a href="{{ base_dir }}{{ url_for('publications') }}">publications</a>
+    <a href="https://scholar.google.com/citations?user=Yu6im9cAAAAJ&hl=en/" target="_blank">scholar</a>
+    <a href="https://github.com/guglielmocamporese" target="_blank">github</a>
+    <a href="https://www.linkedin.com/in/guglielmocamporese/" target="_blank">linkedin</a>
+    <a href="{{ base_dir }}{{ url_for('static', filename='guglielmo_camporese_cv.pdf') }}" target="_blank">cv</a>
+    <a href="{{ base_dir }}{{ url_for('extra') }}">extra</a>
+  </div>
+  {%- block body %}
+  <h1 style="text-align: center; margin: 50px 0 50px 0; font-size: 16pt">{{ page_title }}</h1>
+  {%- endblock body %}
+
+  <!-- toggle -->
+  <div class="dark-mode-toggler">
+    <input type="checkbox" id="toggler" name="dark-checkbox"/>
+    <label for="toggler" aria-label="Toggler for Dark Mode"></label>
+  </div>
+</div>
+
+<!-- js -->
+<script src="{{ base_dir }}{{ url_for('static', filename='script.js') }}"></script>
+</body>
 </html>

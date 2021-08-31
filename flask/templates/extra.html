@@ -1,63 +1,60 @@
 {% extends "./layout.html" %}
 
-{% block body%}
-    {{ super() }}
+{% block body -%}
+  {{ super() }}
 
-    
-
-    <div class="extra-container">
-        <div class="extra-title">
-            <strong class="rnd-bkg-color-alpha">Computing the Probability of Catching a Mosquito by Hands.</strong> 
-        </div>
-        <div class="extra-links">
-            <strong>[2021-08-16]</strong>[<a href="{{ base_dir }}{{ url_for('extra_mosquito') }}">open</a>]
-        </div>
+  <!-- extra -->
+  <div class="extra-container">
+    <div class="extra-title">
+      <strong class="rnd-bkg-color-alpha">Computing the Probability of Catching a Mosquito by Hands.</strong> 
     </div>
-
-    <div class="extra-container">
-        <div class="extra-title">
-            <strong class="rnd-bkg-color-alpha">Fourier representation meets images.</strong> 
-        </div>
-        <div class="extra-links">
-            <strong>[2021-08-12]</strong>[<a href="{{ base_dir }}{{ url_for('extra_fourier') }}">open</a>]
-        </div>
+    <div class="extra-links">
+      <strong>[2021-08-16]</strong>[<a href="{{ base_dir }}{{ url_for('extra_mosquito') }}">open</a>]
     </div>
-
-    <div class="extra-container">
-        <div class="extra-title">
-            <strong class="rnd-bkg-color-alpha">Fun fact: apparently I'm the only Guglielmo Camporese in the world!</strong> 
-        </div>
-        <div class="extra-links">
-            <strong>[2021-08-11]</strong>
-        </div>
+  </div>
+  {#- #}
+  <div class="extra-container">
+    <div class="extra-title">
+      <strong class="rnd-bkg-color-alpha">Fourier representation meets images.</strong> 
     </div>
-
-    <div class="extra-container">
-        <div class="extra-title">
-            <strong class="rnd-bkg-color-alpha">Bag of Tricks for Training Neural Networks.</strong>
-        </div>
-        <div class="extra-links">
-            <strong>[2020-12-16]</strong>[<a href="{{ base_dir }}{{ url_for('extra_nn_tricks') }}">open</a>]
-        </div>
+    <div class="extra-links">
+      <strong>[2021-08-12]</strong>[<a href="{{ base_dir }}{{ url_for('extra_fourier') }}">open</a>]
     </div>
-
-    <div class="extra-container">
-        <div class="extra-title">
-            <strong class="rnd-bkg-color-alpha">Common Errors on Training Neural Networks.</strong>
-        </div>
-        <div class="extra-links">
-            <strong>[2020-12-16]</strong>[<a href="{{ base_dir }}{{ url_for('extra_nn_common_errors') }}">open</a>]
-        </div>
+  </div>
+  {#- #}
+  <div class="extra-container">
+    <div class="extra-title">
+      <strong class="rnd-bkg-color-alpha">Fun fact: apparently I'm the only Guglielmo Camporese in the world!</strong> 
     </div>
-
-    <div class="extra-container">
-        <div class="extra-title">
-            <strong class="rnd-bkg-color-alpha">Places I've seen so far..</strong> 
-        </div>
-        <div class="extra-links">
-            <strong>[2020-08-27]</strong>[<a href="{{ base_dir }}{{ url_for('extra_places') }}">open</a>]
-        </div>
+    <div class="extra-links">
+      <strong>[2021-08-11]</strong>
     </div>
-
-      
-{% endblock body %}
+  </div>
+  {#- #}
+  <div class="extra-container">
+    <div class="extra-title">
+      <strong class="rnd-bkg-color-alpha">Bag of Tricks for Training Neural Networks.</strong>
+    </div>
+    <div class="extra-links">
+      <strong>[2020-12-16]</strong>[<a href="{{ base_dir }}{{ url_for('extra_nn_tricks') }}">open</a>]
+    </div>
+  </div>
+  {#- #}
+  <div class="extra-container">
+    <div class="extra-title">
+      <strong class="rnd-bkg-color-alpha">Common Errors on Training Neural Networks.</strong>
+    </div>
+    <div class="extra-links">
+      <strong>[2020-12-16]</strong>[<a href="{{ base_dir }}{{ url_for('extra_nn_common_errors') }}">open</a>]
+    </div>
+  </div>
+  {#- #}
+  <div class="extra-container">
+    <div class="extra-title">
+      <strong class="rnd-bkg-color-alpha">Places I've seen so far..</strong> 
+    </div>
+    <div class="extra-links">
+      <strong>[2020-08-27]</strong>[<a href="{{ base_dir }}{{ url_for('extra_places') }}">open</a>]
+    </div>
+  </div>
+{%- endblock body %}
