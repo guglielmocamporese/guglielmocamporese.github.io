@@ -31,6 +31,7 @@ let rgba_colors = ["rgba(0, 153, 220, 0.4)", "rgba(255, 165, 0, 0.4)", "rgba(255
   */
 })();
 
+
 /* Dark Mode */
 function setModeEventListener() {
   let list = document.body.classList;
@@ -41,8 +42,8 @@ function setModeEventListener() {
       list.remove("dark-mode");
     }
   });
-  
 }
+
 
 function checkDarkMode() {
   let list = document.body.classList;

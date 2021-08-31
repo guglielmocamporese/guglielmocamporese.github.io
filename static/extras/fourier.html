@@ -3,6 +3,8 @@
 
 <!-- HEAD -->
 <head>
+
+
   <title>Guglielmo Camporese</title>
   <meta name="description" content="Guglielmo Camporese, Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy."/>
   <meta charset="utf-8"/>
@@ -20,6 +22,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
+  
 </head>
 
 <!-- imports -->
@@ -30,7 +33,7 @@
 
 <!-- BODY -->
 <body>
-<div class="container">
+<div id="main-container" class="container">
 
   <!-- header -->
   <div class="header-section">
@@ -249,10 +252,14 @@ y = f_transform(edges_centers_sorted, N=550)
   </p>
 
   <!-- toggle -->
+  
   <div class="dark-mode-toggler">
-    <input type="checkbox" id="toggler" name="dark-checkbox"/>
-    <label for="toggler" aria-label="Toggler for Dark Mode"></label>
+    <form method="post">
+      <input type="checkbox" id="toggler" name="dark-checkbox"/>
+      <label for="toggler" aria-label="Toggler for Dark Mode"></label>
+    </form>
   </div>
+  
 </div>
 
 <!-- js -->

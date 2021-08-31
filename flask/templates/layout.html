@@ -4,6 +4,8 @@
 <!-- HEAD -->
 <head>
   {%- block head %}
+
+
   <title>Guglielmo Camporese</title>
   <meta name="description" content="Guglielmo Camporese, Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy."/>
   <meta charset="utf-8"/>
@@ -18,6 +20,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet"/>
   <link rel="stylesheet" href="{{ base_dir }}{{ url_for('static', filename='style.css') }}">
   {%- endblock head %}
+  
 </head>
 
 {%- block imports %}
@@ -25,7 +28,7 @@
 
 <!-- BODY -->
 <body>
-<div class="container">
+<div id="main-container" class="container">
 
   <!-- header -->
   <div class="header-section">
@@ -55,10 +58,14 @@
   {%- endblock body %}
 
   <!-- toggle -->
+  
   <div class="dark-mode-toggler">
-    <input type="checkbox" id="toggler" name="dark-checkbox"/>
-    <label for="toggler" aria-label="Toggler for Dark Mode"></label>
+    <form method="post">
+      <input type="checkbox" id="toggler" name="dark-checkbox"/>
+      <label for="toggler" aria-label="Toggler for Dark Mode"></label>
+    </form>
   </div>
+  
 </div>
 
 <!-- js -->
