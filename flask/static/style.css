@@ -54,7 +54,7 @@ button:hover {
   padding: 5px;
   max-width: 650px;
 }
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .container {
     padding: 20px;
   }
@@ -80,7 +80,7 @@ button:hover {
   margin: 0 0 0 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .header-frame {
     max-width: 100%;
     text-align: center;
@@ -118,37 +118,37 @@ button:hover {
 .dark-mode-toggler input[type="checkbox"] + label::before {
   content: "";
   display: block;
-  height: 26px;
+  height: 20px;
   width: 60px;
-  background: #fff;
+  background: rgba(0, 0, 0, 0.1);
   border: 2px solid #96979c;
   border-radius: 15px;
   position: absolute;
-  top: 0px;
-  left: -65px;
+  top: 10px;
+  left: -70px;
 }
 .dark-mode-toggler input[type="checkbox"] + label::after {
   content: "";
   display: block;
-  height: 20px;
-  width: 20px;
-  background: #96979c;
+  height: 16px;
+  width: 16px;
+  background: rgba(0, 0, 0, 0.4);
   border: 2px solid #fff;
   border-radius: 50%;
   position: absolute;
-  top: 3px;
-  left: -62px;
-  transition: all 0.4s ease-in;
+  top: 12px;
+  left: -68px;
+  transition: all 0.15s ease-in;
 }
 .dark-mode-toggler input[type="checkbox"]:checked + label::before {
-  background: #000;
+  background: rgba(255, 255, 255, 0.1);
   border: 2px solid #fff;
 }
 .dark-mode-toggler input[type="checkbox"]:checked + label::after {
   left: -28px;
-  background: #000;
+  background: rgba(255, 255, 255, 0.4);
   border: 2px solid #fff;
-  transition: all 0.4s ease-in;
+  transition: all 0.15s ease-in;
 }
 
 h1 {
@@ -156,7 +156,7 @@ h1 {
   font-size: 1.9em;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   h1 {
     font-size: 1.7em;
   }
@@ -185,11 +185,11 @@ a:hover {
   padding: 0 16px 0 0;
 }
 
-
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .links {
     text-align: center;
     font-size: 1em;
+    margin: 25px auto;
   }
 }
 
@@ -200,7 +200,7 @@ a:hover {
   border-color: #eb4888;
   color: #eb4888;
 }
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .toggler {
     text-align: center;
   }
@@ -237,7 +237,7 @@ a:hover {
   /*background-color: #eb4888;*/
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .paper-container {
     flex-flow: column;
     margin-bottom: 5em;
@@ -253,7 +253,7 @@ a:hover {
   /*background-color: #aa4383;*/
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .paper-image {
     max-width: 100%;
     order: 2;
@@ -276,7 +276,7 @@ a:hover {
   /*background-color: #aa4383;*/
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .paper-text {
     max-width: 100%;
     margin-bottom: 1em;
@@ -411,7 +411,7 @@ applause-button {
   align-items: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   #map {
     zoom: 0.6;
   }
@@ -427,7 +427,7 @@ applause-button {
 
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   iframe {
     content: url();
   }

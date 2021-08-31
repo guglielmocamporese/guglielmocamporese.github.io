@@ -23,13 +23,13 @@
 In random order:<br>
 <ul>
 	<li>
-		<p style="text-align: justify"><strong><mark class="rnd-bkg-color-alpha">[Dropout Usage]</mark></strong> remember to use dropout only during training! (and remember to scale by the dropout probaility during training, see the original paper <a href='https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf' target="_blank">here</a>). There are also works that use dropout also at test time, but this is not done for the same reason as the initial idea of dropout (regularization, ...)</p>
+		<p style="text-align: justify"><strong><mark class="rnd-bkg-color-alpha" style="color: inherit;">[Dropout Usage]</mark></strong> remember to use dropout only during training! (and remember to scale by the dropout probaility during training, see the original paper <a href='https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf' target="_blank">here</a>). There are also works that use dropout also at test time, but this is not done for the same reason as the initial idea of dropout (regularization, ...)</p>
 	</li>
 	<li>
-		<p style="text-align: justify"><strong><mark class="rnd-bkg-color-alpha">[Batch Norm Usage]</mark></strong> remeber to set <mark class="rnd-bkg-color-alpha">bias=False</mark> on the layer just before the batch normalization: the bias is alredy inclueded in the batch norm computation.</p>
+		<p style="text-align: justify"><strong><mark class="rnd-bkg-color-alpha" style="color: inherit;">[Batch Norm Usage]</mark></strong> remeber to set <mark class="rnd-bkg-color-alpha" style="color: inherit;">bias=False</mark> on the layer just before the batch normalization: the bias is alredy inclueded in the batch norm computation.</p>
 	</li>
 	<li>
-		<p style="text-align: justify"><strong><mark class="rnd-bkg-color-alpha">[PyTorch Train vs Eval mode]</mark></strong>: remeber to call <mark class="rnd-bkg-color-alpha">model.train()</mark> before training and <mark class="rnd-bkg-color-alpha">model.eval()</mark>  before validation/test.</p>
+		<p style="text-align: justify"><strong><mark class="rnd-bkg-color-alpha" style="color: inherit;">[PyTorch Train vs Eval mode]</mark></strong>: remeber to call <mark class="rnd-bkg-color-alpha" style="color: inherit;">model.train()</mark> before training and <mark class="rnd-bkg-color-alpha" style="color: inherit;">model.eval()</mark>  before validation/test.</p>
 	</li>
 </ul>
 
