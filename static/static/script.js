@@ -14,21 +14,12 @@ let rgb_colors = ["rgb(0, 153, 220)", "rgb(255, 165, 0)", "rgb(255, 68, 107)", "
 let rgba_colors = ["rgba(0, 153, 220, 0.4)", "rgba(255, 165, 0, 0.4)", "rgba(255, 68, 107, 0.4)", "rgba(74, 74, 77, 0.4)"];
 
 (function() {
-  setModeEventListener();
   setRandomLinkColor();
-  //setColorHoverListener();
   setBioEventListener();
-  /*setRandomPhoto();*/
-
-/*
+  setDarkModeGivenDayTime();
   setInterval(() => {
-    setRandomPhoto();
-  }, 2500);
-
-  setInterval(() => {
-    setRandomLinkColor();
-  }, 5000);
-  */
+    setDarkModeGivenDayTime();
+  }, 1000 * 30);
 })();
 
 
@@ -44,11 +35,11 @@ function setModeEventListener() {
   });
 }
 
-
-function checkDarkMode() {
+function setDarkModeGivenDayTime() {
+  var today = new Date();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   let list = document.body.classList;
-  var e = document.getElementById("toggler");
-  if (e.checked) {
+  if (today.getHours() < 6 || (18 < today.getHours() && today.getHours()< 24)) {
     list.add("dark-mode");
   } else {
     list.remove("dark-mode");
@@ -56,7 +47,6 @@ function checkDarkMode() {
 }
 
 /* Colors */
-
 function getRandomColor(alpha=false) {
   if (alpha) {
     return rgba_colors[Math.floor(Math.random() * colors.length)];
@@ -118,6 +108,3 @@ function off(bioType) {
     e.classList.remove("show");
   });
 }
-
-
-checkDarkMode()
