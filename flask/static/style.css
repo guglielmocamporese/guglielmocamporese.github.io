@@ -21,7 +21,7 @@ body.dark-mode,
 body.dark-mode button,
 button.dark-mode,
 button.dark-mode button {
-  background: #000;
+  background: #0d1116;
   color: #fff;
 }
 
@@ -430,5 +430,12 @@ applause-button {
 @media (max-width: 600px) {
   iframe {
     content: url();
+  }
+}
+
+
+.dark-mode {
+  mark {
+    color: rgb(255, 255, 255)
   }
 }
