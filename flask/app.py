@@ -1,5 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
+from firebase import firebase
 import os
+import json
+import sys
+from comments import parse_comments, post_comment
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
@@ -42,7 +46,6 @@ def publications():
 		pubs += [pub]
 	return render_template('publications.html', base_dir='.', pubs=pubs, page_title='Publications')
 
-# Extras
 @app.route('/extra.html')
 def extra():
 	return render_template('extra.html', base_dir='.', page_title='Extra')
@@ -66,10 +69,6 @@ def extra_fourier():
 @app.route('/extras/places.html')
 def extra_places():
 	return render_template('extras/places.html', base_dir='..', page_title='Places I\'ve Seen So Far')
-
-#@app.route('/extras/lightning.html')
-#def extra_lightning():
-#	return render_template('extras/lightning.html', base_dir='..', page_title='Lightning Simulation Through Breadth First Search.')
 
 if __name__ == '__main__':
 	app.run(debug=True)

@@ -25,6 +25,14 @@ button.dark-mode button {
   color: #fff;
 }
 
+body.dark-mode.extra-container.extra-title.mark {
+  color: #fff;
+}
+
+.dark-mode {
+  color: #fff;
+}
+
 button {
   width: 120px;
   height: 30px;
@@ -240,7 +248,7 @@ a:hover {
   position: relative;
   margin: 0 0 0 0;
   overflow: hidden;
-  max-width: 40%;
+  max-width: 50%;
   height: auto;
   /*background-color: #aa4383;*/
 }
@@ -263,7 +271,7 @@ a:hover {
   margin: 0 1em 0 0;
   border-radius: 0%;
   overflow: hidden;
-  max-width: 55%;
+  max-width: 45%;
   height: auto;
   /*background-color: #aa4383;*/
 }
@@ -280,14 +288,14 @@ a:hover {
   font-weight: 900;
   font-size: 12pt;
   margin: 0em 0 0em 0;
-  text-align: justify;
+  text-align: left;
 }
 
 .paper-authors {
   font-style: italic;
   font-size: 9pt;
   margin: 8px 0 8px 0;
-  text-align: justify;
+  text-align: left;
 }
 
 .paper-conference {
@@ -406,5 +414,21 @@ applause-button {
 @media (max-width: 600px) {
   #map {
     zoom: 0.6;
+  }
+}
+
+.map {
+  margin: 0 auto;
+  height: 400px;
+  width: 100%;
+  align-items: center;
+  border: 0;
+
+
+}
+
+@media (max-width: 600px) {
+  iframe {
+    content: url();
   }
 }

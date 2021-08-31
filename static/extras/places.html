@@ -65,6 +65,7 @@
 
 	<p style="margin-bottom: 3em">These are the places I've seen so far. I traveled around almost all the Europe and California. Next stops hopefully will be Seattle (WA), Iceland, Japan and North Pole!</p>
 
+	<!--
 	<div id="map"></div>
 	<script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtNTe8sGCXFOYw8R_qV7-BQSkjsgOpemw&callback=initMap">
@@ -119,6 +120,13 @@
 		  
 		}
 	</script>
+	-->
+	<iframe 
+		class="map" 
+		src="https://www.google.com/maps/d/embed?mid=1c2x8fRskW4BX_NX7T_QrY4DA-BEX5Alo" 
+		frameborder=”0” 
+		allowfullscreen>		
+	</iframe>
 
 
 
@@ -126,7 +134,7 @@
 
       <!-- toggle -->
       <div class="dark-mode-toggler">
-        <input type="checkbox" id="toggler"/>
+        <input type="checkbox" id="toggler" name="dark-checkbox"/>
         <label for="toggler" aria-label="Toggler for Dark Mode"></label>
       </div>
     
@@ -134,5 +142,6 @@
     
     <!-- js -->
     <script src="../static/script.js"></script>
+
   </body>
 </html>
