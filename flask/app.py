@@ -70,5 +70,9 @@ def extra_fourier():
 def extra_places():
 	return render_template('extras/places.html', base_dir='..', page_title='Places I\'ve Seen So Far')
 
+@app.route('/extras/spotify.html')
+def extra_spotify():
+	return render_template('extras/spotify.html', base_dir='..', page_title='My Spotify Playlists!')
+
 if __name__ == '__main__':
 	app.run(debug=True)
