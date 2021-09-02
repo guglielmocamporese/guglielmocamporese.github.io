@@ -3,7 +3,6 @@ from firebase import firebase
 import os
 import json
 import sys
-from comments import parse_comments, post_comment
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
