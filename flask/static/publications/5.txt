@@ -1,5 +1,5 @@
 Where are my Neighbors? Exploiting Patches Relations in Self-Supervised Vision Transformer
 Guglielmo Camporese, Elena Izzo, Lamberto Ballan
 CVPRw 2022
-soon
+https://arxiv.org/abs/2206.00481
 https://github.com/guglielmocamporese/relvit
