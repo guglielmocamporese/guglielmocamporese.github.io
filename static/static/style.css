@@ -52,7 +52,7 @@ button:hover {
 .container {
   margin: 50px auto;
   padding: 5px;
-  max-width: 650px;
+  max-width: 850px;
 }
 @media (max-width: 800px) {
   .container {
@@ -69,7 +69,7 @@ button:hover {
 .header-section {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
   flex-grow: 0;
   margin: 0 0 0 0;
@@ -78,6 +78,7 @@ button:hover {
 .header-frame {
   max-width: 60%;
   margin: 0 0 0 0;
+  #text-align: left;
 }
 
 @media (max-width: 800px) {
@@ -102,6 +103,7 @@ button:hover {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   height: 100%;
+  align-items: right;
 }
 
 .dark-mode-toggler {
@@ -231,9 +233,10 @@ a:hover {
 .paper-container {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
   margin: 0 0 40px 0;
+  vertical-align: top;
   /*background-color: #eb4888;*/
 }
 

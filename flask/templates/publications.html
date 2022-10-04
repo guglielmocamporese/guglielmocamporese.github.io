@@ -35,13 +35,17 @@
         {%- if pub.code -%}
       <div class='paper-conference'>
         <p style="display: inline;">{{ pub.conference }}</p>
-        <a class='paper-link' href='{{ pub.link }}' target="_blank">[arXiv]</a>
-        <a class='paper-link' href='{{ pub.code }}' target="_blank">[code]</a>
+        <div class='paper-link'>
+            <a class='paper-link' href='{{ pub.link }}' target="_blank">[arXiv]</a>
+            <a class='paper-link' href='{{ pub.code }}' target="_blank">[code]</a>
+        </div>
       </div>
         {%- else %}
       <div class='paper-conference'>
         <p style="display: inline;">{{ pub.conference }}</p>
-        <a class='paper-link' href='{{ pub.link }}' target="_blank">[arXiv]</a>
+        <div class='paper-link'>
+            <a class='paper-link' href='{{ pub.link }}' target="_blank">[arXiv]</a>
+        </div>
       </div>
         {%- endif -%}
       {% else -%}
