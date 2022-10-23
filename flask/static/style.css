@@ -54,9 +54,10 @@ button:hover {
   padding: 5px;
   max-width: 850px;
 }
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   .container {
     padding: 20px;
+    max-width: 750px;
   }
 }
 
@@ -81,7 +82,7 @@ button:hover {
   #text-align: left;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   .header-section{
     justify-content: space-around;
   }
@@ -161,7 +162,7 @@ h1 {
   font-size: 1.9em;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   h1 {
     font-size: 1.7em;
   }
@@ -190,7 +191,7 @@ a:hover {
   padding: 0 16px 0 0;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   .links {
     text-align: center;
     font-size: 1em;
@@ -205,7 +206,7 @@ a:hover {
   border-color: #eb4888;
   color: #eb4888;
 }
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   .toggler {
     text-align: center;
   }
@@ -243,7 +244,7 @@ a:hover {
   /*background-color: #eb4888;*/
 }
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   .paper-container {
     flex-flow: column;
     margin-bottom: 5em;
@@ -259,7 +260,7 @@ a:hover {
   /*background-color: #aa4383;*/
 }
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   .paper-image {
     max-width: 100%;
     order: 2;
@@ -286,7 +287,7 @@ a:hover {
   /*background-color: #aa4383;*/
 }
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   .paper-text {
     max-width: 100%;
     margin-bottom: 1em;
@@ -421,7 +422,7 @@ applause-button {
   align-items: center;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   #map {
     zoom: 0.6;
   }
@@ -437,7 +438,7 @@ applause-button {
 
 }
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
   iframe {
     content: url();
   }
@@ -460,7 +461,7 @@ applause-button {
 /* timeline */
 #timeline {
 }
-@media (min-width: 768px) {
+@media (min-width: 850px) {
   .timelineitem:nth-child(odd) {
     margin-left: 50%;
     border-left: 5px solid #666;
@@ -496,11 +497,11 @@ applause-button {
   border-radius: 5px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .timelineitem {
     border-left: 5px solid #666;
     text-align: left;
-    margin-left: 10px;
+    margin-left: 0px;
     padding: 5px;
     position: relative;
   }
@@ -522,12 +523,15 @@ applause-button {
 .tdesc {
   font-weight: normal;
 }
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .tdate {
+    margin-left: 20px;
   }
   .ttitle {
+    margin-left: 20px;
   }
   .tdesc {
+    margin-left: 20px;
   }
 }
 .thigh {
