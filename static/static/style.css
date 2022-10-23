@@ -3,13 +3,15 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+  font-size: 14pt;
+  font-family: "Roboto Mono";
+  font-weight: 400;
 }
 
 body,
 button {
   background: #fcfbf9; /*#fffbf4; #fff;*/
   color: #000;
-  font-family: "Roboto Mono", monospace;
 }
 
 ::selection {
@@ -21,8 +23,9 @@ body.dark-mode,
 body.dark-mode button,
 button.dark-mode,
 button.dark-mode button {
-  background: #0d1116;
-  color: #fff;
+  /* background: #0d1116; */
+  background: #11151b;
+  color: rgba(255, 255, 255, 1);
 }
 
 body.dark-mode.extra-container.extra-title.mark {
@@ -74,12 +77,13 @@ button:hover {
   flex-wrap: wrap;
   flex-grow: 0;
   margin: 0 0 0 0;
+  font-family: "Roboto Mono";
 }
 
 .header-frame {
   max-width: 60%;
   margin: 0 0 0 0;
-  #text-align: left;
+  text-align: left;
 }
 
 @media (max-width: 850px) {
@@ -103,7 +107,8 @@ button:hover {
 .img-frame img {
   position: relative;
   top: 50%;
-  left: 55%;
+  /* left: 55%; */
+  left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   height: 100%;
@@ -174,6 +179,12 @@ h2 {
   margin: 0 0 0.5em 0;
 }
 
+h3 {
+  color: #96979c;
+  font-weight: 300;
+  margin: 0 0 0.5em 0;
+}
+
 a {
   color: #96979c;
 }
@@ -185,7 +196,10 @@ a:hover {
 
 
 .links {
+  text-align: center;
   margin: 25px 0;
+  font-family: "Roboto Mono";
+  font-size: 12pt;
 }
 .links a:not(:last-child) {
   padding: 0 16px 0 0;
@@ -296,17 +310,19 @@ a:hover {
 }
 
 .paper-title {
-  font-weight: 900;
-  font-size: 12pt;
+  font-weight: 700;
+  font-size: 14pt;
   margin: 0em 0 0em 0;
   text-align: left;
+  /* color: #eb4888; */
 }
 
 .paper-authors {
-  font-style: italic;
-  font-size: 9pt;
+  /* font-style: italic; */
+  font-size: 10pt;
   margin: 8px 0 8px 0;
   text-align: left;
+  /* color:rgba(255, 255, 255, 0.8) */
 }
 
 .paper-conference {
@@ -447,7 +463,7 @@ applause-button {
 
 .dark-mode {
   mark {
-    color: rgb(255, 255, 255)
+    color: rgb(255, 255, 255);
   }
 }
 
@@ -512,16 +528,26 @@ applause-button {
 
 .tdate {
   font-weight: normal;
-  margin-bottom: 0px;
+  margin-bottom: 2px;
   color: rgb(255, 68, 107);
+  font-size: 12pt;
 }
 .ttitle {
-  font-weight: bold;
+  font-family: "Roboto Medium";
   font-size: 14pt;
   margin-bottom: 2px;
 }
 .tdesc {
-  font-weight: normal;
+  margin-bottom: 2px;
+  font-weight: 10;
+  font-size: 14pt;
+  font-style: normal;
+}
+.tloc {
+  margin-bottom: 2px;
+  font-weight: 10;
+  font-size: 12pt;
+  font-style: normal;
 }
 @media (max-width: 850px) {
   .tdate {
@@ -536,4 +562,73 @@ applause-button {
 }
 .thigh {
   color: #000266;
+}
+
+/* students */
+.s-description {
+  font-size: 14pt;
+}
+.students {
+  /* margin-left: 40%; */
+  /* text-align: center; */
+  /* margin-left: 10%; */
+  margin-top: 14px;
+}
+.s-year {
+  color: #eb4888;
+  font-size: 12pt;
+  display: inline-block;
+}
+.s-grad {
+  font-size: 12pt;
+  display: inline-block;
+  margin-left: 12px;
+  color: #666;
+}
+.s-name {
+  font-size: 12pt;
+  display: inline-block;
+  margin-left: 12px;
+}
+.s-next {
+  font-size: 12pt;
+  display: inline-block;
+  margin-left: 12px;
+  color: #96979c;
+}
+
+/* teaching */
+.t-description {
+  font-size: 14pt;
+}
+.teaching {
+  /* margin-left: 10%; */
+  margin-top: 14px;
+}
+.t-year {
+  color: #eb4888;
+  font-size: 12pt;
+  display: inline-block;
+}
+.t-course {
+  font-size: 12pt;
+  display: inline-block;
+  margin-left: 12px;
+  color: #666;
+}
+.t-name {
+  font-size: 12pt;
+  display: inline-block;
+  margin-left: 12px;
+}
+.t-supervisor {
+  font-size: 12pt;
+  display: inline-block;
+  /* margin-left: 4px; */
+}
+.t-degree {
+  font-size: 12pt;
+  display: inline-block;
+  margin-left: 12px;
+  color: #96979c;
 }

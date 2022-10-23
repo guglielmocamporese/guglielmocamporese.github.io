@@ -39,11 +39,12 @@ function setDarkModeGivenDayTime() {
   var today = new Date();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   let list = document.body.classList;
-  if (today.getHours() < 6 || (18 < today.getHours() && today.getHours()< 24)) {
-    list.add("dark-mode");
-  } else {
-    list.remove("dark-mode");
-  }
+  list.remove("dark-mode");
+  // if (today.getHours() < 6 || (18 < today.getHours() && today.getHours()< 24)) {
+  //   list.add("dark-mode");
+  // } else {
+  //   list.remove("dark-mode");
+  // }
 }
 
 /* Colors */

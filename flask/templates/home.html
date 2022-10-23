@@ -1,56 +1,163 @@
 {% extends "./layout.html" %}
 {%- block body -%}
 {{ super() }}
+
+  <!-- bio -->
   <div class="bio">
     I'm a Ph.D. Student in Brain, Mind and Computer Science at the University of Padova and I'm part of the <a href="http://vimp.math.unipd.it/" target="_blank">Visual Intelligence and Machine Perception Group</a> (VIMP). Currently, I'm an Applied Scientist Intern at Amazon Web Services AI Labs in the computer vision team based in the Amazon headquarter in Seattle (WA). Previously I worked as a machine learning engineer at Aquifi Inc., Palo Alto (CA) and I interned in the European team of Alexa AI in Turin (IT) as an Applied Scientist. In general, my research interests are in deep learning, computer vision and speech recognition. Specifically, I'm interested in video understanding for predictive problems such as early action recognition and action anticipation.
   </div>
   
-  <h1 style="text-align: center; margin: 100px 0 50px 0; font-size: 16pt">Timeline</h1>
+  <!-- timeline -->
+  <h1 style="text-align: center; margin: 100px 0 50px 0; font-size: 18pt">Timeline</h1>
   <div class="timeline container">
     <div id="timeline">
       <div class="timelineitem">
         <div class="tdate">2021 - 2022</div>
         <div class="ttitle">Amazon Web Services AI Labs</div>
       <div class="tdesc">Applied Scientist Intern</div>
-      <div class="tdesc">Seattle, WA, USA</div>
+      <div class="tloc">Seattle, WA, USA</div>
       </div>
       <div class="timelineitem">
         <div class="tdate">2020</div>
         <div class="ttitle">Amazon Alexa AI</div>
         <div class="tdesc">Applied Scientist Intern</div>
-        <div class="tdesc">Turin, Italy</div>
+        <div class="tloc">Turin, Italy</div>
       </div>
       <div class="timelineitem">
         <div class="tdate">2020 - 2021</div>
         <div class="ttitle">University of Padova</div>
       <div class="tdesc"> Teacher Assistant for the MSc Course on Machine Learning</span> </div>
-      <div class="tdesc"> University of Padova, Italy </div>
+      <div class="tloc"> University of Padova, Italy </div>
       </div>
       <div class="timelineitem">
         <div class="tdate">2019 - 2023</div>
-        <div class="ttitle">University of Padova: PhD</div>
-        <div class="tdesc">Brain, Mind and Computer Science</div>
-        <div class="tdesc">Thesis: <span class="thigh"><a href="">Prediction of Activities and Visual Concepts Under Complex and Changing Conditions</a></span></div>
+        <div class="ttitle">University of Padova</div>
+        <div class="tdesc">PhD - Brain, Mind and Computer Science</div>
+        <!-- <div class="tdesc">Thesis: <span class="thigh"><a href="">Prediction of Activities and Visual Concepts Under Complex and Changing Conditions</a></span></div> -->
+        <div class="tloc">University of Padova, Italy</div>
       </div>
       <div class="timelineitem">
         <div class="tdate">2018 - 2019</div>
       <div class="ttitle">Aquifi Inc. </div>
       <div class="tdesc">Computer Vision Scientist Intern</div>
-      <div class="tdesc"> Palo Alto, CA, USA </div>
+      <div class="tloc"> Palo Alto, CA, USA </div>
       </div>
       <div class="timelineitem">
         <div class="tdate">2016 - 2019</div>
-        <div class="ttitle">University of Padova: MSc </div>
-        <div class="tdesc">Telecommunication Engineering</div>
-        <div class="tdesc">Thesis: <span class="thigh"><a href="">Semantic Segmentation for Visual Inspection</a> </span></div>
+        <div class="ttitle">University of Padova</div>
+        <div class="tdesc">MSc - Telecommunication Engineering</div>
+        <!-- <div class="tdesc">Thesis: <span class="thigh"><a href="">Semantic Segmentation for Visual Inspection</a> </span></div> -->
+        <div class="tloc">University of Padova, Italy</div>
       </div>
       <div class="timelineitem">
         <div class="tdate">2012 - 2016
         </div>
-        <div class="ttitle">University of Padova: BSc </div>
-        <div class="tdesc">Information Engineering</div>
-        <div class="tdesc">Thesis: <span class="thigh"><a href="">Algorithms for Sound Synthesis through Physical Modeling</a> </span></div>
+        <div class="ttitle">University of Padova</div>
+        <div class="tdesc"><em>BSc</em> - Information Engineering</div>
+        <!-- <div class="tdesc">Thesis: <span class="thigh"><a href="">Algorithms for Sound Synthesis through Physical Modeling</a> </span></div> -->
+        <div class="tloc">University of Padova, Italy</div>
       </div>
+    </div>
+  </div>
+
+  <!-- publications -->
+  <a name="publications"></a>
+  <h1 style="text-align: center; margin: 100px 0 50px 0; font-size: 18pt">Publications</h1>
+  <div class="publications"> 
+
+    <div class="paper-container"> 
+      <div class='paper-image'><center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + '6.png') }}"></center></div>
+      <div class='paper-text'>
+        <div class='paper-title'><p style="display: inline;">Where are my Neighbors? Exploiting Patches Relations in Self-Supervised Vision Transformer</p></div>
+        <div class='paper-authors'>G Camporese, E Izzo, L Ballan</div>
+        <div class='paper-conference'><p style="display: inline;">BMVC 2022 [oral spotlight] (and CVPRw 2022, oral spotlight)</p></div>
+        <div class='paper-link'>
+          <a class='paper-link' href='https://arxiv.org/abs/2206.00481' target="_blank">[paper]</a>
+          <a class='paper-link' href='https://github.com/guglielmocamporese/relvit' target="_blank">[code]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="paper-container"> 
+      <div class='paper-image'><center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + '5.png') }}"></center></div>
+      <div class='paper-text'>
+        <div class='paper-title'><p style="display: inline;">Early Pedestrian Intent Prediction Via Features Estimation</p></div>
+        <div class='paper-authors'>N Osman, E Cancelli, G Camporese, P Coscia, L Ballan</div>
+        <div class='paper-conference'><p style="display: inline;">ICIP 2022</p></div>
+        <div class='paper-link'>
+          <a class='paper-link' href='https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9897636' target="_blank">[paper]</a>
+          <a class='paper-link' href='https://github.com/NadaSOsman/EarlyPedestrianActionPrediction' target="_blank">[code]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="paper-container"> 
+      <div class='paper-image'><center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + '4.png') }}"></center></div>
+      <div class='paper-text'>
+        <div class='paper-title'><p style="display: inline;">SlowFast Rolling-Unrolling LSTMs for Action Anticipation in Egocentric Videos</p></div>
+        <div class='paper-authors'>N Osman, G Camporese, P Coscia, L Ballan</div>
+        <div class='paper-conference'><p style="display: inline;">ICCVw 2021</p></div>
+        <div class='paper-link'>
+          <a class='paper-link' href='https://arxiv.org/abs/2109.00829' target="_blank">[arXiv]</a>
+          <a class='paper-link' href='https://github.com/NadaSOsman/Slow-Fast-RULSTM' target="_blank">[code]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="paper-container"> 
+      <div class='paper-image'><center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + '3.png') }}"></center></div>
+      <div class='paper-text'>
+        <div class='paper-title'><p style="display: inline;">Improved Robustness to Disfluencies in Rnn-Transducer Based Speech Recognition</p></div>
+        <div class='paper-authors'>Y Guo*, G Camporese*, W Yang, A Sperduti, L Ballan</div>
+        <div class='paper-conference'><p style="display: inline;">ICCV 2021</p></div>
+        <div class='paper-link'>
+          <a class='paper-link' href='https://arxiv.org/abs/2104.09159' target="_blank">[arXiv]</a>
+          <a class='paper-link' href='https://github.com/guglielmocamporese/cvaecaposr' target="_blank">[code]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="paper-container"> 
+      <div class='paper-image'><center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + '2.png') }}"></center></div>
+      <div class='paper-text'>
+        <div class='paper-title'><p style="display: inline;">Improved Robustness to Disfluencies in Rnn-Transducer Based Speech Recognition</p></div>
+        <div class='paper-authors'>V Mendelev*, T Raissi*, G Camporese, M Giollo</div>
+        <div class='paper-conference'><p style="display: inline;">ICASSP 2021</p></div>
+        <div class='paper-link'><a class='paper-link' href='https://arxiv.org/abs/2012.06259' target="_blank">[arXiv]</a></div>
+      </div>
+    </div>
+
+    <div class="paper-container"> 
+      <div class='paper-image'><center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + '1.png') }}"></center></div>
+      <div class='paper-text'>
+        <div class='paper-title'><p style="display: inline;">Knowledge Distillation for Action Anticipation via Label Smoothing</p></div>
+        <div class='paper-authors'>G Camporese, P Coscia, A Furnari, GM Farinella, L Ballan</div>
+        <div class='paper-conference'><p style="display: inline;">ICPR 2020</p></div>
+        <div class='paper-link'><a class='paper-link' href='https://arxiv.org/abs/2004.07711' target="_blank">[arXiv]</a></div>
+      </div>
+    </div>
+
+    <!-- teaching -->
+    <h1 style="text-align: center; margin: 100px 0 50px 0; font-size: 18pt">Teaching</h1>
+    <div class="t-description">During my PhD I've been a teacher assistant for the following courses:</div>
+    <div class="teaching">
+      <div class="course"><div class="t-year">2020</div><div class="t-course">Course:</div><div class="t-name">Machine Learning</div><div class="t-degree">(MSc in Data Science)</div><div class="t-supervisor">, with Prof L Ballan</div></div>
+      <div class="course"><div class="t-year">2021</div><div class="t-course">Course:</div><div class="t-name">Machine Learning</div><div class="t-degree">(MSc in Data Science)</div><div class="t-supervisor">, with Prof L Ballan</div></div>
+    </div>  
+
+    <!-- students -->
+    <h1 style="text-align: center; margin: 100px 0 50px 0; font-size: 18pt">Students Supervision</h1>
+    <div class="s-description">During my PhD I supervised the following students on their final thesis:</div>
+    <div class="students"> 
+      <div class="student"><div class="s-year">2022</div><div class="s-grad">[MS]</div><div class="s-name">Igor Biolcati Rinaldi</div><div class="s-next"></div></div>
+      <div class="student"><div class="s-year">2022</div><div class="s-grad">[MS]</div><div class="s-name">Luca Melissari</div><div class="s-next">(next <a class="link" href='https://www.reply.com/en/' target='_blank'>Reply</a>)</div></div>
+      <div class="student"><div class="s-year">2022</div><div class="s-grad">[MS]</div><div class="s-name">Alex Dametto</div><div class="s-next"></div></div>
+      <div class="student"><div class="s-year">2021</div><div class="s-grad">[MS]</div><div class="s-name">Elena Izzo</div><div class="s-next">(next PhD <a class="link" href='http://vimp.math.unipd.it/' target='_blank'>UniPD</a>, Italy)</div></div>
+      <div class="student"><div class="s-year">2021</div><div class="s-grad">[MS]</div><div class="s-name">Enrico Cancelli</div><div class="s-next">(next PhD <a class="link" href='http://vimp.math.unipd.it/' target='_blank'>UniPD</a>, Italy)</div></div>
+      <div class="student"><div class="s-year">2021</div><div class="s-grad">[BS]</div><div class="s-name">Leonardo Tredese</div><div class="s-next"></div></div>
+      <div class="student"><div class="s-year">2020</div><div class="s-grad">[MS]</div><div class="s-name">Luca Ballan</div><div class="s-next">(next Accenture)</div></div>
+      <div class="student"><div class="s-year">2020</div><div class="s-grad">[MS]</div><div class="s-name">Mauro Carlin</div><div class="s-next">(next Cluster Reply)</div></div>
+      <div class="student"><div class="s-year">2020</div><div class="s-grad">[MS]</div><div class="s-name">Nicola Agostini</div><div class="s-next"></div></div>
     </div>
   </div>
 {%- endblock %}

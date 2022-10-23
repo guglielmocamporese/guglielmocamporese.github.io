@@ -5,7 +5,6 @@
 <head>
   {%- block head %}
 
-
   <title>Guglielmo Camporese</title>
   <meta name="description" content="Guglielmo Camporese, Applied Scientist @ Amazon Web Services AI LAbs, Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy."/>
   <meta charset="utf-8"/>
@@ -18,6 +17,7 @@
   <!-- responsive webpabe -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet"/>
+  <link href="http://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
   <link rel="stylesheet" href="{{ base_dir }}{{ url_for('static', filename='style.css') }}">
   {%- endblock head %}
   
@@ -34,12 +34,12 @@
   <div class="header-section">
     <div class="header-frame">
       <h1>Guglielmo Camporese</h1>
-      <h2>Applied Scientist Intern at AWS AI Labs</h2>
-      <h2>Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy.</h2>
+      <h3>Applied Scientist Intern at AWS AI Labs</h2>
+      <h3>Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy.</h2>
       <h6>guglielmocamporese [at] gmail.com</h6>
     </div>
     <div class="img-frame">
-      <img src="{{ base_dir }}{{ url_for('static', filename='img/15.JPG') }}" alt="" />
+      <img src="{{ base_dir }}{{ url_for('static', filename='img/profile.jpeg') }}" alt="" />
     </div>
   </div>
 
@@ -47,7 +47,7 @@
   <div class="links">
     <a href="{{ base_dir }}{{ url_for('home') }}">bio</a>
     <a href="{{ base_dir }}{{ url_for('news') }}">news</a>
-    <a href="{{ base_dir }}{{ url_for('publications') }}">publications</a>
+    <a href="{{ base_dir }}{{ url_for('home') }}#publications">publications</a>
     <a href="https://scholar.google.com/citations?user=Yu6im9cAAAAJ&hl=en/" target="_blank">scholar</a>
     <a href="https://github.com/guglielmocamporese" target="_blank">github</a>
     <a href="https://www.linkedin.com/in/guglielmocamporese/" target="_blank">linkedin</a>
@@ -55,7 +55,7 @@
     <a href="{{ base_dir }}{{ url_for('extra') }}">extra</a>
   </div>
   {%- block body %}
-  <h1 style="text-align: center; margin: 50px 0 50px 0; font-size: 16pt">{{ page_title }}</h1>
+  <h1 style="text-align: center; margin: 50px 0 50px 0; font-size: 20pt">{{ page_title }}</h1>
   {%- endblock body %}
 
   <!-- toggle -->
