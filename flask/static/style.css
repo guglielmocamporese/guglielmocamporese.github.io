@@ -319,22 +319,25 @@ a:hover {
 }
 
 .paper-authors {
-  /* font-style: italic; */
-  font-size: 14pt;
-  margin: 8px 0 8px 0;
+  font-style: italic;
+  font-size: 10pt;
+  margin-top: 8px;
   text-align: left;
-  /* color:rgba(255, 255, 255, 0.8) */
+  font-weight: 100;
 }
 
+
 .paper-conference {
-  margin: 8px 0 8px 0;
-  font-size: 9pt;
+  /* margin: 8px 0 8px 0; */
+  margin-top: 8px;
+  font-size: 12pt;
   font-weight: 900;
-  color: #eb4888;
+  /* color: #eb4888; */
 }
 
 .paper-link {
-  margin: 8px 0 8px 0;
+  /* margin: 8px 0 8px 0; */
+  margin-top: 8px;
   font-size: 9pt;
 }
 
@@ -596,7 +599,7 @@ applause-button {
   margin-top: 14px;
 }
 .s-year {
-  color: #eb4888;
+  color: rgb(255, 68, 107);
   font-size: 12pt;
   display: inline-block;
 }
@@ -638,7 +641,7 @@ applause-button {
   margin-top: 14px;
 }
 .t-year {
-  color: #eb4888;
+  color: rgb(255, 68, 107);
   font-size: 12pt;
   display: inline-block;
 }
@@ -656,7 +659,7 @@ applause-button {
 .t-supervisor {
   font-size: 12pt;
   display: inline-block;
-  /* margin-left: 4px; */
+  margin-left: 12px;
 }
 .t-degree {
   font-size: 12pt;
