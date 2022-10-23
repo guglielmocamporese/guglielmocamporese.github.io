@@ -261,7 +261,7 @@ a:hover {
 @media (max-width: 850px) {
   .paper-container {
     flex-flow: column;
-    margin-bottom: 5em;
+    margin-bottom: 80px;
   }
 }
 
@@ -311,9 +311,10 @@ a:hover {
 
 .paper-title {
   font-weight: 700;
-  font-size: 14pt;
+  font-size: 16pt;
   margin: 0em 0 0em 0;
   text-align: left;
+  font-family: "Roboto Medium";
   /* color: #eb4888; */
 }
 
@@ -334,6 +335,21 @@ a:hover {
 .paper-link {
   margin: 8px 0 8px 0;
   font-size: 9pt;
+}
+
+@media (max-width: 850px) {
+  .paper-title {
+    text-align: center;
+  }
+  .paper-authors {
+    text-align: center;
+  }
+  .paper-conference {
+    text-align: center;
+  }
+  .paper-link {
+    text-align: center;
+  }
 }
 
 
@@ -559,6 +575,10 @@ applause-button {
   .tdesc {
     margin-left: 20px;
   }
+  .tloc {
+    margin-left: 20px;
+    margin-bottom: 5px;
+  }
 }
 .thigh {
   color: #000266;
@@ -597,6 +617,17 @@ applause-button {
   color: #96979c;
 }
 
+@media (max-width: 850px) {
+  .s-description {
+    text-align: center;
+  }
+  .students {
+    margin-top: 35px;
+    /* margin-left: 10%; */
+    text-align: center;
+  }
+}
+
 /* teaching */
 .t-description {
   font-size: 14pt;
@@ -631,4 +662,27 @@ applause-button {
   display: inline-block;
   margin-left: 12px;
   color: #96979c;
+}
+
+@media (max-width: 850px) {
+  .t-description {
+    text-align: center;
+  }
+  .teaching {
+    text-align: center;
+  }
+  .t-year {
+    /* display: block; */
+  }
+  .t-degree {
+    /* display: block; */
+    /* text-align: right; */
+  }
+  .t-supervisor {
+    /* display: block; */
+    /* text-align: right; */
+  }
+  .course {
+    margin-top: 35px;
+  }
 }
