@@ -1,5 +1,0 @@
-Early Pedestrian Intent Prediction Via Features Estimation
-Nada Osman, Enrico Cancelli, Guglielmo Camporese, Pasquale Coscia, Lamberto Ballan
-ICIP 2022
-https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9897636
-https://github.com/NadaSOsman/EarlyPedestrianActionPrediction

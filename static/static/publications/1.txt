@@ -1,4 +1,0 @@
-Knowledge Distillation for Action Anticipation via Label Smoothing
-Guglielmo Camporese, Pasquale Coscia, Antonino Furnari, Giovanni Maria Farinella, Lamberto Ballan
-ICPR 2020
-https://arxiv.org/abs/2004.07711

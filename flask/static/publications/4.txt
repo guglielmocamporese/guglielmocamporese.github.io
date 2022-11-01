@@ -1,5 +1,0 @@
-SlowFast Rolling-Unrolling LSTMs for Action Anticipation in Egocentric Videos
-Nada Osman, Guglielmo Camporese, Pasquale Coscia, Lamberto Ballan
-ICCVw 2021
-https://arxiv.org/abs/2109.00829
-https://github.com/NadaSOsman/Slow-Fast-RULSTM

@@ -1,5 +1,0 @@
-Conditional Variational Capsule Networks for Open Set Recognition
-Yunrui Guo*, Guglielmo Camporese*, Wenjing Yang, Alessandro Sperduti, Lamberto Ballan
-ICCV 2021
-https://arxiv.org/abs/2104.09159
-https://github.com/guglielmocamporese/cvaecaposr
