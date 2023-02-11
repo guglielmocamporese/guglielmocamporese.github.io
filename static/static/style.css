@@ -668,6 +668,12 @@ applause-button {
   margin-left: 12px;
   color: #96979c;
 }
+.s-supervision {
+  text-align: left;
+}
+.academic-service {
+  text-align: left;
+}
 
 @media (max-width: 850px) {
   .t-description {
@@ -690,4 +696,12 @@ applause-button {
   .course {
     margin-top: 35px;
   }
+
+  .s-supervision {
+    text-align: center;
+  }
+  .academic-service {
+    text-align: center;
+  }
 }
+
