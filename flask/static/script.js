@@ -40,14 +40,15 @@ function setDarkModeGivenDayTime() {
   // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   let list = document.body.classList;
   let easterEgg = document.getElementsByClassName("easter-egg")[0].classList;
-  easterEgg.remove("easter-egg")
   // list.remove("dark-mode");
   if (today.getHours() < 6 || (18 < today.getHours() && today.getHours()< 24)) {
     list.add("dark-mode");
+    easterEgg.remove("easter-egg")
     easterEgg.add("easter-egg-dark-mode");
   } else {
     list.remove("dark-mode");
     easterEgg.remove("easter-egg-dark-mode");
+    easterEgg.add("easter-egg")
   }
 }
 
