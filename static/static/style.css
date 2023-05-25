@@ -52,6 +52,38 @@ button:hover {
   cursor: pointer;
 }
 
+.easter-egg {
+  margin-top: 5em;
+  font-size: 8pt;
+  color: #fff;
+  text-align: center;
+}
+.easter-egg-highlight {
+  color: #96979c;
+  transition: color 0.2s;
+}
+@media (max-width: 850px) {
+  .easter-egg {
+    display: none;
+  }
+}
+
+.easter-egg-dark-mode {
+  margin-top: 5em;
+  font-size: 8pt;
+  color: #11151b;
+  text-align: center;
+}
+.easter-egg-dark-mode-highlight {
+  color: #96979c;
+  transition: color 0.2s;
+}
+@media (max-width: 850px) {
+  .easter-egg-dark-mode {
+    display: none;
+  }
+}
+
 .container {
   margin: 50px auto;
   padding: 5px;
@@ -191,9 +223,6 @@ a {
 a:hover {
   font-style: italic;
 }
-
-
-
 
 .links {
   text-align: center;
@@ -482,11 +511,11 @@ applause-button {
 }
 
 
-.dark-mode {
+/* .dark-mode {
   mark {
     color: rgb(255, 255, 255);
   }
-}
+} */
 
 #footer {
   position: relative;
