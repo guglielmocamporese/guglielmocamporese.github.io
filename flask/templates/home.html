@@ -3,28 +3,33 @@
 {{ super() }}
 
   <!-- bio -->
-  <div class="bio">
-    I am a Research Scientist Intern at Disney Research Studios in Zurich, 
-    Switzerland and I obtained my Ph.D. in Brain, Mind and Computer Science 
-    at the University of Padova in the 
-    <a href="http://vimp.math.unipd.it/" target="_blank">Visual Intelligence and Machine Perception Group</a> 
-    (VIMP). During my Ph.D., I interned as an Applied Scientist at Amazon Web Services AI Labs in the Computer 
-    Vision team based in the Amazon headquarter in Seattle (WA), and at Amazon Alexa AI (with the European team) 
-    in Turin, Italy. Previously, I also worked as a Machine Learning Engineer at Aquifi Inc., Palo Alto (CA). 
-    In general, my research interests are in deep learning, computer vision and speech recognition. 
-    Specifically, I'm interested in video understanding for predictive problems such as early action 
-    recognition and action anticipation.
+  <div class="bio container">
+    I am an incoming researcher at Disney Research in Zürich. 
+    In general, my research interests are in deep learning, computer vision and art. 
+    Previously I worked on video understanding, and now I'm interested in generative AI 
+    and foundation models.
   </div>
   
   <!-- timeline -->
-  <h1 style="text-align: center; margin: 100px 0 50px 0; font-size: 18pt">Timeline</h1>
+  <h1 style="text-align: center; margin: 15px 0 50px 0; font-size: 18pt">My Experience</h1>
   <div class="timeline container">
     <div id="timeline">
+      <div class="timelineitem">
+        <div class="tdate">Incoming</div>
+        <div class="ttitle">Research Engineer</div>
+        <div class="tdesc">Disney Research Studios</div>
+        <div class="tloc">Zürich, Switzerland</div>
+      </div>
+      <div class="timelineitem">
+        <div class="tdate">07/2023 - Present</div>
+        <div class="ttitle">AI Research Engineer Freelancer</div>
+        <div class="tloc">Italy</div>
+      </div>
       <div class="timelineitem">
         <div class="tdate">04-07/2023</div>
         <div class="ttitle">Research Scientist Intern</div>
         <div class="tdesc">Disney Research Studios</div>
-        <div class="tloc">Zurich, Switzerland</div>
+        <div class="tloc">Zürich, Switzerland</div>
       </div>
       <div class="timelineitem">
         <div class="tdate">12/2021 - 09/2022</div>
@@ -38,16 +43,10 @@
         <div class="tdesc">Amazon Alexa AI</div>
         <div class="tloc">Turin, Italy</div>
       </div>
-      <!-- <div class="timelineitem">
-        <div class="tdate">2020 - 2021</div>
-        <div class="ttitle"> Teacher Assistant</span> </div>
-        <div class="tdesc">Machine Learning Class</div>
-        <div class="tloc"> University of Padova, Italy </div>
-      </div> -->
       <div class="timelineitem">
         <div class="tdate">2019 - 2023</div>
         <div class="ttitle">Ph.D. in Brain, Mind and Computer Science</div>
-        <div class="tdesc">University of Padova</div>
+        <div class="tdesc">VIMP Lab, University of Padova</div>
         <!-- <div class="tdesc">Thesis: <span class="thigh"><a href="">Prediction of Activities and Visual Concepts Under Complex and Changing Conditions</a></span></div> -->
         <div class="tloc">Padova, Italy</div>
       </div>
@@ -57,29 +56,27 @@
         <div class="tdesc">Aquifi Inc. </div>
         <div class="tloc"> Palo Alto, CA, USA </div>
       </div>
-      <div class="timelineitem">
+      <!-- <div class="timelineitem">
         <div class="tdate">2016 - 2019</div>
         <div class="ttitle">M.Sc. in Telecommunication Engineering</div>
         <div class="tdesc">University of Padova</div>
-        <!-- <div class="tdesc">Thesis: <span class="thigh"><a href="">Semantic Segmentation for Visual Inspection</a> </span></div> -->
         <div class="tloc">Padova, Italy</div>
-      </div>
-      <div class="timelineitem">
+      </div> -->
+      <!-- <div class="timelineitem">
         <div class="tdate">2012 - 2016
         </div>
         <div class="ttitle">B.Sc. in Information Engineering</div>
         <div class="tdesc">University of Padova</div>
-        <!-- <div class="tdesc">Thesis: <span class="thigh"><a href="">Algorithms for Sound Synthesis through Physical Modeling</a> </span></div> -->
         <div class="tloc">Padova, Italy</div>
-      </div>
+      </div> -->
     </div>
   </div>
 
   <!-- publications -->
   <a name="publications"></a>
-  <h1 style="text-align: center; margin: 100px 0 50px 0; font-size: 18pt">Publications</h1>
+  <h1 style="text-align: center; margin: 15px 0 20px 0; font-size: 18pt">Publications (selected)</h1>
   <div class="publications"> 
-    <p style="text-align: center; font-size: 9pt; margin-bottom: 4em;">* indicates equal contribution.</p> 
+    <p style="text-align: center; font-size: 8pt; margin-bottom: 4em;">* indicates equal contribution.</p> 
 
     <div class="paper-container"> 
       <div class='paper-image'><center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + 'salehi2023empowering.png') }}"></center></div>
@@ -124,7 +121,7 @@
       </div>
     </div>
 
-    <div class="paper-container"> 
+    <!-- <div class="paper-container"> 
       <div class='paper-image'><center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + 'Osman2022EarlyPI.png') }}"></center></div>
       <div class='paper-text'>
         <div class='paper-title'><p style="display: inline;">Early Pedestrian Intent Prediction Via Features Estimation</p></div>
@@ -136,7 +133,7 @@
           <a class='paper-link' href="{{ base_dir }}{{ url_for('static', filename='publications/' + 'Osman2022EarlyPI.txt') }}">[bib]</a>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="paper-container"> 
       <div class='paper-image'><center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + 'Guo2021ConditionalVC.png') }}"></center></div>
@@ -183,7 +180,7 @@
       </div>
     </div>
 
-    <div class="paper-container"> 
+    <!-- <div class="paper-container"> 
       <div class='paper-image'><center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + 'Camporese2021KnowledgeDF.png') }}"></center></div>
       <div class='paper-text'>
         <div class='paper-title'><p style="display: inline;">Knowledge Distillation for Action Anticipation via Label Smoothing</p></div>
@@ -194,9 +191,9 @@
           <a class='paper-link' href="{{ base_dir }}{{ url_for('static', filename='publications/' + 'Camporese2021KnowledgeDF.txt') }}">[bib]</a>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="paper-container"> 
+    <!-- <div class="paper-container"> 
       <div class='paper-image'><center><img src="{{ base_dir }}{{ url_for('static', filename='publications/' + 'Das2023DistillingKF.png') }}"></center></div>
       <div class='paper-text'>
         <div class='paper-title'><p style="display: inline;">Distilling Knowledge for Short-to-Long Term Trajectory Prediction</p></div>
@@ -208,20 +205,23 @@
           <a class='paper-link' href="{{ base_dir }}{{ url_for('static', filename='publications/' + 'Das2023DistillingKF.pdf') }}" target="_blank">[paper]</a>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- academic work experience -->
-    <h1 style="text-align: center; margin: 100px 0 0px 0; font-size: 18pt">Academic Work Experience</h1>
+    <!-- <h1 style="text-align: center; margin: 15px 0 0px 0; font-size: 18pt">Academic Work Experience</h1> -->
+
     <!-- teaching -->
-    <h2 style="text-align: center; margin: 40px 0 10px 0; font-size: 18pt">Teaching</h1>
+    <!-- <h2 style="text-align: center; margin: 40px 0 10px 0; font-size: 18pt">Teaching</h1>
     <div class="t-description">During my Ph.D. I've been a teacher assistant for the following courses:</div>
     <div class="teaching">
       <div class="course"><div class="t-year">2020</div><div class="t-course">Course:</div><div class="t-name">Machine Learning</div><div class="t-degree">(M.Sc. in Data Science)</div></div>
       <div class="course"><div class="t-year">2021</div><div class="t-course">Course:</div><div class="t-name">Machine Learning</div><div class="t-degree">(M.Sc. in Data Science)</div></div>
-    </div>  
+    </div>   -->
+
     <!-- students -->
-    <h2 style="text-align: center; margin: 40px 0 10px 0; font-size: 18pt">Students Supervision</h1>
-    <div class="s-supervision">During my Ph.D. I co-supervised several students in their final thesis (<div class="s-year">9</div> master students, <div class="s-year">1</div> bachelor student) from the computer science and data science degrees.</div>
+    <!-- <h2 style="text-align: center; margin: 40px 0 10px 0; font-size: 18pt">Students Supervision</h1>
+    <div class="s-supervision">During my Ph.D. I co-supervised several students in their final thesis (<div class="s-year">9</div> master students, <div class="s-year">1</div> bachelor student) from the computer science and data science degrees.</div> -->
+    
     <!-- <div class="students"> 
       <div class="student"><div class="s-year">2022</div><div class="s-grad">[MS]</div><div class="s-name">Igor Biolcati Rinaldi</div><div class="s-next"></div></div>
       <div class="student"><div class="s-year">2022</div><div class="s-grad">[MS]</div><div class="s-name">Luca Melissari</div><div class="s-next">(next <a class="link" href='https://www.reply.com/en/' target='_blank'>Reply</a>)</div></div>
@@ -235,8 +235,8 @@
     </div> -->
 
     <!-- service -->
-    <h2 style="text-align: center; margin: 40px 0 10px 0; font-size: 18pt">Service</h1>
-    <div class="academic-service">I served as a reviewer in top venues such as: ICCV-2023, CVPR-2023, BMVC-2023, TPAMI-2022, CVPR-2021, ICPR-2020.</div>
+    <h2 style="text-align: center; margin: 40px 0 15px 0; font-size: 18pt">Service</h1>
+    <div class="academic-service">I served as a reviewer in top venues such as: CVPR-2024 (next), ICCV-2023, CVPR-2023, BMVC-2023, TPAMI-2022, CVPR-2021, ICPR-2020.</div>
   <!-- </div> -->
 
     <div class="easter-egg">

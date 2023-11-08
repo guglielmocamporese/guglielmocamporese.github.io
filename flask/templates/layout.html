@@ -6,7 +6,7 @@
   {%- block head %}
 
   <title>Guglielmo Camporese</title>
-  <meta name="description" content="Guglielmo Camporese, Applied Scientist @ Amazon Web Services AI LAbs, Ph.D. Student in Brain, Mind and Computer Science at UniPD, Italy."/>
+  <meta name="description" content="Guglielmo Camporese HomePage."/>
   <meta charset="utf-8"/>
 
   <!-- Favicon/theme -->
@@ -33,10 +33,9 @@
   <!-- header -->
   <div class="header-section">
     <div class="header-frame">
-      <h1>Guglielmo Camporese</h1>
-      <h3>AI / ML Researcher</h2>
-      <!-- <h3>Applied Scientist Intern at AWS AI Labs</h2> -->
-      <h3>Ph.D. in Brain, Mind and Computer Science at UniPD, Italy.</h2>
+      <h1>Guglielmo Camporese <span>(gool-yell-moe)</span></h1>
+      <h3>Incoming Researcher at Disney Research</h2>
+      <h3>Ph.D. in Brain, Mind and Computer Science</h2>
       <h6>guglielmocamporese [at] gmail [dot] com</h6>
     </div>
     <div class="img-frame">
@@ -57,16 +56,9 @@
     <a href="{{ base_dir }}{{ url_for('extra') }}">extra</a>
   </div>
   {%- block body %}
-  <h1 style="text-align: center; margin: 50px 0 50px 0; font-size: 20pt">{{ page_title }}</h1>
+  <h1 style="text-align: center; margin: 50px 0 50px 0; font-size: 20pt">{{ page_title if page_title != "Bio"}}</h1>
   {%- endblock body %}
 
-  <!-- toggle -->
-  <!--
-  <div class="dark-mode-toggler">
-    <input type="checkbox" id="toggler" name="dark-checkbox"/>
-    <label for="toggler" aria-label="Toggler for Dark Mode"></label>
-  </div>
-  -->
   <div style="margin: 1em auto 0 auto; text-align: center;">
     
   </div>
