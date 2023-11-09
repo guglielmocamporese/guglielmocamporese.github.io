@@ -87,7 +87,7 @@ button:hover {
 .container {
   margin: 50px auto;
   padding: 5px;
-  max-width: 1200px;
+  max-width: 1300px;
   /* margin: auto; */
 }
 @media (max-width: 850px) {
@@ -114,7 +114,7 @@ button:hover {
   margin: 0 auto;
   padding: 2%;
   font-family: "Roboto Mono";
-  max-width: 80%;
+  max-width: 75%;
   /* background-color: #000266; */
 }
 
@@ -294,7 +294,7 @@ a:hover {
   /* justify-content: center; */
   /* margin: 0 5em 0 0; */
   /* padding: 2em 20em 0 0; */
-  width: 80%;
+  max-width: 70%;
   /* background-color: #000266; */
 }
 @media (max-width: 850px) {
@@ -748,7 +748,8 @@ applause-button {
   text-align: left;
 }
 .academic-service {
-  text-align: left;
+  text-align: center;
+  /* width: 90%; */
 }
 
 @media (max-width: 850px) {
