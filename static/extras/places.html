@@ -22,7 +22,7 @@
 </head>
 	<!-- imports -->
 	<link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
-  <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+  	<script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
 
 
 <!-- BODY -->
@@ -38,7 +38,7 @@
       <!-- <h3>Incoming Researcher at Disney Research</h2> -->
       <h3>Ph.D. in Brain, Mind and Computer Science</h3>
       <h4 style="margin: 0 0 1em 0">Prev. Disney Research, AWS AI Labs, Alexa AI</h4>
-      <h6>guglielmocamporese [at] gmail [dot] com</h6>
+      <h6 style="margin: 0 0 2em 0">guglielmocamporese [at] gmail [dot] com</h6>
     </div>
     <div class="img-frame">
       <img src="../static/img/profile.jpeg" alt="" />
@@ -60,11 +60,10 @@
 	<applause-button class="mb6" color="red" url="/extras/places.html"></applause-button>
 	
   <h1 style="text-align: center; margin: 50px 0 50px 0; font-size: 20pt">Places I&#39;ve Seen So Far</h1>
-
-	<p style="margin-bottom: 3em">These are the places I've seen so far. I traveled around almost all the Europe and California. Next stops hopefully will be Seattle (WA), Iceland, Japan and North Pole!</p>
+	<p style="margin-bottom: 3em">These are the places I've seen so far. I traveled around almost all the Europe and a bit of the US. Next stops hopefully will be Iceland, Japan and North Pole!</p>
 
 	<!--
-	<div id="map"></div>
+	<div id="map" style="height=1000px"></div>
 	<script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtNTe8sGCXFOYw8R_qV7-BQSkjsgOpemw&callback=initMap">
    </script>
@@ -107,7 +106,8 @@
 		  	{lat: 44.842870, lng: 11.621200},
 		  	{lat: 45.158926, lng: 10.794873},
 		  	{lat: 45.540329, lng: 10.220374},
-		  	{lat: 45.078264, lng: 7.683577}
+		  	{lat: 45.078264, lng: 7.683577},
+			{lat: 36.41664,   lng: 25.43244},
 		  	];
 		  var map = new google.maps.Map(
 		      document.getElementById('map'), {zoom: 2.2, center: {lat: 42.876272, lng: -44.592385}});
@@ -123,10 +123,9 @@
 		class="map" 
 		src="https://www.google.com/maps/d/embed?mid=1c2x8fRskW4BX_NX7T_QrY4DA-BEX5Alo" 
 		frameborder=”0” 
+		style="height: auto; aspect-ratio: 3/2;"
 		allowfullscreen>		
 	</iframe>
-
-
 
 
 
