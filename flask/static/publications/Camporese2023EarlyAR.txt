@@ -1,0 +1,8 @@
+@misc{camporese2023early,
+    title={Early Action Recognition with Action Prototypes}, 
+    author={Guglielmo Camporese and Alessandro Bergamo and Xunyu Lin and Joseph Tighe and Davide Modolo},
+    year={2023},
+    eprint={2312.06598},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
+}

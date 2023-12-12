@@ -4,8 +4,8 @@ body {
   margin: 0;
   padding: 0;
   font-size: 14pt;
-  font-family: "Roboto Mono";
-  font-weight: 400;
+  font-family: "Roboto Light";
+  font-weight: 900;
 }
 
 body,
@@ -109,7 +109,7 @@ button:hover {
   flex-grow: 0;
   margin: 0 auto;
   padding: 2%;
-  font-family: "Roboto Mono";
+  font-family: "Roboto Regular";
   max-width: 75%;
 }
 
@@ -339,7 +339,6 @@ a:hover {
   overflow: hidden;
   max-width: 50%;
   height: auto;
-  /*background-color: #aa4383;*/
 }
 
 @media (max-width: 850px) {
@@ -363,13 +362,15 @@ a:hover {
   margin: 0 1em 0 0;
   border-radius: 0%;
   overflow: hidden;
-  max-width: 45%;
+  width: 46%;
+  max-width: 46%;
   height: auto;
 }
 
 @media (max-width: 850px) {
   .paper-text {
     max-width: 100%;
+    width: auto;
     margin-bottom: 1em;
     order: 1;
   }
@@ -385,24 +386,28 @@ a:hover {
 }
 
 .paper-authors {
-  font-style: italic;
-  font-size: 10pt;
+  /* font-style: italic; */
+  font-size: 13pt;
   margin-top: 8px;
   text-align: left;
-  font-weight: 100;
+  font-weight: 900;
+  /* font-family: "Roboto Light"; */
+  
 }
 
 
 .paper-conference {
   margin-top: 8px;
-  font-size: 12pt;
-  font-weight: 900;
+  font-size: 11pt;
+  font-weight: 1200;
+  font-family: "Roboto Mono";
 }
 
 .paper-link {
   margin-top: 8px;
-  font-size: 9pt;
+  font-size: 8pt;
   text-decoration: none;
+  font-family: "Roboto Mono";
 }
 
 @media (max-width: 850px) {
@@ -610,10 +615,12 @@ applause-button {
 }
 
 .tdate {
+  /* font-family: "Roboto Medium"; */
   font-weight: normal;
   margin-bottom: 2px;
   color: rgb(255, 68, 107);
   font-size: 12pt;
+  font-family: "Roboto Mono";
 }
 .ttitle {
   font-family: "Roboto Medium";
@@ -625,12 +632,14 @@ applause-button {
   font-weight: 10;
   font-size: 14pt;
   font-style: normal;
+  /* font-family: "Roboto Mono"; */
 }
 .tloc {
   margin-bottom: 2px;
   font-weight: 10;
   font-size: 12pt;
   font-style: normal;
+  font-family: "Roboto Mono";
 }
 @media (max-width: 850px) {
   .tdate {
