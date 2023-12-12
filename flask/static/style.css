@@ -362,8 +362,8 @@ a:hover {
   margin: 0 1em 0 0;
   border-radius: 0%;
   overflow: hidden;
-  width: 46%;
-  max-width: 46%;
+  width: 48%;
+  max-width: 48%;
   height: auto;
 }
 
@@ -378,20 +378,20 @@ a:hover {
 
 .paper-title {
   font-weight: 700;
-  font-size: 16pt;
+  font-size: 15pt;
   margin: 0em 0 0em 0;
   text-align: left;
-  font-family: "Roboto Medium";
-  color: #4988D5;
+  font-family: "Roboto Light";
+  /* color: #4988D5; */
 }
 
 .paper-authors {
   /* font-style: italic; */
-  font-size: 13pt;
+  font-size: 12pt;
   margin-top: 8px;
   text-align: left;
   font-weight: 900;
-  /* font-family: "Roboto Light"; */
+  font-family: "Roboto Thin";
   
 }
 
