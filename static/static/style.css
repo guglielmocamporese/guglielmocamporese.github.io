@@ -5,7 +5,7 @@ body {
   padding: 0;
   font-size: 14pt;
   font-family: "Roboto Light";
-  font-weight: 900;
+  font-weight: 200;
 }
 
 body,
@@ -110,6 +110,7 @@ button:hover {
   margin: 0 auto;
   padding: 2%;
   font-family: "Roboto Regular";
+  font-weight: 200;
   max-width: 75%;
 }
 
@@ -140,8 +141,8 @@ button:hover {
   .img-frame {
     max-width: 18em;
     max-height: 18em;
-    width: auto;
-    height: auto;
+    /* width: auto;
+    height: auto; */
     aspect-ratio: 1/1;
   }
 }
@@ -216,7 +217,7 @@ h1 {
 }
 
 h1 span {
-  font-weight: bold;
+  font-weight: 200;
   font-size: 0.4em;
 }
 
@@ -227,7 +228,7 @@ h1 span {
 
   h1 span {
     white-space: pre;
-    font-weight: bold;
+    font-weight: 200;
     font-size: 0.4em;
   }
 
@@ -264,6 +265,7 @@ a:hover {
   text-align: center;
   margin: 25px 0;
   font-family: "Roboto Mono";
+  font-weight: 200;
   font-size: 12pt;
 }
 .links a:not(:last-child) {
@@ -273,8 +275,8 @@ a:hover {
 @media (max-width: 850px) {
   .links {
     text-align: center;
-    font-size: 1em;
-    margin: 25px auto;
+    font-size: 12pt;
+    margin: 25px 25px;
   }
 }
 
@@ -382,6 +384,7 @@ a:hover {
   margin: 0em 0 0em 0;
   text-align: left;
   font-family: "Roboto Light";
+  font-weight: 400;
   /* color: #4988D5; */
 }
 
@@ -392,6 +395,7 @@ a:hover {
   text-align: left;
   font-weight: 900;
   font-family: "Roboto Thin";
+  font-weight: 400;
   
 }
 
@@ -401,6 +405,7 @@ a:hover {
   font-size: 11pt;
   font-weight: 1200;
   font-family: "Roboto Mono";
+  font-weight: 400;
 }
 
 .paper-link {
@@ -408,6 +413,7 @@ a:hover {
   font-size: 8pt;
   text-decoration: none;
   font-family: "Roboto Mono";
+  font-weight: 400;
 }
 
 @media (max-width: 850px) {
@@ -621,9 +627,11 @@ applause-button {
   color: rgb(255, 68, 107);
   font-size: 12pt;
   font-family: "Roboto Mono";
+  font-weight: 400;
 }
 .ttitle {
   font-family: "Roboto Medium";
+  font-weight: 200;
   font-size: 14pt;
   margin-bottom: 2px;
 }
@@ -640,6 +648,7 @@ applause-button {
   font-size: 12pt;
   font-style: normal;
   font-family: "Roboto Mono";
+  font-weight: 400;
 }
 @media (max-width: 850px) {
   .tdate {
