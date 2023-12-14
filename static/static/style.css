@@ -131,36 +131,33 @@ button:hover {
 
 .img-frame {
   position: relative;
-  max-width: 18em;
-  height: 18em;
-  margin: 0 0 0 0;
-  border-radius: 50%;
-  overflow: hidden;
+  max-width: 18em; /* Maximum width */
+  height: 18em; /* Fixed height */
+  margin: 0; /* Margin */
+  border-radius: 50%; /* Circular frame */
+  overflow: hidden; /* Hide parts of the image that overflow */
+  width: auto; 
+  aspect-ratio: 1/1; /* Maintain a square aspect ratio */
 }
+
 @media (max-width: 850px) {
   .img-frame {
-    max-width: 18em;
-    max-height: 18em;
-    /* width: auto;
-    height: auto; */
-    aspect-ratio: 1/1;
+    max-width: 100%; /* Full width on small screens */
+    height: auto; /* Height adjusts to maintain aspect ratio */
   }
 }
 
 .img-frame img {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  height: 100%;
-  width: 100%;
-  align-items: right;
+  object-fit: cover; /* Cover the container, maintaining aspect ratio */
+  object-position: center; /* Center the image */
+  width: 100%; /* Full width of the container */
+  height: 100%; /* Full height of the container */
 }
+
 @media (max-width: 850px) {
   .img-frame img {
-    max-width: 18em;
-    max-height: 18em;
+    max-width: 100%; /* Full width on small screens */
+    height: auto; /* Height adjusts to maintain aspect ratio */
   }
 }
 
