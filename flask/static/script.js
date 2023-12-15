@@ -39,8 +39,8 @@ function setDarkModeGivenDayTime() {
   var today = new Date();
   let list = document.body.classList;
   let easterEgg = document.getElementsByClassName("easter-egg")[0];
-  // if (today.getHours() < 6 || (18 < today.getHours() && today.getHours()< 24)) {
-  if (true) {
+  if (today.getHours() < 6 || (18 < today.getHours() && today.getHours()< 24)) {
+  // if (true) {
     list.add("dark-mode");
     if (typeof easterEgg !== "undefined") {
       easterEgg.classList.remove("easter-egg");
