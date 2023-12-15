@@ -20,6 +20,7 @@ body {
 body.dark-mode,
 body.dark-mode.extra-container.extra-title.mark {
   color: #fff;
+  background: #11151b;
 }
 .dark-mode {
   color: #fff;
