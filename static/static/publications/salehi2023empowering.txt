@@ -1,8 +1,11 @@
-@inproceedings{
-    salehi2023empowering,
-    title={Empowering Convolutional Neural Nets with MetaSin Activation},
-    author={Farnood Salehi and Tunc Ozan Aydin and Andr{\'e} Gaillard and Guglielmo Camporese and Yuxuan Wang},
-    booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
-    year={2023},
-    url={https://openreview.net/forum?id=cay8LnKSro}
+@inproceedings{NEURIPS2023_1f05584d,
+ author = {Salehi, Farnood and Aydin, Tun\c{c} and Gaillard, Andr\'{e} and Camporese, Guglielmo and Wang, Yuxuan},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {A. Oh and T. Neumann and A. Globerson and K. Saenko and M. Hardt and S. Levine},
+ pages = {9866--9890},
+ publisher = {Curran Associates, Inc.},
+ title = {Empowering Convolutional Neural Nets with MetaSin Activation},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2023/file/1f05584d537c92c8271699f207677475-Paper-Conference.pdf},
+ volume = {36},
+ year = {2023}
 }
