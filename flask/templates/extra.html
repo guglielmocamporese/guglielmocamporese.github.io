@@ -1,69 +1,26 @@
 {% extends "./layout.html" %}
-
 {% block body -%}
   {{ super() }}
-
-  <!-- extra -->
-  <div class="extra-container">
-    <div class="extra-title">
-      <strong class="rnd-bkg-color-alpha">My Spotify Playlists!</strong> 
+  <div class="extra-list" style="max-width: 680px; margin: 0 auto;">
+    <div class="extra-container">
+      <div class="extra-title"><span class="rnd-bkg-color-alpha">What is The Probability of Catching a Mosquito With One Hand?</span></div>
+      <div class="extra-links"><span>2021-08-16</span> · [<a href="{{ base_dir }}{{ url_for('extra_mosquito') }}">open</a>]</div>
     </div>
-    <div class="extra-links">
-      <strong>[2021-09-02]</strong>[<a href="{{ base_dir }}{{ url_for('extra_spotify') }}">open</a>]
+    <div class="extra-container">
+      <div class="extra-title"><span class="rnd-bkg-color-alpha">Fourier representation meets images.</span></div>
+      <div class="extra-links"><span>2021-08-12</span> · [<a href="{{ base_dir }}{{ url_for('extra_fourier') }}">open</a>]</div>
     </div>
-  </div>
-  {#- #}
-  <div class="extra-container">
-    <div class="extra-title">
-      <strong class="rnd-bkg-color-alpha">What is The Probability of Catching a Mosquito With One Hand?</strong> 
+    <div class="extra-container">
+      <div class="extra-title"><span class="rnd-bkg-color-alpha">Fun fact: apparently I'm the only Guglielmo Camporese in the world!</span></div>
+      <div class="extra-links"><span>2021-08-11</span></div>
     </div>
-    <div class="extra-links">
-      <strong>[2021-08-16]</strong>[<a href="{{ base_dir }}{{ url_for('extra_mosquito') }}">open</a>]
+    <div class="extra-container">
+      <div class="extra-title"><span class="rnd-bkg-color-alpha">Practical Notes on Training Neural Networks.</span></div>
+      <div class="extra-links"><span>2020-12-16</span> · [<a href="{{ base_dir }}{{ url_for('extra_nn') }}">open</a>]</div>
     </div>
-  </div>
-  {#- #}
-  <div class="extra-container">
-    <div class="extra-title">
-      <strong class="rnd-bkg-color-alpha">Fourier representation meets images.</strong> 
-    </div>
-    <div class="extra-links">
-      <strong>[2021-08-12]</strong>[<a href="{{ base_dir }}{{ url_for('extra_fourier') }}">open</a>]
-    </div>
-  </div>
-  {#- #}
-  <div class="extra-container">
-    <div class="extra-title">
-      <strong class="rnd-bkg-color-alpha">Fun fact: apparently I'm the only Guglielmo Camporese in the world!</strong> 
-    </div>
-    <div class="extra-links">
-      <strong>[2021-08-11]</strong>
-    </div>
-  </div>
-  {#- #}
-  <div class="extra-container">
-    <div class="extra-title">
-      <strong class="rnd-bkg-color-alpha">Bag of Tricks for Training Neural Networks.</strong>
-    </div>
-    <div class="extra-links">
-      <strong>[2020-12-16]</strong>[<a href="{{ base_dir }}{{ url_for('extra_nn_tricks') }}">open</a>]
-    </div>
-  </div>
-  {#- #}
-  <div class="extra-container">
-    <div class="extra-title">
-      <strong class="rnd-bkg-color-alpha">Common Errors on Training Neural Networks.</strong>
-    </div>
-    <div class="extra-links">
-      <strong>[2020-12-16]</strong>[<a href="{{ base_dir }}{{ url_for('extra_nn_common_errors') }}">open</a>]
-    </div>
-  </div>
-  {#- #}
-  <div class="extra-container">
-    <div class="extra-title">
-      <strong class="rnd-bkg-color-alpha">Places I've seen so far..</strong> 
-    </div>
-    <div class="extra-links">
-      <strong>[2020-08-27]</strong>[<a href="{{ base_dir }}{{ url_for('extra_places') }}">open</a>]
+    <div class="extra-container">
+      <div class="extra-title"><span class="rnd-bkg-color-alpha">Places I've seen so far..</span></div>
+      <div class="extra-links"><span>2020-08-27</span> · [<a href="{{ base_dir }}{{ url_for('extra_places') }}">open</a>]</div>
     </div>
   </div>
 {%- endblock body %}

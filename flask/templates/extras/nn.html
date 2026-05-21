@@ -1,53 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Guglielmo Camporese · Practical Notes on Training Neural Networks</title>
-  <meta name="description" content="Guglielmo Camporese — Researcher at Disney Research."/>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+{% extends "./layout.html" %}
 
-  <link rel="apple-touch-icon" sizes="180x180" href="../static/img/icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../static/img/icon.png">
-
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&family=Roboto:wght@300;400&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="../static/style.css">
-</head>
+{% block imports %}
   <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+{% endblock %}
 
-
-<body>
-<div id="main-container">
-
-  <!-- header -->
-  <div class="header-section">
-    <div class="header-frame">
-      <h1>Guglielmo Camporese <span>(gool-yell-moe)</span></h1>
-      <h4>AI Researcher at Disney Research · Zurich</h4>
-      <!-- <h4>Ph.D. in Brain, Mind and Computer Science</h4> -->
-      <h6>guglielmocamporese [at] gmail [dot] com</h6>
-    </div>
-    <div class="img-frame">
-      <img src="../static/img/profile.jpeg" alt="Guglielmo Camporese" />
-    </div>
-  </div>
-
-  <!-- nav -->
-  <nav class="links">
-    <a href="../index.html">home</a>
-    <a href="../blog.html">blog</a>
-    <!-- <a href="../news.html">news</a> -->
-    <a href="https://scholar.google.com/citations?user=Yu6im9cAAAAJ&hl=en/" target="_blank">scholar</a>
-    <a href="https://github.com/guglielmocamporese" target="_blank">github</a>
-    <a href="https://www.linkedin.com/in/guglielmocamporese/" target="_blank">linkedin</a>
-    <a href="https://x.com/gucamporese/" target="_blank">x</a>
-    <a href="../static/guglielmo_camporese_cv.pdf" target="_blank">cv</a>
-    <a href="../extra.html">extra</a>
-  </nav>
-
-  
-  <div class="page-title">Practical Notes on Training Neural Networks</div>
-  
+{% block body %}
+{{ super() }}
 <div class="extra-page">
 
   <p>A living collection of practical notes on training neural networks — things that have saved time, things that go wrong, and things worth keeping in mind.</p>
@@ -85,13 +44,4 @@
   <p><strong>Ensemble.</strong> Arithmetic average of output probabilities is simple and usually works. Geometric average (equivalent to averaging log-probabilities) is slightly better calibrated. Diversity across ensemble members matters more than individual model strength.</p>
 
 </div>
-
-
-  <footer id="footer">
-    &copy; 2026 Guglielmo Camporese
-  </footer>
-
-</div>
-<script src="../static/script.js"></script>
-</body>
-</html>
+{% endblock %}

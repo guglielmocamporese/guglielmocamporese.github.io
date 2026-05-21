@@ -1,215 +1,184 @@
 {% extends "./layout.html" %}
-{% block head -%}
-	{{ super() }}
-	<link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-{%- endblock head %}
+
+{% block head %}
+  {{ super() }}
+  <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" disabled>
+  <style>
+    body.dark-mode pre code.hljs { background: #1e222a; }
+  </style>
+{% endblock %}
 
 {% block imports %}
-
-<!-- imports -->
 <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
-<script type="text/javascript"src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
-{%- endblock imports -%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+{% endblock %}
 
 {% block body %}
+{{ super() }}
 
-  <!-- applause -->
-  <applause-button class="mb6" color="red" url="{{ url_for(request.endpoint) }}"></applause-button>
-  {{- super() }}
-  <div class="images-column">
-    <div class="images-row">
-      <figure>
-        <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/1.gif') }}">
-        <figcaption>$$N=1$$</figcaption>
+<div class="extra-page-layout">
+  <article class="extra-page">
+
+    <p>Any signal can be approximated by a <a href="https://en.wikipedia.org/wiki/Fourier_transform" target="_blank">Fourier Series</a> — a sum of rotating complex exponentials. Here I apply that idea to something unusual: the edge contour of a face image, treated as a path through the complex plane.</p>
+
+    <p>The animations below show the approximation $f_N(t)$ as the number of Fourier components $N$ increases. At $N=1$ you get a rough circle; by $N=500$ the face is fully reconstructed.</p>
+
+    <div class="fourier-grid">
+      {% set ns = [1, 2, 5, 10, 20, 50, 100, 200, 500] %}
+      {% for n in ns %}
+      <figure class="fourier-cell">
+        <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/' + n|string + '.gif') }}" alt="N={{ n }}">
+        <figcaption>$N = {{ n }}$</figcaption>
       </figure>
-      <figure>
-        <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/2.gif') }}">
-        <figcaption>$$N=2$$</figcaption>
-      </figure>
-      <figure>
-        <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/5.gif') }}">
-        <figcaption>$$N=5$$</figcaption>
-      </figure>
+      {% endfor %}
     </div>
-    {#- #}
-    <div class="images-row">
-      <figure>
-        <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/10.gif') }}">
-        <figcaption>$$N=10$$</figcaption>
-      </figure>
-      <figure>
-        <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/20.gif') }}">
-        <figcaption>$$N=20$$</figcaption>
-      </figure>
-      <figure>
-        <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/50.gif') }}">
-        <figcaption>$$N=50$$</figcaption>
-      </figure>
-    </div>
-		{#- #}
-    <div class="images-row">
-      <figure>
-        <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/100.gif') }}">
-        <figcaption>$$N=100$$</figcaption>
-      </figure>
-      <figure>
-        <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/200.gif') }}">
-        <figcaption>$$N=200$$</figcaption>
-      </figure>
-      <figure>
-        <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/500.gif') }}">
-        <figcaption>$$N=500$$</figcaption>
-      </figure>
-    </div>
-  </div>
-  {#- #}
-  <p><a href="https://colab.research.google.com/drive/1aSUzcgn6jOW-P1trqaA-o_Ts-gQbJZYR?usp=sharing" target="_blank">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
-  </a></p>
-  <p style="text-align: justify">
-    In general a signal can be approximated by a <a href="https://en.wikipedia.org/wiki/Fourier_transform" target="_blank">Fourier Series</a>. In this blog I will represent the signal coming from the edges of the image containing my face using the Fourier representation.
-    Considering $t \in \mathcal{T} = [t_0, t_1] \subset \mathbb{R}$ be an input variable, $T = t_1 - t_0$ the length of the input domain, and $f(\cdot) : \mathcal{T} \rightarrow \mathbb{C}$ being the function that represents the edges signal in the 2D complex plane, the Fourier representation of the signal can be computed as:
-    <div class="formula">
-  	  $$f_N(t) = \sum_{n=-N}^N c_n e^{i \frac{2 \pi n}{T} t} = \sum_{n=-N}^N c_n e^{i \theta_n t}\ \ \ \ \ (1)$$
-    </div>where the coefficients are: 
-    <div class="formula">
-  	  $$c_n = \frac{1}{T}\int_\mathcal{T} f(t) e^{-i \theta_n t} dt \ \ \ \ \ (2).$$
-    </div>
-  </p>
-  <p style="text-align: justify">
-    Here $N$ is the number of components used for the approximating the input signal, the larger this number, the better the approximation. $T$ is the length of the input domain of $x$,  $T = | \mathcal{T}| $.
-  </p>
-  <p style="text-align: justify">
-    Let's make an example by considering an image:
-    <pre class="line-numbers"><code class="language-python">
-# Imports
-import numpy as np
+
+    <p style="margin-top: 1rem;">
+      <a href="https://colab.research.google.com/drive/1aSUzcgn6jOW-P1trqaA-o_Ts-gQbJZYR?usp=sharing" target="_blank">
+        <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
+      </a>
+    </p>
+
+    <h2>The Fourier Series</h2>
+
+    <p>Let $t \in \mathcal{T} = [t_0, t_1]$ and $f : \mathcal{T} \rightarrow \mathbb{C}$ be the complex-valued function tracing the edge contour. Its Fourier approximation using $2N+1$ components is:</p>
+    <div class="formula">$$f_N(t) = \sum_{n=-N}^N c_n \, e^{i \frac{2\pi n}{T} t} \qquad (1)$$</div>
+    <p>where $T = t_1 - t_0$ and the Fourier coefficients are:</p>
+    <div class="formula">$$c_n = \frac{1}{T}\int_{\mathcal{T}} f(t)\, e^{-i \frac{2\pi n}{T} t}\, dt \qquad (2)$$</div>
+
+    <h2>Step 1 — Load the image</h2>
+
+    <pre><code class="language-python">import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
-from sklearn.cluster import KMeans
-import cv2
-import requests
+import cv2, requests
 
-# Load the image
 url = 'https://guglielmocamporese.github.io/static/static/img/fourier/image.png'
-image = np.array(Image.open(requests.get(url, stream=True).raw))
-    </code></pre>
+image = np.array(Image.open(requests.get(url, stream=True).raw))</code></pre>
 
-    <div class="image-container" style="max-width: 100%">
-	    <img style="max-width: 90%" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/image.png') }}" alt="">
-    </div>
-  </p>
-  <p style="text-align: justify">
-    Now let's compute the edges of the image by low-pass filtering the image and using the <a href="https://en.wikipedia.org/wiki/Canny_edge_detector">Canny algorithm</a>, already implemented in <a href="https://docs.opencv.org/3.4/da/d22/tutorial_py_canny.html">OpenCV</a>. 
-    <pre class="line-numbers"><code class="language-python">
-# Compute the edges
-def get_edges(x):
-  """Extract edges from an image."""
-  x = cv2.GaussianBlur(x, (5, 5), 0)
-  x = cv2.Canny(x, 10, 200)
-  return x
+    <figure class="blog-figure">
+      <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/image.png') }}" alt="Input image">
+      <figcaption>Input face image.</figcaption>
+    </figure>
 
-edges = get_edges(image) 
-    </code></pre>
+    <h2>Step 2 — Extract edges</h2>
 
-    <div class="image-container" style="max-width: 100%">
-	    <img style="max-width: 90%" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges.png') }}" alt="">
-    </div>
-  </p>
-  <p style="text-align: justify">
-    The next step is to reduce the number of points contained in the edges. To this end, I clustered these points reducing them from a number $\sim 13000$ to $n\_cluster=2000$ as follows: 
+    <p>Gaussian blur followed by Canny edge detection gives a clean binary edge map:</p>
 
-    <pre class="line-numbers"><code class="language-python">
-# Cluster the points of the edges
+    <pre><code class="language-python">def get_edges(x):
+    x = cv2.GaussianBlur(x, (5, 5), 0)
+    x = cv2.Canny(x, 10, 200)
+    return x
+
+edges = get_edges(image)</code></pre>
+
+    <figure class="blog-figure">
+      <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges.png') }}" alt="Edge map">
+      <figcaption>Binary edge map extracted with Canny.</figcaption>
+    </figure>
+
+    <h2>Step 3 — Reduce points with k-means</h2>
+
+    <p>The raw edge map has ~13,000 pixels. To make the Fourier computation tractable, I reduce these to 2,000 representative points using k-means clustering:</p>
+
+    <pre><code class="language-python">from sklearn.cluster import KMeans
+
 edges_pts = np.stack(np.where(edges), 1)
 edges_pts[:, 0] = image.shape[0] - edges_pts[:, 0]
 edges_pts = np.stack([edges_pts[:, 1], edges_pts[:, 0]], 1)
 
 kmeans = KMeans(n_clusters=2000, random_state=0).fit(edges_pts)
-edges_centers = kmeans.cluster_centers_
-    </code></pre>
-    <div class="image-container" style="max-width: 100%">
-	    <img style="max-width: 90%" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges_clustered.png') }}" alt="">
-    </div>
-    The image above shows the cluster centers that fit the edges.
-  </p>
-  <p style="text-align: justify">
-    For now we have a set of points that builds up the edge signal, but this set is un-ordered since each point does not have the meaning of "neighbors". In the image below you can see this fact by connecting adjacent points in the set.
-    <div class="image-container" style="max-width: 100%">
-	    <img style="max-width: 90%" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges_clustered_not_ordered.png') }}" alt="">
-    </div>
-  </p>
-  <p style="text-align: justify">
-    In order to solve the order issue, I designed a sorting algorithm that returns a set of ordered points using the euclidian distance. 
-    <pre class="line-numbers"><code class="language-python">
-# Sort the points to make a smooth path
-dist = lambda p0, p1: (((p0 - p1) ** 2).sum() ** 0.5)
+edges_centers = kmeans.cluster_centers_</code></pre>
+
+    <figure class="blog-figure">
+      <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges_clustered.png') }}" alt="Clustered edge points">
+      <figcaption>2,000 cluster centres approximating the edge contour.</figcaption>
+    </figure>
+
+    <h2>Step 4 — Order the points</h2>
+
+    <p>The cluster centres are an unordered set — connecting them naively gives a tangled mess. I sort them greedily by nearest-neighbour distance:</p>
+
+    <figure class="blog-figure">
+      <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges_clustered_not_ordered.png') }}" alt="Unordered points">
+      <figcaption>Points connected in arbitrary order — clearly wrong.</figcaption>
+    </figure>
+
+    <pre><code class="language-python">dist = lambda p0, p1: (((p0 - p1) ** 2).sum() ** 0.5)
 
 def sort_points(points):
-  """Sort points by their proximity under the euclidian distance."""
-  ordered_pts = [points[0]]
-  points = [p for p in points[1:]]
-  while len(points) > 0:
-    p0 = ordered_pts[-1]
-    dist_01 = [dist(p0, p1) for p1 in points]
-    i_min = np.argmin(dist_01)
-    closest_pt = points[i_min]
-    del points[i_min]
-    ordered_pts += [closest_pt]
-  return np.array(ordered_pts)
+    ordered = [points[0]]
+    rest = list(points[1:])
+    while rest:
+        p0 = ordered[-1]
+        i = int(np.argmin([dist(p0, p) for p in rest]))
+        ordered.append(rest.pop(i))
+    return np.array(ordered)
 
-edges_centers_sorted = sort_points(edges_centers)
-    </code></pre>
-    <div class="image-container" style="max-width: 100%">
-	    <img style="max-width: 90%" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges_clustered_ordered.png') }}" alt="">
-    </div>
-    The image above shows the same points of the previous image, but with sorted points.
-  </p>
-  <p style="text-align: justify">
-    The equation in (1) returns complex values whereas the edge signal that I'm intered in is a real 2D function. In this case the Fourier Series representation can be rewritten as: 
-    <div class="formula">$$
-		  \begin{split}
-			  f_N(t) &= \sum_{n=-N}^N c_n e^{i \theta_n t} \\
-				  &= \sum_{n=-N}^N \Big[ Re\{c_n\} cos(\theta_n t) - Im\{c_n\} sin(\theta_n t) \Big] + \\
-				  &\ \ \ \ + i \sum_{n=-N}^N \Big[ - Re\{ c_n \} sin(\theta_n t) + Im\{c_n\} cos(\theta_n t) \Big]
-		  \end{split}$$
-    </div>
-    where the coefficients are:
-    <div class="formula">$$
-    	Re\{c_n\} = \frac{1}{T} \int_\mathcal{T} \Big[ Re\{f(t)\} cos(\theta_n t) + Im\{f(t)\} sin(\theta_n t)\Big]dt$$
-    </div>
-    <div class="formula">$$
-	    Im\{c_n\} = \frac{1}{T} \int_\mathcal{T} \Big[ -Re\{f(t)\} sin(\theta_n t) + Im\{f(t)\} cos(\theta_n t)\Big]dt$$
-    </div>
-    In the following code snippet I approximated the integrals above in order to evaluate them:
-    <pre class="line-numbers"><code class="language-python">
-def f_transform(f, N=100):
-    """Compute the fourier series of the input signal."""
-    y = np.zeros_like(f) # output signal of shape [num_points, 2]
-    num_points = f.shape[0]
-    t = np.linspace(0, 1, num_points)
-    dt = np.abs(t[1] - t[0])
-    f_real, f_imag = f[:, 0], f[:, 1]
-    for n in range(- N, N + 1):
-        theta_n = 2 * np.pi * n
-        cos_n = np.cos(theta_n * t)
-        sin_n = np.sin(theta_n * t)
-        c_real_n = (f_real * cos_n + f_imag * sin_n).sum() * dt
-        c_imag_n = (- f_real * sin_n + f_imag * cos_n).sum() * dt
-        y_real = c_real_n * cos_n - c_imag_n * sin_n
-        y_imag = c_real_n * sin_n + c_imag_n * cos_n
-        y += np.stack([y_real, y_imag], 1)
+edges_sorted = sort_points(edges_centers)</code></pre>
+
+    <figure class="blog-figure">
+      <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/edges_clustered_ordered.png') }}" alt="Ordered points">
+      <figcaption>After sorting: a smooth, continuous contour.</figcaption>
+    </figure>
+
+    <h2>Step 5 — Compute the Fourier transform</h2>
+
+    <p>Since $f(t)$ is complex (2D coordinates encoded as real + imaginary parts), the coefficients expand to:</p>
+    <div class="formula">$$Re\{c_n\} = \frac{1}{T}\int_\mathcal{T}\Big[Re\{f\}\cos\theta_n t + Im\{f\}\sin\theta_n t\Big]dt$$</div>
+    <div class="formula">$$Im\{c_n\} = \frac{1}{T}\int_\mathcal{T}\Big[-Re\{f\}\sin\theta_n t + Im\{f\}\cos\theta_n t\Big]dt$$</div>
+
+    <pre><code class="language-python">def f_transform(f, N=100):
+    y = np.zeros_like(f)
+    t = np.linspace(0, 1, f.shape[0])
+    dt = t[1] - t[0]
+    f_re, f_im = f[:, 0], f[:, 1]
+    for n in range(-N, N + 1):
+        theta = 2 * np.pi * n
+        cos_n = np.cos(theta * t)
+        sin_n = np.sin(theta * t)
+        c_re = (f_re * cos_n + f_im * sin_n).sum() * dt
+        c_im = (-f_re * sin_n + f_im * cos_n).sum() * dt
+        y += np.stack([c_re * cos_n - c_im * sin_n,
+                       c_re * sin_n + c_im * cos_n], 1)
     return y
 
-y = f_transform(edges_centers_sorted, N=550)
-    </code></pre>
-    <div class="image-container" style="max-width: 100%">
-	    <img style="max-width: 100%" src="{{ base_dir }}{{ url_for('static', filename='img/fourier/fourier_approxiamtion.png') }}" alt="">
+y = f_transform(edges_sorted, N=550)</code></pre>
+
+    <figure class="blog-figure">
+      <img src="{{ base_dir }}{{ url_for('static', filename='img/fourier/fourier_approxiamtion.png') }}" alt="Final approximation">
+      <figcaption>Fourier approximation with $N=550$ components overlaid on the original edge contour.</figcaption>
+    </figure>
+
+  </article>
+
+  <aside class="extra-page-aside">
+    <div class="aside-section">
+      <div class="aside-title">Links</div>
+      <p><a href="https://colab.research.google.com/drive/1aSUzcgn6jOW-P1trqaA-o_Ts-gQbJZYR?usp=sharing" target="_blank">Open in Colab</a></p>
+      <p><a href="https://en.wikipedia.org/wiki/Fourier_transform" target="_blank">Fourier transform (Wikipedia)</a></p>
+      <p><a href="https://en.wikipedia.org/wiki/Canny_edge_detector" target="_blank">Canny edge detector</a></p>
     </div>
-  </p>
-{%- endblock body %}
+    <div class="aside-section">
+      <div class="aside-title">Key equations</div>
+      <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">
+        $f_N(t) = \sum_{n=-N}^N c_n e^{i\theta_n t}$
+      </p>
+    </div>
+  </aside>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+  hljs.highlightAll();
+  function syncHljsTheme() {
+    const dark = document.body.classList.contains('dark-mode');
+    document.getElementById('hljs-light').disabled = dark;
+    document.getElementById('hljs-dark').disabled = !dark;
+  }
+  syncHljsTheme();
+  new MutationObserver(syncHljsTheme).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+</script>
+
+{% endblock %}

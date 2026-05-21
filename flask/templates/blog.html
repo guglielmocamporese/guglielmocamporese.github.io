@@ -1,0 +1,17 @@
+{% extends "./layout.html" %}
+{% block body -%}
+  {{ super() }}
+  <div class="blog-list">
+    {% for post in posts %}
+    <div class="blog-entry">
+      <div class="blog-entry-date">{{ post.date }}</div>
+      <div class="blog-entry-body">
+        <div class="blog-entry-title">
+          <a href="{{ base_dir }}{{ url_for(post.route) }}">{{ post.title }}</a>
+        </div>
+        <div class="blog-entry-tldr">{{ post.tldr }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{%- endblock body %}
