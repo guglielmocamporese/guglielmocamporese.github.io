@@ -6,9 +6,8 @@ import sys
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/')
-@app.route('/index.html')
 def home():
-	return render_template('home.html', base_dir='', page_title='Bio')
+    return render_template('home.html', base_dir='', page_title='Bio')
 
 @app.route('/news/')
 def news():
