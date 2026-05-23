@@ -7,11 +7,11 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-  <link rel="apple-touch-icon" sizes="180x180" href="../../static/img/icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../../static/img/icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/img/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/img/icon.png">
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="../../static/style.css">
+  <link rel="stylesheet" href="/static/style.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
@@ -38,21 +38,21 @@
       <h6>guglielmocamporese [at] gmail [dot] com</h6>
     </div>
     <div class="img-frame">
-      <img src="../../static/img/profile.jpeg" alt="Guglielmo Camporese" />
+      <img src="/static/img/profile.jpeg" alt="Guglielmo Camporese" />
     </div>
   </div>
 
   <!-- nav -->
   <nav class="links">
-    <a href="../../index.html">home</a>
-    <a href="../../blog/">blog</a>
-    <!-- <a href="../../news/">news</a> -->
+    <a href="/index.html">home</a>
+    <a href="/blog/">blog</a>
+    <!-- <a href="/news/">news</a> -->
     <a href="https://scholar.google.com/citations?user=Yu6im9cAAAAJ&hl=en/" target="_blank">scholar</a>
     <a href="https://github.com/guglielmocamporese" target="_blank">github</a>
     <a href="https://www.linkedin.com/in/guglielmocamporese/" target="_blank">linkedin</a>
     <a href="https://x.com/gucamporese/" target="_blank">x</a>
-    <a href="../../static/guglielmo_camporese_cv.pdf" target="_blank">cv</a>
-    <a href="../../extra/">extra</a>
+    <a href="/static/guglielmo_camporese_cv.pdf" target="_blank">cv</a>
+    <a href="/extra/">extra</a>
   </nav>
 
   
@@ -70,47 +70,47 @@
       
       
       <figure class="fourier-cell">
-        <img src="../../static/img/fourier/1.gif" alt="N=1">
+        <img src="/static/img/fourier/1.gif" alt="N=1">
         <figcaption>$N = 1$</figcaption>
       </figure>
       
       <figure class="fourier-cell">
-        <img src="../../static/img/fourier/2.gif" alt="N=2">
+        <img src="/static/img/fourier/2.gif" alt="N=2">
         <figcaption>$N = 2$</figcaption>
       </figure>
       
       <figure class="fourier-cell">
-        <img src="../../static/img/fourier/5.gif" alt="N=5">
+        <img src="/static/img/fourier/5.gif" alt="N=5">
         <figcaption>$N = 5$</figcaption>
       </figure>
       
       <figure class="fourier-cell">
-        <img src="../../static/img/fourier/10.gif" alt="N=10">
+        <img src="/static/img/fourier/10.gif" alt="N=10">
         <figcaption>$N = 10$</figcaption>
       </figure>
       
       <figure class="fourier-cell">
-        <img src="../../static/img/fourier/20.gif" alt="N=20">
+        <img src="/static/img/fourier/20.gif" alt="N=20">
         <figcaption>$N = 20$</figcaption>
       </figure>
       
       <figure class="fourier-cell">
-        <img src="../../static/img/fourier/50.gif" alt="N=50">
+        <img src="/static/img/fourier/50.gif" alt="N=50">
         <figcaption>$N = 50$</figcaption>
       </figure>
       
       <figure class="fourier-cell">
-        <img src="../../static/img/fourier/100.gif" alt="N=100">
+        <img src="/static/img/fourier/100.gif" alt="N=100">
         <figcaption>$N = 100$</figcaption>
       </figure>
       
       <figure class="fourier-cell">
-        <img src="../../static/img/fourier/200.gif" alt="N=200">
+        <img src="/static/img/fourier/200.gif" alt="N=200">
         <figcaption>$N = 200$</figcaption>
       </figure>
       
       <figure class="fourier-cell">
-        <img src="../../static/img/fourier/500.gif" alt="N=500">
+        <img src="/static/img/fourier/500.gif" alt="N=500">
         <figcaption>$N = 500$</figcaption>
       </figure>
       
@@ -140,7 +140,7 @@ url = 'https://guglielmocamporese.github.io/static/static/img/fourier/image.png'
 image = np.array(Image.open(requests.get(url, stream=True).raw))</code></pre>
 
     <figure class="blog-figure">
-      <img src="../../static/img/fourier/image.png" alt="Input image">
+      <img src="/static/img/fourier/image.png" alt="Input image">
       <figcaption>Input face image.</figcaption>
     </figure>
 
@@ -156,7 +156,7 @@ image = np.array(Image.open(requests.get(url, stream=True).raw))</code></pre>
 edges = get_edges(image)</code></pre>
 
     <figure class="blog-figure">
-      <img src="../../static/img/fourier/edges.png" alt="Edge map">
+      <img src="/static/img/fourier/edges.png" alt="Edge map">
       <figcaption>Binary edge map extracted with Canny.</figcaption>
     </figure>
 
@@ -174,7 +174,7 @@ kmeans = KMeans(n_clusters=2000, random_state=0).fit(edges_pts)
 edges_centers = kmeans.cluster_centers_</code></pre>
 
     <figure class="blog-figure">
-      <img src="../../static/img/fourier/edges_clustered.png" alt="Clustered edge points">
+      <img src="/static/img/fourier/edges_clustered.png" alt="Clustered edge points">
       <figcaption>2,000 cluster centres approximating the edge contour.</figcaption>
     </figure>
 
@@ -183,7 +183,7 @@ edges_centers = kmeans.cluster_centers_</code></pre>
     <p>The cluster centres are an unordered set — connecting them naively gives a tangled mess. I sort them greedily by nearest-neighbour distance:</p>
 
     <figure class="blog-figure">
-      <img src="../../static/img/fourier/edges_clustered_not_ordered.png" alt="Unordered points">
+      <img src="/static/img/fourier/edges_clustered_not_ordered.png" alt="Unordered points">
       <figcaption>Points connected in arbitrary order — clearly wrong.</figcaption>
     </figure>
 
@@ -201,7 +201,7 @@ def sort_points(points):
 edges_sorted = sort_points(edges_centers)</code></pre>
 
     <figure class="blog-figure">
-      <img src="../../static/img/fourier/edges_clustered_ordered.png" alt="Ordered points">
+      <img src="/static/img/fourier/edges_clustered_ordered.png" alt="Ordered points">
       <figcaption>After sorting: a smooth, continuous contour.</figcaption>
     </figure>
 
@@ -229,7 +229,7 @@ edges_sorted = sort_points(edges_centers)</code></pre>
 y = f_transform(edges_sorted, N=550)</code></pre>
 
     <figure class="blog-figure">
-      <img src="../../static/img/fourier/fourier_approxiamtion.png" alt="Final approximation">
+      <img src="/static/img/fourier/fourier_approxiamtion.png" alt="Final approximation">
       <figcaption>Fourier approximation with $N=550$ components overlaid on the original edge contour.</figcaption>
     </figure>
 
@@ -270,6 +270,6 @@ y = f_transform(edges_sorted, N=550)</code></pre>
   </footer>
 
 </div>
-<script src="../../static/script.js"></script>
+<script src="/static/script.js"></script>
 </body>
 </html>
