@@ -48,10 +48,18 @@ def publications():
 def blog():
 	posts = [
 		{
+			'title': 'Mood Vectors in Audio Diffusion: Steering Stable Audio 3',
+			'date': 'May 2026',
+			'location': 'Zurich',
+			'tldr': 'Audio emotion steering in Stable Audio 3: a mood direction lives in the DiT residual stream, linearly decodable at the middle layers, and shifts generated audio from grief to euphoria across genres — same prompt, same weights, only α changes.',
+			'route': 'blog_audio_mood_steering',
+			'image': 'img/blog/audio-mood-steering/fig1_probe_accuracy.png',
+		},
+		{
 			'title': 'Emotion Geometry in LLMs: Finding and Moving the Feeling',
 			'date': 'May 2026',
 			'location': 'Zurich',
-			'tldr': 'The emotion map is real, geometric, and causal — sharply localised at layers 12–16. Positive and negative affect have asymmetric causal profiles, a new finding not in Anthropic\'s paper.',			
+			'tldr': 'The emotion map inside LLMs is real, geometric, and causal — sharply localised at certain layers. Positive and negative affect have asymmetric causal profiles.',			
 			'route': 'blog_emotion_geometry',
 			'image': 'img/blog/emotion-geometry-qwen3/fig2_emotion_plane.png',
 		},
@@ -61,6 +69,14 @@ def blog():
 @app.route('/blog/emotion-geometry.html')
 def blog_emotion_geometry():
 	return render_template('blog/emotion_geometry.html', base_dir='..', page_title='Emotion Geometry in LLMs')
+
+@app.route('/blog/audio-mood-steering.html')
+def blog_audio_mood_steering():
+    return render_template(
+        'blog/audio_mood_steering.html',
+        base_dir='..',
+        page_title='Mood Vectors in Audio Diffusion'
+    )
 
 @app.route('/extra.html')
 def extra():

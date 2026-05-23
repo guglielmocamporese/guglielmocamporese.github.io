@@ -9,8 +9,11 @@
   <link rel="apple-touch-icon" sizes="180x180" href="./static/img/icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./static/img/icon.png">
 
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&family=Roboto:wght@300;400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="./static/style.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </head>
 
 <body>
@@ -50,9 +53,19 @@
       <div class="blog-entry-date">May 2026</div>
       <div class="blog-entry-body">
         <div class="blog-entry-title">
+          <a href="./blog/audio-mood-steering.html">Mood Vectors in Audio Diffusion: Steering Stable Audio 3</a>
+        </div>
+        <div class="blog-entry-tldr">Audio emotion steering in Stable Audio 3: a mood direction lives in the DiT residual stream, linearly decodable at the middle layers, and shifts generated audio from grief to euphoria across genres — same prompt, same weights, only α changes.</div>
+      </div>
+    </div>
+    
+    <div class="blog-entry">
+      <div class="blog-entry-date">May 2026</div>
+      <div class="blog-entry-body">
+        <div class="blog-entry-title">
           <a href="./blog/emotion-geometry.html">Emotion Geometry in LLMs: Finding and Moving the Feeling</a>
         </div>
-        <div class="blog-entry-tldr">The emotion map is real, geometric, and causal — sharply localised at layers 12–16. Positive and negative affect have asymmetric causal profiles, a new finding not in Anthropic&#39;s paper.</div>
+        <div class="blog-entry-tldr">The emotion map inside LLMs is real, geometric, and causal — sharply localised at certain layers. Positive and negative affect have asymmetric causal profiles.</div>
       </div>
     </div>
     

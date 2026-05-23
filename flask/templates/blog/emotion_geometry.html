@@ -7,7 +7,7 @@
 
   <link rel="canonical" href="https://guglielmocamporese.github.io/blog/emotion-geometry.html">
 
-  <meta name="description" content="A mechanistic interpretability experiment showing that emotion geometry appears in Qwen3-8B, is causally active under activation steering, and has a localized causal window across transformer layers.">
+  <meta name="description" content="A mechanistic interpretability experiment showing that emotion geometry appears in Qwen3-8B, is causally active under activation steering, and has a localized causal window across transformer layers — with a novel positive/negative asymmetry not reported in prior work.">
 
   <!-- Google Scholar / Highwire citation metadata -->
   <meta name="citation_title"        content="Emotion Geometry in LLMs: Finding and Moving the Feeling">
@@ -17,13 +17,13 @@
   <meta name="citation_journal_title" content="guglielmocamporese.github.io">
   <meta name="citation_publisher"    content="Guglielmo Camporese">
   <meta name="citation_language"     content="en">
-  <meta name="citation_abstract"     content="Anthropic showed that Claude represents emotions geometrically. I test whether the same structure appears in an open model, whether it is causally involved in generation, and where that causal influence enters the network. On Qwen3-8B, valence and arousal are linearly decodable and nearly orthogonal; steering along the valence direction shifts output sentiment on ambiguous prompts; and the effect is highly layer-dependent, with positive steering concentrated around layers 12–16 while negative steering is more distributed.">
+  <meta name="citation_abstract"     content="Recent work from Anthropic showed that emotion representations in Claude Sonnet 4.5 are causally active. I test whether the same structure appears in an open model and characterise the layer-dependence of causal influence. On Qwen3-8B, valence and arousal are linearly decodable and nearly orthogonal; steering along the valence direction shifts output sentiment on ambiguous prompts; and the effect is highly layer-dependent. The novel finding: positive affect has a sharp causal bottleneck around layers 12–16, while negative affect is more distributed. This asymmetry is not reported in prior work.">
   <meta name="citation_fulltext_html_url" content="https://guglielmocamporese.github.io/blog/emotion-geometry.html">
   <meta name="citation_keywords"     content="large language models, mechanistic interpretability, emotion, activation steering, representation engineering, valence, arousal, circumplex model, Qwen3">
 
   <!-- OpenGraph -->
   <meta property="og:title"       content="Emotion Geometry in LLMs: Finding and Moving the Feeling">
-  <meta property="og:description" content="Finding and steering emotion geometry inside Qwen3-8B.">
+  <meta property="og:description" content="Finding and steering emotion geometry inside Qwen3-8B — with a novel positive/negative asymmetry in causal layer windows.">
   <meta property="og:type"        content="article">
   <meta property="og:url"         content="https://guglielmocamporese.github.io/blog/emotion-geometry.html">
   <meta property="og:image"      content="https://guglielmocamporese.github.io/static/img/blog/emotion-geometry-qwen3/og_emotion_geometry.png">
@@ -34,7 +34,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Emotion Geometry in LLMs">
-  <meta name="twitter:description" content="Finding and steering emotion geometry inside Qwen3-8B.">
+  <meta name="twitter:description" content="Finding and steering emotion geometry inside Qwen3-8B — with a novel positive/negative asymmetry in causal layer windows.">
   <meta name="twitter:image" content="https://guglielmocamporese.github.io/static/img/blog/emotion-geometry-qwen3/og_emotion_geometry.png">
 
   <!-- Structured data -->
@@ -61,7 +61,7 @@
       "arousal",
       "Qwen3"
     ],
-    "description": "A mechanistic interpretability experiment showing that emotion geometry appears in Qwen3-8B, is causally active under activation steering, and has a localized causal window across transformer layers."
+    "description": "A mechanistic interpretability experiment showing that emotion geometry appears in Qwen3-8B, is causally active under activation steering, and has a novel positive/negative asymmetry in causal layer windows not reported in prior work."
   }
   </script>
 {% endblock %}
@@ -81,67 +81,107 @@
         <span>May 2026</span>
         <span class="meta-sep">·</span>
         <span>Zürich</span>
+        <span class="meta-sep">·</span>
+        <span>10 min read</span>
       </div>
     </header>
 
     <div class="blog-tldr">
-      <strong>TL;DR</strong> — What does it mean for a language model to “feel” happy or sad? Not in the human sense — but geometrically, inside its activations. Anthropic showed that Claude has an internal emotion map. I looked for the same structure in Qwen3-8B, then asked whether the map is merely readable or actually movable. The answer: both. Valence and arousal form a near-orthogonal emotion plane; steering along the valence direction shifts the tone of ambiguous generations; and the causal effect is sharply localized, with positive affect concentrated around layers 12–16 while negative affect is spread across a wider window. The emotion map is not just there. It has a handle.
+      <strong>TL;DR</strong> · Recent work from Anthropic established that emotion-like representations in Claude Sonnet 4.5 are causally active and geometrically structured. I cracked open Qwen3-8B — a fully open model — and asked the same questions. I've found that valence and arousal emerge as near-orthogonal axes in activation space; nudging the model along the valence direction at inference time smoothly shifts the emotional character of its generations; and the effect is acutely layer-dependent. The most unexpected finding: positive affect has a narrow causal bottleneck at layers 12–16 — miss that window and the effect collapses or inverts — while negative affect spreads across a much wider range of the network. Emotion isn't just encoded in these models. It has an address. And positive and negative feelings live at different ones.
     </div>
 
     <div class="blog-body">
 
       <h2 id="background">Background</h2>
-      <p>In 2024, Anthropic showed that Claude has internal representations of emotional states arranged in a geometrically structured space [1]. The model was not explicitly trained to represent emotions this way; the structure appears to emerge as a byproduct of predicting text written by humans. The finding was important, but it left three questions open:</p>
+
+      <p>In April 2026, Anthropic's interpretability team published a detailed study of emotion representations in Claude Sonnet 4.5 [1]. They identified 171 distinct "emotion vectors" that activate in contextually appropriate situations, are organised in a space that mirrors psychological structure, and — crucially — <em>causally</em> influence downstream behaviour. Suppressing or amplifying these vectors shifts the model's rate of sycophancy, reward hacking, and, in agentic settings, even blackmail. This is a significant result: it moves the conversation from "does the model represent emotions?" to "do those representations have functional consequences?"</p>
+
+      <p>That work, however, studied a closed proprietary model (Claude Sonnet 4.5) using a supervised extraction pipeline built around 171 curated emotion words. Three questions remain open:</p>
+
       <ol>
-        <li><strong>Generalisation</strong>: does this hold beyond Claude, or is it an artifact of that specific model family?</li>
-        <li><strong>Causality</strong>: Anthropic showed the geometry <em>exists</em> and <em>correlates</em> with behaviour. But does it causally shape what the model generates? Can you move it?</li>
-        <li><strong>Where</strong>: if the geometry is causal, where in the network does the influence live? Is any layer equivalent, or is there a specific window?</li>
+        <li><strong>Generalisation</strong>: does the geometry appear in open models with different training lineages, or is it an artefact of RLHF/RLAIF pipelines specific to Claude?</li>
+        <li><strong>Coarse geometry with simple probes</strong>: can the valence/arousal axes be recovered with minimal supervision — just linear probes on mean-difference directions — rather than a curated emotion vocabulary? If so, how cleanly?</li>
+        <li><strong>Layer localisation</strong>: where in the network does the causal influence live, and is that window the same for positive and negative affect?</li>
       </ol>
-      <p>This post studies those questions on <strong>Qwen3-8B</strong> — a fully open model that Anthropic's paper did not study.</p>
+
+      <p>This post studies those questions on <strong>Qwen3-8B</strong> — a fully open model that Anthropic's study did not examine. Concurrent independent work [2, 3] has also explored valence–arousal geometry in LLMs (see Related Work below); taken together, the picture is converging: emotion geometry is a robust emergent property of large-scale language modelling, not an artefact of any particular model family.</p>
 
       <h2 id="setup">Setup</h2>
-      <p><strong>Stimuli.</strong> 120 prompts across a 2×4 grid: valence (positive/negative) × arousal (high/low), plus 24 neutral controls. Three types: first-person statements (<em>"I just got the promotion"</em>), narrative snippets, and factual setups. The mixture tests whether the geometry is semantic or purely syntactic.</p>
-      <p><strong>Model.</strong> Qwen3-8B-Instruct via HuggingFace Transformers [3]. 36 layers. Activations extracted at the <strong>last token position</strong> via <code>register_forward_hook</code> on each transformer block.</p>
-      <p><strong>Probes.</strong> Logistic regression, 5-fold CV, one probe per layer. Binary: positive vs negative valence, high vs low arousal.</p>
-      <p><strong>Directions.</strong> Mean-difference vectors: <code>valence_dir = mean(pos_acts) − mean(neg_acts)</code> at the critical layer, normalised to unit length.</p>
-      <p><strong>Steering.</strong> A <code>register_forward_pre_hook</code> adds <code>α × valence_dir</code> to the input hidden states before the target layer runs, so the modified representation propagates through all remaining layers. Prompts use the model's native chat template via <code>tokenizer.apply_chat_template</code>. Sentiment measured with <code>cardiffnlp/twitter-roberta-base-sentiment-latest</code> — a fine-tuned RoBERTa sentiment model that handles negation and implicit sentiment better than lexicon matching.</p>
 
-      <p><strong>Reproducibility details.</strong> Model checkpoint: <code>Qwen/Qwen3-8B-Instruct</code>. Activations are taken at the final prompt token before generation. Probes use logistic regression with 5-fold cross-validation. Steering uses a unit-normalised mean-difference direction. Unless otherwise stated, generations use the same decoding settings across all α values. Full prompts, seeds, generation parameters, cached activations, and plotting code are available in the linked repository.</p>
+      <p><strong>Stimuli.</strong> 120 prompts across a 2×4 grid: valence (positive/negative) × arousal (high/low/neutral), plus 24 neutral controls. Three types: first-person statements (<em>"I just got the promotion"</em>), narrative snippets, and factual setups. The mixture tests whether the geometry is semantic or purely syntactic.</p>
+
+      <p><strong>Model.</strong> Qwen3-8B-Instruct via HuggingFace Transformers [4]. 36 layers. Activations extracted at the last token position via <code>register_forward_hook</code> on each transformer block.</p>
+
+      <p><strong>Probes.</strong> Logistic regression, 5-fold CV, one probe per layer. Binary: positive vs. negative valence, high vs. low arousal. No curated emotion vocabulary — just labels from the stimulus grid.</p>
+
+      <p><strong>Directions.</strong> Mean-difference vectors: <code>valence_dir = mean(pos_acts) − mean(neg_acts)</code> at the target layer, normalised to unit length. This is the simplest possible linear direction; more sophisticated methods (PCA, contrastive pairs) would likely tighten the geometry further.</p>
+
+      <p><strong>Steering.</strong> A <code>register_forward_pre_hook</code> adds <code>α × valence_dir</code> to the input hidden states before the target layer, so the modified representation propagates through all remaining layers. Prompts use the model's native chat template via <code>tokenizer.apply_chat_template</code>. Sentiment is measured with <code>cardiffnlp/twitter-roberta-base-sentiment-latest</code> — a fine-tuned RoBERTa model that handles negation and implicit sentiment better than lexicon matching. Output coherence was assessed by manual inspection of all generations; no generation produced incoherent or truncated text at any α value tested, though this is a qualitative check on a small sample.</p>
+
+      <p><strong>Reproducibility.</strong> Model checkpoint: <code>Qwen/Qwen3-8B-Instruct</code>. Activations taken at the final prompt token before generation. All decoding settings held constant across α values. Full prompts, seeds, generation parameters, cached activations, and plotting code are available in the linked repository.</p>
+
+      <h2 id="related">Related Work</h2>
+
+      <p>The literature here moved quickly in early 2026, so it is worth being explicit about what is prior, concurrent, and novel.</p>
+
+      <p><strong>Prior (predates this post).</strong> Sofroniew et al. [1] is the primary motivation. Earlier, Zou et al. [5] introduced representation engineering and showed that linear directions in activation space can be steered to control broad behavioural properties. The broader mechanistic interpretability literature on linear representations [6] provides the theoretical framing.</p>
+
+      <p><strong>Concurrent.</strong> Two papers appeared in April 2026 that overlap with parts of this post. Choi &amp; Weber [2] study the <em>latent structure</em> of affective representations across several LLMs; they find evidence of mild nonlinearity in the global valence–arousal structure, while local linear analysis remains valid. A separate preprint [3] decomposes a valence–arousal subspace and links it to neuron-level analyses and unembedding structure. Both papers focus primarily on representation geometry; neither reports the positive/negative asymmetry in causal layer windows that I find here.</p>
+
+      <p><strong>What is new here.</strong> (1) Open-model replication of the core geometry on Qwen3-8B using minimal supervision. (2) A causal layer sweep characterising where in the network the valence direction is most effective — and finding a striking asymmetry between positive and negative affect that, to my knowledge, has not been reported before.</p>
 
       <h2 id="finding1">Finding 1 — The geometry exists, and matches psychology</h2>
-      <p>Both probes reach ~97% accuracy and plateau from around layer 12 onward.</p>
+
+      <p>Both probes substantially outperform chance from the early layers. The arousal probe reaches ~98–99% accuracy and plateaus by layer 8; the valence probe reaches ~95% and stabilises around layer 12.</p>
+
       <figure class="blog-figure">
         <img src="{{ base_dir }}{{ url_for('static', filename='img/blog/emotion-geometry-qwen3/fig1_probes.png') }}" alt="Line chart showing valence and arousal probe accuracy by transformer layer in Qwen3-8B" loading="lazy" decoding="async">
-        <figcaption>Probe accuracy by layer for valence and arousal.</figcaption>
+        <figcaption>Probe accuracy by layer for valence and arousal. Arousal saturates earlier and at a higher peak.</figcaption>
       </figure>
-      <p>One thing worth noting: <strong>arousal leads valence in the early layers.</strong> Arousal (energy level: calm vs activated) is already at 70% accuracy at layer 0. Valence (hedonic tone: good vs bad) starts lower, dips at layer 1, then recovers. The model appears to make intensity linearly available before hedonic tone — a sequence that resembles findings in affective neuroscience [4].</p>
-      <p>The geometry matches the psychological circumplex model [5] — two near-orthogonal axes:</p>
+
+      <p>One pattern worth noting: <strong>arousal leads valence in the early layers.</strong> Arousal (energy level: calm vs. activated) is already at ~70% accuracy at layer 0 and near ceiling by layer 8. Valence (hedonic tone: good vs. bad) starts at the same level but dips at layer 1 before recovering. The model appears to make intensity linearly available before hedonic tone. Whether this ordering reflects something principled about how emotional content is processed — or is simply an artefact of the stimuli or training data distribution — is an open question; I flag it as an observation rather than a conclusion.</p>
+
+      <p>The representational geometry matches the psychological circumplex model [7] — two near-orthogonal axes:</p>
+
       <figure class="blog-figure">
         <img src="{{ base_dir }}{{ url_for('static', filename='img/blog/emotion-geometry-qwen3/fig2_emotion_plane.png') }}" alt="Scatter plot of Qwen3-8B activations projected onto valence and arousal directions, forming four emotion quadrants" loading="lazy" decoding="async">
-        <figcaption>Emotion plane at layer 19. Cosine similarity between valence and arousal directions: −0.038.</figcaption>
+        <figcaption>Emotion plane at layer 19. Cosine similarity between valence and arousal directions: −0.079.</figcaption>
       </figure>
-      <p>The cosine similarity between valence and arousal direction vectors is <strong>−0.038</strong> — nearly perfectly orthogonal. The four quadrants align with Russell's model: excited (positive/high), content (positive/low), distressed (negative/high), depressed (negative/low). The model was not explicitly trained with this circumplex objective; the structure appears to emerge from language modeling.</p>
-      <p>Here's how the structure emerges layer by layer:</p>
+
+      <p>The cosine similarity between valence and arousal direction vectors is <strong>−0.079</strong> — close to orthogonal, though not perfectly so. The four quadrants align with Russell's model [7]: excited (positive/high arousal), content (positive/low arousal), distressed (negative/high arousal), depressed (negative/low arousal). This structure emerges from language modelling with no circumplex objective; the geometry is not trained in, it crystallises.</p>
+
+      <p>Note that Choi &amp; Weber [2] find evidence of mild global nonlinearity in this space — the circumplex is locally but not globally linear. My mean-difference directions capture the dominant linear structure; they may miss finer-grained geometry.</p>
+
+      <p>Here is how the structure emerges layer by layer:</p>
+
       <figure class="blog-figure">
         <img src="{{ base_dir }}{{ url_for('static', filename='img/blog/emotion-geometry-qwen3/pca_emergence.gif') }}" alt="Animated PCA projection showing emotional structure emerging across transformer layers" loading="lazy" decoding="async">
         <figcaption>PCA projection of residual stream activations across layers. Emotional structure crystallises by layer 16.</figcaption>
       </figure>
-      <p>At layer 0, all 120 prompts collapse into a line. By layer 16 the neutral cluster separates as a distinct region — suggesting that emotional neutrality is represented as an active state, not merely as an absence of signal. By layer 20 the separation is clean.</p>
-      <p><strong>This provides evidence that Anthropic's finding generalises beyond Claude.</strong> At minimum, the same kind of emotion geometry appears in a fully open model with a different training lineage.</p>
+
+      <p>At layer 0, all 120 prompts collapse into a line. By layer 16 the neutral cluster separates as a distinct region — suggesting that emotional neutrality is represented as an active state, not merely an absence of signal. By layer 20 the four-quadrant separation is clean.</p>
+
+      <p><strong>This provides evidence that emotion geometry generalises beyond the Claude family.</strong> The same qualitative structure — near-orthogonal valence and arousal axes, circumplex-consistent quadrants — appears in Qwen3-8B using the simplest possible probe, consistent with what Sofroniew et al. [1] found in Claude Sonnet 4.5 and what concurrent work [2, 3] found in other models.</p>
 
       <h2 id="finding2">Finding 2 — The geometry is causally active</h2>
-      <p>Existence and causation are different things. Anthropic showed the geometry correlates with behaviour. The question is whether you can <em>move</em> it and have the output follow.</p>
-      <p>Activation steering: add <code>α × valence_dir</code> to the residual stream at inference [6]. I used eight ambiguous prompts with no strong emotional prior — the model has to invent the tone:</p>
+
+      <p>Existence and causation are different things. Even a perfect linear probe could be reading off a representation that is epiphenomenal to generation — the model writes it down but never reads it back. The test is whether you can <em>intervene</em> on it and have output follow.</p>
+
+      <p>I use activation steering [5]: add <code>α × valence_dir</code> to the residual stream at layer 19 at inference time. Layer 19 was chosen as the injection point based on the layer sweep (Finding 3 below), not from probe accuracy alone — note that the probes saturate by layer 12, so probe accuracy alone does not tell you where to steer. The prompts are eight ambiguous sentences with no strong emotional prior, so the model must invent the tone:</p>
+
       <blockquote>
         <em>"I walked home alone through the city."</em><br>
         <em>"I looked out the window for a long time."</em><br>
         <em>"I sat at my desk for several hours."</em>
       </blockquote>
+
       <figure class="blog-figure">
         <img src="{{ base_dir }}{{ url_for('static', filename='img/blog/emotion-geometry-qwen3/steering.gif') }}" alt="Animation showing the same ambiguous prompt producing different emotional continuations under different valence steering strengths" loading="lazy" decoding="async">
-        <figcaption>Same prompt, varying injected valence.</figcaption>
+        <figcaption>Same prompt, varying injected valence (α). The emotional character of the continuation shifts systematically.</figcaption>
       </figure>
+
       <p><strong>Actual model outputs for "I walked home alone through the city."</strong></p>
+
       <table style="width:100%; border-collapse:collapse; font-size:0.88rem; margin:1.5rem 0;">
         <thead>
           <tr>
@@ -157,55 +197,86 @@
           <tr><td style="padding:0.6rem 0.8rem; font-family:var(--font-mono); color:#E8593C; white-space:nowrap;">+40</td><td style="padding:0.6rem 0.8rem; font-style:italic; color:var(--text-muted);">"the city streets hummed with a rhythm I hadn't heard in years. Walking home, I let the silence speak. A quiet, unshakable peace."</td></tr>
         </tbody>
       </table>
-      <p>Same prompt. Same model. Same weights. Only the internal activation at layer 19 changes.</p>
+
+      <p>Same prompt. Same model weights. Only the internal activation at layer 19 changes.</p>
+
       <figure class="blog-figure">
         <img src="{{ base_dir }}{{ url_for('static', filename='img/blog/emotion-geometry-qwen3/fig3_alpha_sweep.png') }}" alt="Line chart showing RoBERTa sentiment score increasing as valence steering alpha increases at layer 19" loading="lazy" decoding="async">
-        <figcaption>RoBERTa sentiment score vs. alpha at layer 19. A clean gradient from −0.85 to +0.85.</figcaption>
+        <figcaption>RoBERTa sentiment score vs. α at layer 19 (mean ± std over 8 prompts). A monotone gradient from −0.85 to +0.85.</figcaption>
       </figure>
-      <p>RoBERTa sentiment runs from −0.85 at α = −40 to +0.85 at α = +40 — a clean gradient across the full range. Coherence stays near 100% throughout. This suggests that the geometry is not merely decodable from activations; at the right layer, it is causally upstream of generation.</p>
 
-      <h2 id="finding3">Finding 3 — There is a sharp causal window</h2>
-      <p>The most practically important finding: the injection layer matters enormously.</p>
+      <p>Mean RoBERTa sentiment runs from roughly −0.85 at α = −40 to +0.85 at α = +40 — a near-monotone gradient across the full range. Note the asymmetry visible even here: negative sentiment saturates early (α ≤ −20 produces similar scores), while positive sentiment continues rising through α = +40. All generated texts remained fluent and coherent under manual inspection across the full α range, though this is a qualitative assessment on a small sample (N=8 prompts).</p>
+
+      <p>One important caveat: the steering magnitudes used here are large. Whether the same qualitative effect survives at α values calibrated relative to the residual stream norm at layer 19 is worth testing — future work should report this. For Qwen3-8B, residual stream norms at mid-network layers are typically in the range of 10–50; so α=10–40 is not trivially large, but it is not small either.</p>
+
+      <h2 id="finding3">Finding 3 — There is a sharp causal window, and it is asymmetric</h2>
+
+      <p>This is the most surprising finding. The injection layer matters enormously — and differently for positive and negative affect.</p>
+
       <figure class="blog-figure">
         <img src="{{ base_dir }}{{ url_for('static', filename='img/blog/emotion-geometry-qwen3/fig4_layer_sweep.png') }}" alt="Layer sweep chart showing positive steering peaking around layers 12 to 16 while negative steering remains distributed across more layers" loading="lazy" decoding="async">
-        <figcaption>Steering effect vs. injection layer. Positive affect peaks sharply at layers 12–16; negative is distributed.</figcaption>
+        <figcaption>Steering effect vs. injection layer (N=4 prompts; treat as a qualitative pilot). Positive affect peaks sharply at layers 12–16; negative is distributed. Note the inversion of positive steering at layers 20+.</figcaption>
       </figure>
-      <p>Positive steering peaks at <strong>layers 12–16</strong> (+0.75), then collapses sharply. By layer 20 the effect is near zero; by layers 28–35 it has inverted to negative. Inject too early and the representation has not yet become causally useful. Inject too late and generation may already be committed.</p>
-      <p>Negative steering behaves differently — strong and sustained from layers 8 through 20, weakening only in the final third of the network.</p>
+
+      <p>Positive steering (α = +10) peaks at <strong>layers 12–16</strong> (mean RoBERTa sentiment ≈ +0.75), then collapses. By layer 20 the effect is near zero; by layers 24–35 it inverts to negative — the model appears to actively resist late positive injections. Inject too early (before layer 12) and the representation has not yet become causally useful. Inject too late and it is counterproductive.</p>
+
+      <p>Negative steering (α = −10) behaves very differently: strong and roughly sustained from layers 8 through 20, weakening only in the final third of the network.</p>
+
       <figure class="blog-figure">
         <img src="{{ base_dir }}{{ url_for('static', filename='img/blog/emotion-geometry-qwen3/fig5_asymmetry.png') }}" alt="Panel chart comparing positive and negative affect steering magnitude across layers" loading="lazy" decoding="async">
-        <figcaption>Positive vs. negative steering asymmetry. One is a bottleneck; the other is a highway.</figcaption>
+        <figcaption>Positive vs. negative affect asymmetry across injection layers. Left: signed effect; right: absolute magnitude. Positive affect is a narrow bottleneck; negative is a broad highway.</figcaption>
       </figure>
-      <p>This asymmetry is the most unexpected finding. <strong>Positive affect has a narrow causal bottleneck — layers 12–16. Negative affect is more distributed</strong> — it can be injected across a wider window and still shape output.</p>
-      <p>One interpretation is that negative emotional states — grief, anger, anxiety, dread — are more varied in training data, so the model maintains their representations across more layers. Positive affect may be more stereotyped and compressed into a narrower representational window. This is speculative, but the causal window and the positive/negative asymmetry are both natural targets for follow-up experiments.</p>
+
+      <p><strong>Positive affect has a narrow causal bottleneck at layers 12–16. Negative affect is more distributed across layers 8–20.</strong> The right panel of Fig. 5 makes this quantitative: at every layer outside the 12–16 window, negative steering magnitude exceeds positive by a substantial margin.</p>
+
+      <p>What might explain this? One speculative account: negative emotional states — grief, dread, anxiety — are more varied and frequent in training text, so the model maintains a distributed representation that can be accessed from a wider range of depths. Positive affect, being more stereotyped in text ("excited", "joyful", "grateful" often co-occur in predictable patterns), may be more compressed into a narrower representational window. A related possibility: the late-layer inversion for positive steering could reflect the model's instruction-following prior pulling the generation back toward a neutral or task-appropriate tone. These interpretations are speculative; disambiguating them would require experiments on training data distribution and checkpoint analysis.</p>
+
+      <p>A further caveat: the layer sweep uses N=4 prompts, so the precise shape of the curve should be treated as a qualitative pilot result rather than a precise effect-size estimate. The qualitative pattern — narrow positive window, broad negative window, late-layer inversion for positive — is robust across those four prompts, but cross-model replication and a larger prompt set are needed to firm it up.</p>
 
       <h2 id="discussion">Discussion</h2>
+
       <h3>Why this matters for alignment</h3>
-      <p>More broadly, emotion is a useful test case for mechanistic interpretability because it has three properties at once: it is psychologically structured, behaviorally visible in generations, and linearly accessible in activation space. That makes it a good domain for studying when representations become causally actionable rather than merely decodable.</p>
-      <p>The causal window finding has direct practical implications:</p>
-      <p><strong>Monitoring</strong>: a probe running on activations at layers 12–16 could flag the emotional trajectory of a generation <em>before</em> it completes — potentially faster and more reliable than post-hoc output classifiers.</p>
-      <p><strong>Attack surface</strong>: the valence direction can be injected from outside. The magnitudes required (α ≥ 10) are large relative to typical residual stream norms, but the mechanism is reliable. This is worth understanding for deployed systems.</p>
-      <p><strong>Positive/negative asymmetry</strong>: if you want to suppress negative affect, the wider causal window means more leverage — injection anywhere from layer 8 to 20 will have an effect. Suppressing positive affect requires hitting the narrow layers 12–16 window specifically.</p>
+
+      <p>Sofroniew et al. [1] showed that emotion representations in Claude Sonnet 4.5 influence alignment-relevant behaviours including sycophancy and reward hacking. The present results suggest that the causal mechanism is not uniform across the network, and that positive and negative affect are not symmetric handles. This has a few practical implications.</p>
+
+      <p><strong>Monitoring.</strong> A probe running on activations at layers 12–16 could flag the emotional trajectory of a generation <em>before</em> it completes — potentially faster and more reliable than post-hoc output classifiers. The fact that the representation saturates here (Finding 1) and that causal influence peaks here (Finding 3) makes this window a natural monitoring target.</p>
+
+      <p><strong>Suppression asymmetry.</strong> If the goal is to suppress negative affect in a deployed system, the wide causal window for negative steering provides more leverage: injection anywhere from layer 8 to 20 will have an effect. Suppressing positive affect (or amplifying it reliably) requires hitting the narrow 12–16 window specifically. This is directly relevant to designing steering-based affect modulation.</p>
+
+      <p><strong>Attack surface.</strong> The valence direction can be injected at inference time from outside the model's normal input channel. The magnitudes required (α ≥ 10) need to be compared to residual stream norms to be properly interpreted, and the practical threat model for such an attack on a deployed system is unclear. But the mechanism is reliable and worth understanding.</p>
 
       <h3>What I'd do next</h3>
+
       <ul>
-        <li><strong>Cross-family validation</strong>: run on Llama-3.1-8B. Is the causal window always around 33–50% depth, or does it vary by architecture?</li>
-        <li><strong>Arousal steering</strong>: does injecting the arousal direction shift intensity without changing hedonic tone? The circumplex model predicts the axes should be independently controllable.</li>
-        <li><strong>Training checkpoints</strong>: does the geometry appear suddenly or build gradually during pre-training? The Pythia suite would allow this.</li>
-        <li><strong>Norm-calibrated interventions</strong>: how small can α be while preserving the same qualitative layer profile? Does the causal window survive when steering is scaled relative to residual-stream norms?</li>
-        <li><strong>Process supervision</strong>: the valence direction is a label-free signal extracted from model internals. Could it re-rank outputs, filter training data, or detect unwanted affective trajectories during generation?</li>
+        <li><strong>Norm-calibrated steering</strong>: repeat the α sweep with values scaled to the residual stream norm at each injection layer. Does the causal window survive? Does the asymmetry hold?</li>
+        <li><strong>Cross-architecture replication</strong>: run on Llama-3.1-8B. Is the causal window always around 33–50% of network depth, or does it shift with architecture?</li>
+        <li><strong>Arousal steering</strong>: does injecting the arousal direction shift intensity without changing hedonic tone? The circumplex model predicts the axes should be independently controllable — this is a clean test of the geometry's functional independence.</li>
+        <li><strong>Training checkpoints</strong>: does the geometry appear suddenly or build gradually during pre-training? The Pythia suite would allow this, and could shed light on whether the arousal-leads-valence ordering reflects something about the order in which the model learns these distinctions.</li>
+        <li><strong>Larger prompt sets</strong>: the layer sweep result is based on N=4 prompts. A 50–100 prompt set would tighten the effect-size estimates and allow proper confidence intervals on the asymmetry.</li>
+        <li><strong>Nonlinear probes</strong>: Choi &amp; Weber [2] find mild global nonlinearity. A kernel probe or shallow MLP probe would quantify how much signal the linear direction misses.</li>
       </ul>
 
       <h3>Limitations</h3>
-      <p>The steering prompt sample is small: 8 prompts for the α sweep and 4 prompts for the layer sweep. The layer-sweep result is therefore best read as a qualitative pattern, not a precise estimate of effect size by layer. A larger prompt set, multiple random seeds, and cross-model replication would tighten the conclusion.</p>
-      <p>The sentiment metric is also a proxy. RoBERTa is better than lexicon matching, but it can still confound affect with literary style, intensity, or genre. A stronger version of this experiment would report agreement across multiple sentiment models and a small human-rating set.</p>
-      <p>Finally, the steering magnitudes are large. This makes the causal effect easy to observe, but future work should compare α directly to residual-stream norms and test whether smaller, norm-calibrated interventions produce the same qualitative layer profile.</p>
+
+      <p>The steering prompt sample is small: 8 prompts for the α sweep, 4 for the layer sweep. Both results should be read as qualitative pilots. The layer-sweep asymmetry is the key novel claim; it needs replication on larger prompt sets and at least one other model family before being treated as a general finding.</p>
+
+      <p>The sentiment metric is a proxy. RoBERTa is better than lexicon matching but can conflate affect with literary register, intensity, or genre. A stronger version would cross-reference multiple sentiment models and include a human rating set on a random sample of generations.</p>
+
+      <p>The steering magnitudes are large and have not been calibrated against residual stream norms. Future work should compare α directly to layer-wise norms and verify the causal window profile survives norm-calibrated interventions.</p>
+
+      <p>Finally, the mean-difference direction is a crude extraction method. Sofroniew et al. [1] use a richer pipeline (contrastive pairs across 171 curated emotion words); it is possible that a more precise direction would produce cleaner effects at smaller α and reveal a different layer profile.</p>
 
       <h2 id="conclusion">Conclusion</h2>
-      <p>Anthropic showed that Claude represents emotions geometrically. I find evidence for the same kind of structure in Qwen3-8B — a fully open model — and then test whether that structure is causally involved in generation.</p>
-      <p><strong>First</strong>: the geometry is causally active. Injecting the valence direction at the right layer shifts output sentiment by roughly 1.6 units on ambiguous prompts, with coherence intact. This suggests the representation is not merely correlated with output sentiment; it can help determine it.</p>
-      <p><strong>Second</strong>: the causal influence is sharply layer-dependent. Layers 12–16 are the bottleneck for positive affect — miss that window and the effect collapses. Negative affect is distributed across a wider range. This asymmetry is new and, to my knowledge, not reported in Anthropic's original work.</p>
-      <p>The emotion map is real enough to decode, structured enough to match psychology, and causal enough to steer. It also has an address in the network.</p>
+
+      <p>Recent work showed that Claude Sonnet 4.5 represents emotions in a geometrically structured, causally active way. I find evidence for the same kind of structure in Qwen3-8B using minimal supervision, and then characterise where in the network the causal influence lives.</p>
+
+      <p><strong>First</strong>: the geometry generalises to an open model. Valence and arousal are linearly decodable across all layers from layer 8 onward, with near-orthogonal directions that match the psychological circumplex — consistent with findings across multiple model families in concurrent work.</p>
+
+      <p><strong>Second</strong>: the geometry is causally active. Injecting the valence direction at the right layer shifts output sentiment by roughly 1.6 units on ambiguous prompts, with all generations remaining fluent. The representation is not merely correlated with output sentiment; at the right layer, it can help determine it.</p>
+
+      <p><strong>Third</strong>: the causal influence is sharply layer-dependent and asymmetric. Positive affect has a narrow bottleneck at layers 12–16 — miss that window and the effect collapses or inverts. Negative affect is more distributed across layers 8–20. This asymmetry is, to my knowledge, not reported in prior work, and has direct implications for how one would design monitoring or suppression mechanisms targeting emotion in deployed systems.</p>
+
+      <p>The emotion map has an address in the network — and positive and negative affect have different ones.</p>
 
     </div>
 
@@ -235,6 +306,7 @@
       <ol>
         <li><a href="#background">Background</a></li>
         <li><a href="#setup">Setup</a></li>
+        <li><a href="#related">Related Work</a></li>
         <li><a href="#finding1">The geometry exists</a></li>
         <li><a href="#finding2">The geometry is causal</a></li>
         <li><a href="#finding3">Sharp causal window</a></li>
@@ -244,12 +316,13 @@
     </div>
     <div class="aside-section" id="references">
       <div class="aside-title">References</div>
-      <p>[1] Anthropic (2024). <a href="https://www.anthropic.com/research/mapping-mind-language-model-interpretability" target="_blank" rel="noopener noreferrer">Mapping the Mind of a Large Language Model</a></p>
-      <p>[2] Qwen Team (2025). <a href="https://huggingface.co/Qwen/Qwen3-8B" target="_blank" rel="noopener noreferrer">Qwen3 Technical Report</a></p>
-      <p>[3] HuggingFace (2025). <a href="https://github.com/huggingface/transformers" target="_blank" rel="noopener noreferrer">Transformers</a></p>
-      <p>[4] Posner et al. (2005). The circumplex model of affect. <em>Development and Psychopathology</em>, 17(3).</p>
-      <p>[5] Russell (1980). A circumplex model of affect. <em>JPSP</em>, 39(6).</p>
-      <p>[6] Zou et al. (2023). <a href="https://arxiv.org/abs/2310.01405" target="_blank" rel="noopener noreferrer">Representation Engineering</a></p>
+      <p>[1] Sofroniew et al. (2026). <a href="https://transformer-circuits.pub/2026/emotions/index.html" target="_blank" rel="noopener noreferrer">Emotion Concepts and their Function in a Large Language Model</a>. Anthropic / Transformer Circuits Thread.</p>
+      <p>[2] Choi &amp; Weber (2026). <a href="https://arxiv.org/abs/2604.07382" target="_blank" rel="noopener noreferrer">Latent Structure of Affective Representations in Large Language Models</a>. arXiv:2604.07382.</p>
+      <p>[3] (2026). <a href="https://arxiv.org/abs/2604.03147" target="_blank" rel="noopener noreferrer">Valence–Arousal Subspace in LLMs: Circular Emotion Geometry and Multi-Behavioral Control</a>. arXiv:2604.03147.</p>
+      <p>[4] HuggingFace (2025). <a href="https://github.com/huggingface/transformers" target="_blank" rel="noopener noreferrer">Transformers</a></p>
+      <p>[5] Zou et al. (2023). <a href="https://arxiv.org/abs/2310.01405" target="_blank" rel="noopener noreferrer">Representation Engineering</a></p>
+      <p>[6] Elhage et al. (2022). <a href="https://transformer-circuits.pub/2022/toy_model/index.html" target="_blank" rel="noopener noreferrer">Toy Models of Superposition</a>. Transformer Circuits Thread.</p>
+      <p>[7] Russell (1980). A circumplex model of affect. <em>JPSP</em>, 39(6).</p>
     </div>
     <div class="aside-section">
       <div class="aside-title">Code</div>
