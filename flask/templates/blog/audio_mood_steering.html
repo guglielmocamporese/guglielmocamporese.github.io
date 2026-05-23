@@ -92,6 +92,10 @@ block.forward = original_forward  # restore</code></pre>
       <p>This replaces the bound method so the modification propagates through the compiled graph. The same pattern applies to any <code>@torch.compile</code>d model where you want to intervene on intermediate activations. I found no documentation of this issue in the existing mech interp literature for audio models — flagging it here for anyone who hits it.</p>
 
       <h2 id="method">Method</h2>
+      <figure class="blog-figure">
+        <img src="{{ base_dir }}{{ url_for('static', filename='img/blog/audio-mood-steering/audio-mood-steering.png') }}" alt="Two-column method diagram: mood direction extraction on the left, mood-steered inference on the right" loading="lazy" decoding="async">
+        <figcaption>Overview of the method. Left: mood direction vectors v_l are extracted per layer via mean-difference on contrastive prompt pairs; top-k layers are selected by logistic probe accuracy. Right: at inference, α × v_l is injected into each top-k layer simultaneously to steer the generated audio along the positive/negative affect axis.</figcaption>
+      </figure>
       <h3>Mood vector extraction</h3>
       <p>I construct 50 contrastive prompt pairs — one with positive valence, one with negative — with musical genre held constant to isolate mood from style. Ten genres are covered (piano, acoustic guitar, jazz, electronic, strings, ambient, rock, folk, lo-fi, cinematic), 5 pairs each. Example pair:</p>
       <blockquote>
