@@ -7,11 +7,11 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-  <link rel="apple-touch-icon" sizes="180x180" href="../static/img/icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../static/img/icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../static/img/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../static/img/icon.png">
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../../static/style.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
@@ -92,21 +92,21 @@
       <h6>guglielmocamporese [at] gmail [dot] com</h6>
     </div>
     <div class="img-frame">
-      <img src="../static/img/profile.jpeg" alt="Guglielmo Camporese" />
+      <img src="../../static/img/profile.jpeg" alt="Guglielmo Camporese" />
     </div>
   </div>
 
   <!-- nav -->
   <nav class="links">
-    <a href="../index.html">home</a>
-    <a href="../blog.html">blog</a>
-    <!-- <a href="../news.html">news</a> -->
+    <a href="../../index.html">home</a>
+    <a href="../../blog/">blog</a>
+    <!-- <a href="../../news/">news</a> -->
     <a href="https://scholar.google.com/citations?user=Yu6im9cAAAAJ&hl=en/" target="_blank">scholar</a>
     <a href="https://github.com/guglielmocamporese" target="_blank">github</a>
     <a href="https://www.linkedin.com/in/guglielmocamporese/" target="_blank">linkedin</a>
     <a href="https://x.com/gucamporese/" target="_blank">x</a>
-    <a href="../static/guglielmo_camporese_cv.pdf" target="_blank">cv</a>
-    <a href="../extra.html">extra</a>
+    <a href="../../static/guglielmo_camporese_cv.pdf" target="_blank">cv</a>
+    <a href="../../extra/">extra</a>
   </nav>
   
   <div class="page-title">Emotion Geometry in LLMs</div>
@@ -178,7 +178,7 @@
       <p>Both probes substantially outperform chance from the early layers. The arousal probe reaches ~98–99% accuracy and plateaus by layer 8; the valence probe reaches ~95% and stabilises around layer 12.</p>
 
       <figure class="blog-figure">
-        <img src="../static/img/blog/emotion-geometry-qwen3/fig1_probes.png" alt="Line chart showing valence and arousal probe accuracy by transformer layer in Qwen3-8B" loading="lazy" decoding="async">
+        <img src="../../static/img/blog/emotion-geometry-qwen3/fig1_probes.png" alt="Line chart showing valence and arousal probe accuracy by transformer layer in Qwen3-8B" loading="lazy" decoding="async">
         <figcaption>Probe accuracy by layer for valence and arousal. Arousal saturates earlier and at a higher peak.</figcaption>
       </figure>
 
@@ -187,7 +187,7 @@
       <p>The representational geometry matches the psychological circumplex model [7] — two near-orthogonal axes:</p>
 
       <figure class="blog-figure">
-        <img src="../static/img/blog/emotion-geometry-qwen3/fig2_emotion_plane.png" alt="Scatter plot of Qwen3-8B activations projected onto valence and arousal directions, forming four emotion quadrants" loading="lazy" decoding="async">
+        <img src="../../static/img/blog/emotion-geometry-qwen3/fig2_emotion_plane.png" alt="Scatter plot of Qwen3-8B activations projected onto valence and arousal directions, forming four emotion quadrants" loading="lazy" decoding="async">
         <figcaption>Emotion plane at layer 19. Cosine similarity between valence and arousal directions: −0.079.</figcaption>
       </figure>
 
@@ -198,7 +198,7 @@
       <p>Here is how the structure emerges layer by layer:</p>
 
       <figure class="blog-figure">
-        <img src="../static/img/blog/emotion-geometry-qwen3/pca_emergence.gif" alt="Animated PCA projection showing emotional structure emerging across transformer layers" loading="lazy" decoding="async">
+        <img src="../../static/img/blog/emotion-geometry-qwen3/pca_emergence.gif" alt="Animated PCA projection showing emotional structure emerging across transformer layers" loading="lazy" decoding="async">
         <figcaption>PCA projection of residual stream activations across layers. Emotional structure crystallises by layer 16.</figcaption>
       </figure>
 
@@ -219,7 +219,7 @@
       </blockquote>
 
       <figure class="blog-figure">
-        <img src="../static/img/blog/emotion-geometry-qwen3/steering.gif" alt="Animation showing the same ambiguous prompt producing different emotional continuations under different valence steering strengths" loading="lazy" decoding="async">
+        <img src="../../static/img/blog/emotion-geometry-qwen3/steering.gif" alt="Animation showing the same ambiguous prompt producing different emotional continuations under different valence steering strengths" loading="lazy" decoding="async">
         <figcaption>Same prompt, varying injected valence (α). The emotional character of the continuation shifts systematically.</figcaption>
       </figure>
 
@@ -244,7 +244,7 @@
       <p>Same prompt. Same model weights. Only the internal activation at layer 19 changes.</p>
 
       <figure class="blog-figure">
-        <img src="../static/img/blog/emotion-geometry-qwen3/fig3_alpha_sweep.png" alt="Line chart showing RoBERTa sentiment score increasing as valence steering alpha increases at layer 19" loading="lazy" decoding="async">
+        <img src="../../static/img/blog/emotion-geometry-qwen3/fig3_alpha_sweep.png" alt="Line chart showing RoBERTa sentiment score increasing as valence steering alpha increases at layer 19" loading="lazy" decoding="async">
         <figcaption>RoBERTa sentiment score vs. α at layer 19 (mean ± std over 8 prompts). A monotone gradient from −0.85 to +0.85.</figcaption>
       </figure>
 
@@ -257,7 +257,7 @@
       <p>This is the most surprising finding. The injection layer matters enormously — and differently for positive and negative affect.</p>
 
       <figure class="blog-figure">
-        <img src="../static/img/blog/emotion-geometry-qwen3/fig4_layer_sweep.png" alt="Layer sweep chart showing positive steering peaking around layers 12 to 16 while negative steering remains distributed across more layers" loading="lazy" decoding="async">
+        <img src="../../static/img/blog/emotion-geometry-qwen3/fig4_layer_sweep.png" alt="Layer sweep chart showing positive steering peaking around layers 12 to 16 while negative steering remains distributed across more layers" loading="lazy" decoding="async">
         <figcaption>Steering effect vs. injection layer (N=4 prompts; treat as a qualitative pilot). Positive affect peaks sharply at layers 12–16; negative is distributed. Note the inversion of positive steering at layers 20+.</figcaption>
       </figure>
 
@@ -266,7 +266,7 @@
       <p>Negative steering (α = −10) behaves very differently: strong and roughly sustained from layers 8 through 20, weakening only in the final third of the network.</p>
 
       <figure class="blog-figure">
-        <img src="../static/img/blog/emotion-geometry-qwen3/fig5_asymmetry.png" alt="Panel chart comparing positive and negative affect steering magnitude across layers" loading="lazy" decoding="async">
+        <img src="../../static/img/blog/emotion-geometry-qwen3/fig5_asymmetry.png" alt="Panel chart comparing positive and negative affect steering magnitude across layers" loading="lazy" decoding="async">
         <figcaption>Positive vs. negative affect asymmetry across injection layers. Left: signed effect; right: absolute magnitude. Positive affect is a narrow bottleneck; negative is a broad highway.</figcaption>
       </figure>
 
@@ -380,6 +380,6 @@
   </footer>
 
 </div>
-<script src="../static/script.js"></script>
+<script src="../../static/script.js"></script>
 </body>
 </html>

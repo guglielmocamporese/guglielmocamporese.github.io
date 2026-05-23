@@ -7,11 +7,11 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-  <link rel="apple-touch-icon" sizes="180x180" href="../static/img/icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../static/img/icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../static/img/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../static/img/icon.png">
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../../static/style.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
@@ -64,21 +64,21 @@
       <h6>guglielmocamporese [at] gmail [dot] com</h6>
     </div>
     <div class="img-frame">
-      <img src="../static/img/profile.jpeg" alt="Guglielmo Camporese" />
+      <img src="../../static/img/profile.jpeg" alt="Guglielmo Camporese" />
     </div>
   </div>
 
   <!-- nav -->
   <nav class="links">
-    <a href="../index.html">home</a>
-    <a href="../blog.html">blog</a>
-    <!-- <a href="../news.html">news</a> -->
+    <a href="../../index.html">home</a>
+    <a href="../../blog/">blog</a>
+    <!-- <a href="../../news/">news</a> -->
     <a href="https://scholar.google.com/citations?user=Yu6im9cAAAAJ&hl=en/" target="_blank">scholar</a>
     <a href="https://github.com/guglielmocamporese" target="_blank">github</a>
     <a href="https://www.linkedin.com/in/guglielmocamporese/" target="_blank">linkedin</a>
     <a href="https://x.com/gucamporese/" target="_blank">x</a>
-    <a href="../static/guglielmo_camporese_cv.pdf" target="_blank">cv</a>
-    <a href="../extra.html">extra</a>
+    <a href="../../static/guglielmo_camporese_cv.pdf" target="_blank">cv</a>
+    <a href="../../extra/">extra</a>
   </nav>
   
   <div class="page-title">Mood Vectors in Audio Diffusion</div>
@@ -106,7 +106,7 @@
     <div class="blog-body">
 
       <h2 id="motivation">Motivation</h2>
-      <p>Anthropic's recent work on emotion representations in Claude Sonnet 4.5 [1] showed that emotion vectors are causally active — suppressing them shifts alignment-relevant behaviours including sycophancy and reward hacking. My <a href="../blog/emotion-geometry.html">previous post</a> replicated the geometric structure in Qwen3-8B and found a sharp positive/negative asymmetry in causal layer windows.</p>
+      <p>Anthropic's recent work on emotion representations in Claude Sonnet 4.5 [1] showed that emotion vectors are causally active — suppressing them shifts alignment-relevant behaviours including sycophancy and reward hacking. My <a href="../../blog/emotion-geometry/">previous post</a> replicated the geometric structure in Qwen3-8B and found a sharp positive/negative asymmetry in causal layer windows.</p>
       <p>The natural next question: does the same kind of linear structure appear in generative <em>audio</em> models? Stable Audio 3 is architecturally different from a language model — it generates continuous waveforms through iterative denoising, not next-token prediction — yet its backbone is still a Transformer operating on a residual stream. If the linear representation hypothesis holds broadly across modalities, mood should be recoverable somewhere in that stream.</p>
       <p>This post tests that hypothesis on the freshest possible target: Stable Audio 3 medium, released by Stability AI in May 2026 [2].</p>
 
@@ -156,7 +156,7 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
       <p>Probe accuracy peaks at <strong>layer 11 (88.3%)</strong>, with a broad encoding window across layers 4–11 — roughly 17–46% of network depth. All 24 layers exceed chance (50%).</p>
 
       <figure class="blog-figure">
-        <img src="../static/img/blog/audio-mood-steering/fig1_probe_accuracy.png" alt="Bar chart of logistic probe accuracy by DiT layer, peaking at layer 11 with 88.3%" loading="lazy" decoding="async">
+        <img src="../../static/img/blog/audio-mood-steering/fig1_probe_accuracy.png" alt="Bar chart of logistic probe accuracy by DiT layer, peaking at layer 11 with 88.3%" loading="lazy" decoding="async">
         <figcaption>Probe accuracy by DiT layer. Top-5: 11 (88.3%), 5 (86.7%), 7 (85.0%), 10 (85.0%), 4 (83.3%). The encoding window sits in the first half of the network; later layers fall but never collapse to chance.</figcaption>
       </figure>
 
@@ -183,7 +183,7 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card baseline">
             <div class="audio-card-label">neutral</div>
             <div class="audio-card-alpha neutral">α = 0</div>
-            <audio controls src="../static/audio/mood-steering/01_piano/alpha_pos0.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/01_piano/alpha_pos0.0.wav"></audio>
           </div>
         </div>
 
@@ -192,22 +192,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +3</div>
-            <audio controls src="../static/audio/mood-steering/01_piano/alpha_pos3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/01_piano/alpha_pos3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +5</div>
-            <audio controls src="../static/audio/mood-steering/01_piano/alpha_pos5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/01_piano/alpha_pos5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +10</div>
-            <audio controls src="../static/audio/mood-steering/01_piano/alpha_pos10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/01_piano/alpha_pos10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most euphoric</div>
             <div class="audio-card-alpha positive">α = +20</div>
-            <audio controls src="../static/audio/mood-steering/01_piano/alpha_pos20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/01_piano/alpha_pos20.0.wav"></audio>
           </div>
         </div>
 
@@ -216,22 +216,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −3</div>
-            <audio controls src="../static/audio/mood-steering/01_piano/alpha_neg3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/01_piano/alpha_neg3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −5</div>
-            <audio controls src="../static/audio/mood-steering/01_piano/alpha_neg5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/01_piano/alpha_neg5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −10</div>
-            <audio controls src="../static/audio/mood-steering/01_piano/alpha_neg10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/01_piano/alpha_neg10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most melancholic</div>
             <div class="audio-card-alpha negative">α = −20</div>
-            <audio controls src="../static/audio/mood-steering/01_piano/alpha_neg20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/01_piano/alpha_neg20.0.wav"></audio>
           </div>
         </div>
         <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
@@ -248,7 +248,7 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card baseline">
             <div class="audio-card-label">neutral</div>
             <div class="audio-card-alpha neutral">α = 0</div>
-            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_pos0.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/02_synthwave/alpha_pos0.0.wav"></audio>
           </div>
         </div>
 
@@ -257,22 +257,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +3</div>
-            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_pos3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/02_synthwave/alpha_pos3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +5</div>
-            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_pos5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/02_synthwave/alpha_pos5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +10</div>
-            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_pos10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/02_synthwave/alpha_pos10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most euphoric</div>
             <div class="audio-card-alpha positive">α = +20</div>
-            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_pos20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/02_synthwave/alpha_pos20.0.wav"></audio>
           </div>
         </div>
 
@@ -281,22 +281,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −3</div>
-            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_neg3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/02_synthwave/alpha_neg3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −5</div>
-            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_neg5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/02_synthwave/alpha_neg5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −10</div>
-            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_neg10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/02_synthwave/alpha_neg10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most melancholic</div>
             <div class="audio-card-alpha negative">α = −20</div>
-            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_neg20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/02_synthwave/alpha_neg20.0.wav"></audio>
           </div>
         </div>
         <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
@@ -313,7 +313,7 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card baseline">
             <div class="audio-card-label">neutral</div>
             <div class="audio-card-alpha neutral">α = 0</div>
-            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_pos0.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/03_acoustic_guitar/alpha_pos0.0.wav"></audio>
           </div>
         </div>
 
@@ -322,22 +322,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +3</div>
-            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_pos3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/03_acoustic_guitar/alpha_pos3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +5</div>
-            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_pos5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/03_acoustic_guitar/alpha_pos5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +10</div>
-            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_pos10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/03_acoustic_guitar/alpha_pos10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most euphoric</div>
             <div class="audio-card-alpha positive">α = +20</div>
-            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_pos20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/03_acoustic_guitar/alpha_pos20.0.wav"></audio>
           </div>
         </div>
 
@@ -346,22 +346,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −3</div>
-            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_neg3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/03_acoustic_guitar/alpha_neg3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −5</div>
-            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_neg5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/03_acoustic_guitar/alpha_neg5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −10</div>
-            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_neg10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/03_acoustic_guitar/alpha_neg10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most melancholic</div>
             <div class="audio-card-alpha negative">α = −20</div>
-            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_neg20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/03_acoustic_guitar/alpha_neg20.0.wav"></audio>
           </div>
         </div>
         <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
@@ -378,7 +378,7 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card baseline">
             <div class="audio-card-label">neutral</div>
             <div class="audio-card-alpha neutral">α = 0</div>
-            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_pos0.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/04_jazz/alpha_pos0.0.wav"></audio>
           </div>
         </div>
 
@@ -387,22 +387,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +3</div>
-            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_pos3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/04_jazz/alpha_pos3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +5</div>
-            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_pos5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/04_jazz/alpha_pos5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +10</div>
-            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_pos10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/04_jazz/alpha_pos10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most euphoric</div>
             <div class="audio-card-alpha positive">α = +20</div>
-            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_pos20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/04_jazz/alpha_pos20.0.wav"></audio>
           </div>
         </div>
 
@@ -411,22 +411,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −3</div>
-            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_neg3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/04_jazz/alpha_neg3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −5</div>
-            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_neg5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/04_jazz/alpha_neg5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −10</div>
-            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_neg10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/04_jazz/alpha_neg10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most melancholic</div>
             <div class="audio-card-alpha negative">α = −20</div>
-            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_neg20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/04_jazz/alpha_neg20.0.wav"></audio>
           </div>
         </div>
         <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
@@ -443,7 +443,7 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card baseline">
             <div class="audio-card-label">neutral</div>
             <div class="audio-card-alpha neutral">α = 0</div>
-            <audio controls src="../static/audio/mood-steering/05_strings/alpha_pos0.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/05_strings/alpha_pos0.0.wav"></audio>
           </div>
         </div>
 
@@ -452,22 +452,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +3</div>
-            <audio controls src="../static/audio/mood-steering/05_strings/alpha_pos3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/05_strings/alpha_pos3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +5</div>
-            <audio controls src="../static/audio/mood-steering/05_strings/alpha_pos5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/05_strings/alpha_pos5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +10</div>
-            <audio controls src="../static/audio/mood-steering/05_strings/alpha_pos10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/05_strings/alpha_pos10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most euphoric</div>
             <div class="audio-card-alpha positive">α = +20</div>
-            <audio controls src="../static/audio/mood-steering/05_strings/alpha_pos20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/05_strings/alpha_pos20.0.wav"></audio>
           </div>
         </div>
 
@@ -476,22 +476,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −3</div>
-            <audio controls src="../static/audio/mood-steering/05_strings/alpha_neg3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/05_strings/alpha_neg3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −5</div>
-            <audio controls src="../static/audio/mood-steering/05_strings/alpha_neg5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/05_strings/alpha_neg5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −10</div>
-            <audio controls src="../static/audio/mood-steering/05_strings/alpha_neg10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/05_strings/alpha_neg10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most melancholic</div>
             <div class="audio-card-alpha negative">α = −20</div>
-            <audio controls src="../static/audio/mood-steering/05_strings/alpha_neg20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/05_strings/alpha_neg20.0.wav"></audio>
           </div>
         </div>
         <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
@@ -508,7 +508,7 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card baseline">
             <div class="audio-card-label">neutral</div>
             <div class="audio-card-alpha neutral">α = 0</div>
-            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_pos0.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/06_lofi/alpha_pos0.0.wav"></audio>
           </div>
         </div>
 
@@ -517,22 +517,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +3</div>
-            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_pos3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/06_lofi/alpha_pos3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +5</div>
-            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_pos5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/06_lofi/alpha_pos5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +10</div>
-            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_pos10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/06_lofi/alpha_pos10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most euphoric</div>
             <div class="audio-card-alpha positive">α = +20</div>
-            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_pos20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/06_lofi/alpha_pos20.0.wav"></audio>
           </div>
         </div>
 
@@ -541,22 +541,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −3</div>
-            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_neg3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/06_lofi/alpha_neg3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −5</div>
-            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_neg5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/06_lofi/alpha_neg5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −10</div>
-            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_neg10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/06_lofi/alpha_neg10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most melancholic</div>
             <div class="audio-card-alpha negative">α = −20</div>
-            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_neg20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/06_lofi/alpha_neg20.0.wav"></audio>
           </div>
         </div>
         <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
@@ -573,7 +573,7 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card baseline">
             <div class="audio-card-label">neutral</div>
             <div class="audio-card-alpha neutral">α = 0</div>
-            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_pos0.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/07_ambient/alpha_pos0.0.wav"></audio>
           </div>
         </div>
 
@@ -582,22 +582,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +3</div>
-            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_pos3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/07_ambient/alpha_pos3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +5</div>
-            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_pos5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/07_ambient/alpha_pos5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +10</div>
-            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_pos10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/07_ambient/alpha_pos10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most euphoric</div>
             <div class="audio-card-alpha positive">α = +20</div>
-            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_pos20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/07_ambient/alpha_pos20.0.wav"></audio>
           </div>
         </div>
 
@@ -606,22 +606,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −3</div>
-            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_neg3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/07_ambient/alpha_neg3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −5</div>
-            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_neg5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/07_ambient/alpha_neg5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −10</div>
-            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_neg10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/07_ambient/alpha_neg10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most melancholic</div>
             <div class="audio-card-alpha negative">α = −20</div>
-            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_neg20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/07_ambient/alpha_neg20.0.wav"></audio>
           </div>
         </div>
         <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
@@ -638,7 +638,7 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card baseline">
             <div class="audio-card-label">neutral</div>
             <div class="audio-card-alpha neutral">α = 0</div>
-            <audio controls src="../static/audio/mood-steering/08_folk/alpha_pos0.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/08_folk/alpha_pos0.0.wav"></audio>
           </div>
         </div>
 
@@ -647,22 +647,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +3</div>
-            <audio controls src="../static/audio/mood-steering/08_folk/alpha_pos3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/08_folk/alpha_pos3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +5</div>
-            <audio controls src="../static/audio/mood-steering/08_folk/alpha_pos5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/08_folk/alpha_pos5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +10</div>
-            <audio controls src="../static/audio/mood-steering/08_folk/alpha_pos10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/08_folk/alpha_pos10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most euphoric</div>
             <div class="audio-card-alpha positive">α = +20</div>
-            <audio controls src="../static/audio/mood-steering/08_folk/alpha_pos20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/08_folk/alpha_pos20.0.wav"></audio>
           </div>
         </div>
 
@@ -671,22 +671,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −3</div>
-            <audio controls src="../static/audio/mood-steering/08_folk/alpha_neg3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/08_folk/alpha_neg3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −5</div>
-            <audio controls src="../static/audio/mood-steering/08_folk/alpha_neg5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/08_folk/alpha_neg5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −10</div>
-            <audio controls src="../static/audio/mood-steering/08_folk/alpha_neg10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/08_folk/alpha_neg10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most melancholic</div>
             <div class="audio-card-alpha negative">α = −20</div>
-            <audio controls src="../static/audio/mood-steering/08_folk/alpha_neg20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/08_folk/alpha_neg20.0.wav"></audio>
           </div>
         </div>
         <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
@@ -703,7 +703,7 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card baseline">
             <div class="audio-card-label">neutral</div>
             <div class="audio-card-alpha neutral">α = 0</div>
-            <audio controls src="../static/audio/mood-steering/09_rock/alpha_pos0.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/09_rock/alpha_pos0.0.wav"></audio>
           </div>
         </div>
 
@@ -712,22 +712,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +3</div>
-            <audio controls src="../static/audio/mood-steering/09_rock/alpha_pos3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/09_rock/alpha_pos3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +5</div>
-            <audio controls src="../static/audio/mood-steering/09_rock/alpha_pos5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/09_rock/alpha_pos5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +10</div>
-            <audio controls src="../static/audio/mood-steering/09_rock/alpha_pos10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/09_rock/alpha_pos10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most euphoric</div>
             <div class="audio-card-alpha positive">α = +20</div>
-            <audio controls src="../static/audio/mood-steering/09_rock/alpha_pos20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/09_rock/alpha_pos20.0.wav"></audio>
           </div>
         </div>
 
@@ -736,22 +736,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −3</div>
-            <audio controls src="../static/audio/mood-steering/09_rock/alpha_neg3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/09_rock/alpha_neg3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −5</div>
-            <audio controls src="../static/audio/mood-steering/09_rock/alpha_neg5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/09_rock/alpha_neg5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −10</div>
-            <audio controls src="../static/audio/mood-steering/09_rock/alpha_neg10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/09_rock/alpha_neg10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most melancholic</div>
             <div class="audio-card-alpha negative">α = −20</div>
-            <audio controls src="../static/audio/mood-steering/09_rock/alpha_neg20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/09_rock/alpha_neg20.0.wav"></audio>
           </div>
         </div>
         <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
@@ -768,7 +768,7 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card baseline">
             <div class="audio-card-label">neutral</div>
             <div class="audio-card-alpha neutral">α = 0</div>
-            <audio controls src="../static/audio/mood-steering/10_techno/alpha_pos0.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/10_techno/alpha_pos0.0.wav"></audio>
           </div>
         </div>
 
@@ -777,22 +777,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +3</div>
-            <audio controls src="../static/audio/mood-steering/10_techno/alpha_pos3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/10_techno/alpha_pos3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +5</div>
-            <audio controls src="../static/audio/mood-steering/10_techno/alpha_pos5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/10_techno/alpha_pos5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha positive">α = +10</div>
-            <audio controls src="../static/audio/mood-steering/10_techno/alpha_pos10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/10_techno/alpha_pos10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most euphoric</div>
             <div class="audio-card-alpha positive">α = +20</div>
-            <audio controls src="../static/audio/mood-steering/10_techno/alpha_pos20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/10_techno/alpha_pos20.0.wav"></audio>
           </div>
         </div>
 
@@ -801,22 +801,22 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −3</div>
-            <audio controls src="../static/audio/mood-steering/10_techno/alpha_neg3.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/10_techno/alpha_neg3.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −5</div>
-            <audio controls src="../static/audio/mood-steering/10_techno/alpha_neg5.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/10_techno/alpha_neg5.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label"></div>
             <div class="audio-card-alpha negative">α = −10</div>
-            <audio controls src="../static/audio/mood-steering/10_techno/alpha_neg10.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/10_techno/alpha_neg10.0.wav"></audio>
           </div>
           <div class="audio-card">
             <div class="audio-card-label">most melancholic</div>
             <div class="audio-card-alpha negative">α = −20</div>
-            <audio controls src="../static/audio/mood-steering/10_techno/alpha_neg20.0.wav"></audio>
+            <audio controls src="../../static/audio/mood-steering/10_techno/alpha_neg20.0.wav"></audio>
           </div>
         </div>
         <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
@@ -844,12 +844,12 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
       <p>Quantified via CLAP valence scores (cosine similarity to "happy music" minus "sad music" text anchors):</p>
 
       <figure class="blog-figure">
-        <img src="../static/img/blog/audio-mood-steering/fig3_all_genres_sweep.png" alt="2×5 grid showing CLAP valence score vs alpha for all 10 genres" loading="lazy" decoding="async">
+        <img src="../../static/img/blog/audio-mood-steering/fig3_all_genres_sweep.png" alt="2×5 grid showing CLAP valence score vs alpha for all 10 genres" loading="lazy" decoding="async">
         <figcaption>CLAP valence vs. α across all 10 genres. Pink = strong monotone signal (ρ ≥ 0.85). Blue = moderate (ρ ≥ 0.65). Grey = weak. Harmonic genres show clean trends; rhythmic/electronic genres resist.</figcaption>
       </figure>
 
       <figure class="blog-figure">
-        <img src="../static/img/blog/audio-mood-steering/fig2_clap_by_genre.png" alt="Horizontal bar chart of Spearman rho by genre" loading="lazy" decoding="async">
+        <img src="../../static/img/blog/audio-mood-steering/fig2_clap_by_genre.png" alt="Horizontal bar chart of Spearman rho by genre" loading="lazy" decoding="async">
         <figcaption>Spearman ρ between α and CLAP valence score, by genre. Mean ρ = 0.713 across 10 genres.</figcaption>
       </figure>
 
@@ -920,7 +920,7 @@ v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
       <p>[2] Evans et al. (2026). <a href="https://arxiv.org/abs/2605.17991" target="_blank" rel="noopener noreferrer">Stable Audio 3</a>. Stability AI.</p>
       <p>[3] Staniszewski et al. (2026). <a href="https://arxiv.org/abs/2602.11910" target="_blank" rel="noopener noreferrer">TADA! Tuning Audio Diffusion Models through Activation Steering</a>. arXiv:2602.11910.</p>
       <p>[4] Singh et al. (2025). <a href="https://arxiv.org/abs/2510.19127" target="_blank" rel="noopener noreferrer">Steering Autoregressive Music Generation with Recursive Feature Machines</a>. ICLR 2026.</p>
-      <p>[5] Camporese (2026). <a href="../blog/emotion-geometry.html">Emotion Geometry in LLMs</a>.</p>
+      <p>[5] Camporese (2026). <a href="../../blog/emotion-geometry/">Emotion Geometry in LLMs</a>.</p>
       <p>[6] Zou et al. (2023). <a href="https://arxiv.org/abs/2310.01405" target="_blank" rel="noopener noreferrer">Representation Engineering</a>.</p>
       <p>[7] Russell (1980). A circumplex model of affect. <em>JPSP</em>, 39(6).</p>
     </div>
@@ -945,6 +945,6 @@ document.addEventListener('play', function(e) {
   </footer>
 
 </div>
-<script src="../static/script.js"></script>
+<script src="../../static/script.js"></script>
 </body>
 </html>

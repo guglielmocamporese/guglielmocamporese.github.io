@@ -6,6 +6,8 @@ CONFIG = {
 	'FREEZER_STATIC_IGNORE': ['*.pdf', '*.JPG', '*.css', '*.js', '*.png'],
 	# 'FREEZER_DESTINATION': '../static',
     'FREEZER_DESTINATION': '../docs',
+    'FREEZER_DESTINATION_IGNORE': [],
+    'FREEZER_BASE_URL': 'https://guglielmocamporese.github.io/',
 }
 
 app.config.update(**CONFIG)
