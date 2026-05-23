@@ -4,7 +4,8 @@ from app import app
 CONFIG = {
 	#'FREEZER_BASE_URL': './',
 	'FREEZER_STATIC_IGNORE': ['*.pdf', '*.JPG', '*.css', '*.js', '*.png'],
-	'FREEZER_DESTINATION': '../static',
+	# 'FREEZER_DESTINATION': '../static',
+    'FREEZER_DESTINATION': '../docs',
 }
 
 app.config.update(**CONFIG)

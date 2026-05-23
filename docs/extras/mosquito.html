@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Guglielmo Camporese · Computing the Probability of Catching a Mosquito by Hands</title>
+  <meta name="description" content="Guglielmo Camporese — Researcher at Disney Research."/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/img/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/img/icon.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../static/style.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<body>
+<div id="main-container">
+
+  <!-- header -->
+  <div class="header-section">
+    <div class="header-frame">
+      <h1>Guglielmo Camporese <span>(gool-yell-moe)</span></h1>
+      <h4>AI Researcher at Disney Research · Zurich</h4>
+      <!-- <h4>Ph.D. in Brain, Mind and Computer Science</h4> -->
+      <h6>guglielmocamporese [at] gmail [dot] com</h6>
+    </div>
+    <div class="img-frame">
+      <img src="../static/img/profile.jpeg" alt="Guglielmo Camporese" />
+    </div>
+  </div>
+
+  <!-- nav -->
+  <nav class="links">
+    <a href="../index.html">home</a>
+    <a href="../blog.html">blog</a>
+    <!-- <a href="../news.html">news</a> -->
+    <a href="https://scholar.google.com/citations?user=Yu6im9cAAAAJ&hl=en/" target="_blank">scholar</a>
+    <a href="https://github.com/guglielmocamporese" target="_blank">github</a>
+    <a href="https://www.linkedin.com/in/guglielmocamporese/" target="_blank">linkedin</a>
+    <a href="https://x.com/gucamporese/" target="_blank">x</a>
+    <a href="../static/guglielmo_camporese_cv.pdf" target="_blank">cv</a>
+    <a href="../extra.html">extra</a>
+  </nav>
+
+  
+  <div class="page-title">Computing the Probability of Catching a Mosquito by Hands</div>
+  
+
+<div class="extra-page-layout">
+  <article class="extra-page">
+
+    <p>You're lying in bed trying to fall asleep. A mosquito buzzes near your ear. You swat — it's gone. What were the odds you'd actually catch it?</p>
+    <p>This is a fun back-of-the-envelope calculation. Let's model it properly.</p>
+
+    <figure class="blog-figure" style="max-width: 420px; margin: 2rem auto;">
+      <img src="../static/img/body.png" alt="Body diagram">
+    </figure>
+
+    <h2>The model</h2>
+
+    <p>The relevant variables are:</p>
+    <ul>
+      <li>$v_m$ — speed of the mosquito,</li>
+      <li>$v_a$ — speed of your arm,</li>
+      <li>$l_a$ — length of your arm,</li>
+      <li>$d_{es}$ — distance from ear to shoulder.</li>
+    </ul>
+
+    <p>We place the mosquito exactly at your ear. The moment you decide to swat, it starts flying away in a random direction. After $\nabla t$ seconds your hand reaches the ear position — but the mosquito has already moved to some point on a half-sphere of radius $d_m$.</p>
+
+    <figure class="blog-figure" style="max-width: 320px; margin: 2rem auto;">
+      <img src="../static/img/mosquito.png" alt="Mosquito half-sphere diagram">
+      <figcaption>The mosquito escapes into a half-sphere of radius $d_m$ before your hand arrives.</figcaption>
+    </figure>
+
+    <h2>Derivation</h2>
+
+    <p>The radius of the escape half-sphere is how far the mosquito can travel in the reaction time $\nabla t$:</p>
+    <div class="formula">$$d_m = v_m \cdot \nabla t$$</div>
+
+    <p>The reaction time is how long your arm takes to reach your ear from rest, travelling distance $d_{es} + l_a$:</p>
+    <div class="formula">$$\nabla t = \frac{d_{es} + l_a}{v_a}$$</div>
+
+    <p>Assuming the mosquito is uniformly distributed over the half-sphere, the probability of catching it inside a ball of radius $h$ (your closed fist) is:</p>
+    <div class="formula">$$
+      \begin{split}
+      P_{\text{catch}} &= \int_{H\text{-}S(h)} \frac{1}{V(H\text{-}S)} \, dx\,dy\,dz \\
+      &= \int_0^h \int_0^\pi \int_0^\pi \frac{2}{\frac{4}{3}\pi d_m^3} \, r^2 \sin\phi \, d\theta \, d\phi \, dr \\
+      &= \left( \frac{h}{d_m} \right)^3 = \left( \frac{v_a \cdot h}{v_m(d_{es} + l_a)} \right)^3
+      \end{split}
+    $$</div>
+
+    <h2>Numbers</h2>
+
+    <ul>
+      <li>$v_m = 0.56 \pm 0.1 \ \left[\frac{m}{s}\right]$ — average mosquito speed,</li>
+      <li>$v_a = 2.5 \ \left[\frac{m}{s}\right]$ — arm speed of a young adult [1],</li>
+      <li>$l_a = 0.6 \ [m]$ — average arm length,</li>
+      <li>$d_{es} = 0.2 \ [m]$ — ear-to-shoulder distance,</li>
+      <li>$h = 0.04 \ [m]$ — radius of a closed fist.</li>
+    </ul>
+
+    <p>Plugging in:</p>
+    <div class="formula" style="border: 1px solid var(--border); width: fit-content; padding: 0.5rem 1.5rem; margin: 1rem auto; border-radius: var(--radius); text-align: center;">
+      $$P_{\text{catch}} = \left( \frac{2.5 \times 0.04}{0.56 \times 0.8} \right)^3 \approx 1.11\%$$
+    </div>
+
+    <p style="text-align: center; margin-top: 1.5rem;">
+      <span class="rnd-bkg-color-alpha" style="padding: 0.3em 0.8em; border-radius: 4px;">
+        The mosquito will probably fly away :)
+      </span>
+    </p>
+
+  </article>
+
+  <aside class="extra-page-aside">
+    <div class="aside-section">
+      <div class="aside-title">References</div>
+      <p>[1] DeGoede et al. (2001). How Quickly Can Healthy Adults Move Their Hands to Intercept an Approaching Object? <em>Journals of Gerontology</em>, 56(9). <a href="https://doi.org/10.1093/gerona/56.9.M584" target="_blank">link</a></p>
+    </div>
+  </aside>
+</div>
+
+
+
+  <footer id="footer">
+    &copy; 2026 Guglielmo Camporese
+  </footer>
+
+</div>
+<script src="../static/script.js"></script>
+</body>
+</html>

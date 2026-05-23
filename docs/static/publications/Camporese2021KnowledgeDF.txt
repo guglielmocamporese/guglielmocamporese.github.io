@@ -1,0 +1,7 @@
+@article{Camporese2021KnowledgeDF,
+  title={Knowledge Distillation for Action Anticipation via Label Smoothing},
+  author={Guglielmo Camporese and Pasquale Coscia and Antonino Furnari and Giovanni Maria Farinella and Lamberto Ballan},
+  journal={2020 25th International Conference on Pattern Recognition (ICPR)},
+  year={2021},
+  pages={3312-3319}
+}

@@ -1,0 +1,5 @@
+@misc{camporese2023prediction,
+    title={Prediction of Activities and Visual Concepts Under Complex and Changing Conditions}, 
+    author={Guglielmo Camporese},
+    year={2023}
+}

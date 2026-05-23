@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <title>Guglielmo Camporese · Mood Vectors in Audio Diffusion</title>
+  <meta name="description" content="Guglielmo Camporese — Researcher at Disney Research."/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../static/img/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/img/icon.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../static/style.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <style>body.dark-mode .hljs { background: var(--bg-code); }</style>
+
+  <link rel="canonical" href="https://guglielmocamporese.github.io/blog/audio-mood-steering.html">
+  <meta name="description" content="Mechanistic interpretability of Stable Audio 3: extracting a mood direction vector from the DiT residual stream and steering generated audio from grief to euphoria without changing the text prompt. Includes a practical torch.compile fix for mech interp on compiled models.">
+  <meta name="citation_title" content="Mood Vectors in Audio Diffusion: Steering Stable Audio 3">
+  <meta name="citation_author" content="Camporese, Guglielmo">
+  <meta name="citation_date" content="2026/05">
+  <meta name="citation_online_date" content="2026/05">
+  <meta name="citation_journal_title" content="guglielmocamporese.github.io">
+  <meta name="citation_publisher" content="Guglielmo Camporese">
+  <meta name="citation_language" content="en">
+  <meta property="og:title" content="Mood Vectors in Audio Diffusion">
+  <meta property="og:description" content="Extracting and steering a mood direction in Stable Audio 3's DiT residual stream — with a practical torch.compile fix for mech interp.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://guglielmocamporese.github.io/blog/audio-mood-steering.html">
+  <meta property="article:published_time" content="2026-05-01">
+  <meta property="article:author" content="Guglielmo Camporese">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mood Vectors in Audio Diffusion">
+  <meta name="twitter:description" content="Steering mood in Stable Audio 3's DiT residual stream — and why register_forward_hook silently fails on compiled models.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Mood Vectors in Audio Diffusion: Steering Stable Audio 3",
+    "author": {"@type": "Person", "name": "Guglielmo Camporese", "url": "https://guglielmocamporese.github.io"},
+    "datePublished": "2026-05-01",
+    "inLanguage": "en",
+    "url": "https://guglielmocamporese.github.io/blog/audio-mood-steering.html",
+    "keywords": ["mechanistic interpretability","audio generation","diffusion transformer","activation steering","mood","valence","Stable Audio 3","torch.compile"]
+  }
+  </script>
+
+</head>
+
+<body>
+<div id="main-container">
+
+  <!-- header -->
+  <div class="header-section">
+    <div class="header-frame">
+      <h1>Guglielmo Camporese <span>(gool-yell-moe)</span></h1>
+      <h4>AI Researcher at Disney Research · Zurich</h4>
+      <!-- <h4>Ph.D. in Brain, Mind and Computer Science</h4> -->
+      <h6>guglielmocamporese [at] gmail [dot] com</h6>
+    </div>
+    <div class="img-frame">
+      <img src="../static/img/profile.jpeg" alt="Guglielmo Camporese" />
+    </div>
+  </div>
+
+  <!-- nav -->
+  <nav class="links">
+    <a href="../index.html">home</a>
+    <a href="../blog.html">blog</a>
+    <!-- <a href="../news.html">news</a> -->
+    <a href="https://scholar.google.com/citations?user=Yu6im9cAAAAJ&hl=en/" target="_blank">scholar</a>
+    <a href="https://github.com/guglielmocamporese" target="_blank">github</a>
+    <a href="https://www.linkedin.com/in/guglielmocamporese/" target="_blank">linkedin</a>
+    <a href="https://x.com/gucamporese/" target="_blank">x</a>
+    <a href="../static/guglielmo_camporese_cv.pdf" target="_blank">cv</a>
+    <a href="../extra.html">extra</a>
+  </nav>
+  
+  <div class="page-title">Mood Vectors in Audio Diffusion</div>
+  
+
+<div class="blog-post-layout">
+
+  <article class="blog-post">
+
+    <header class="blog-post-header">
+      <h1 class="blog-post-title">Mood Vectors in Audio Diffusion:<br>Steering Stable Audio 3</h1>
+      <div class="blog-post-meta">
+        <span>Guglielmo Camporese</span>
+        <span class="meta-sep">·</span>
+        <span>May 2026</span>
+        <span class="meta-sep">·</span>
+        <span>Zürich</span>
+      </div>
+    </header>
+
+    <div class="blog-tldr">
+      <strong>TL;DR</strong> · Can you steer the mood of a music generation model without changing a single word of the prompt? I cracked open Stable Audio 3 — a brand-new latent diffusion model — and extracted a mood direction from its DiT residual stream. Injecting it at inference shifts generated audio from grief to euphoria across 10 musical genres, same prompt and same weights. Layer 11 encodes mood with 88.3% linear separability; multi-layer steering across the top-5 layers produces perceptible valence shifts with mean Spearman ρ = 0.713 against CLAP scores. Three qualitative observations: the mood direction conflates valence and arousal (negative α slows the rhythm, not just the harmony); extreme negative α produces a haunting song-ending artifact; and harmonic genres steer cleanly while rhythmic ones resist. One critical technical discovery: <code>register_forward_hook</code> silently fails on <code>@torch.compile</code>d blocks — method monkey-patching is the fix, and it's not documented anywhere.
+    </div>
+
+    <div class="blog-body">
+
+      <h2 id="motivation">Motivation</h2>
+      <p>Anthropic's recent work on emotion representations in Claude Sonnet 4.5 [1] showed that emotion vectors are causally active — suppressing them shifts alignment-relevant behaviours including sycophancy and reward hacking. My <a href="../blog/emotion-geometry.html">previous post</a> replicated the geometric structure in Qwen3-8B and found a sharp positive/negative asymmetry in causal layer windows.</p>
+      <p>The natural next question: does the same kind of linear structure appear in generative <em>audio</em> models? Stable Audio 3 is architecturally different from a language model — it generates continuous waveforms through iterative denoising, not next-token prediction — yet its backbone is still a Transformer operating on a residual stream. If the linear representation hypothesis holds broadly across modalities, mood should be recoverable somewhere in that stream.</p>
+      <p>This post tests that hypothesis on the freshest possible target: Stable Audio 3 medium, released by Stability AI in May 2026 [2].</p>
+
+      <h2 id="model">Stable Audio 3</h2>
+      <p>Stable Audio 3 is a latent diffusion model for variable-length audio generation released by Stability AI in May 2026 [2]. Its architecture has three components:</p>
+      <ul>
+        <li><strong>SAME</strong> (Semantic-Acoustic autoencoder) — encodes 44.1 kHz stereo audio into a compact latent space, 852M parameters.</li>
+        <li><strong>DiT</strong> (Diffusion Transformer) — a 24-layer ContinuousTransformer on the latent space, conditioned on text via cross-attention to T5Gemma and on duration via adaptive layer norm. d_model = 1536.</li>
+        <li><strong>Decoder</strong> — reconstructs waveforms from denoised latents.</li>
+      </ul>
+      <p>I use <code>stable-audio-3-medium</code> (1.4B DiT parameters, open weights). The residual stream has dimension 1536 across 24 transformer blocks.</p>
+
+      <h2 id="compile-problem">The @torch.compile Problem — Read This First</h2>
+      <p>This section comes before the method because it affects everything downstream. SA3's TransformerBlock is decorated with <code>@torch.compile</code>. Standard <code>register_forward_hook</code> calls fire on the compiled output but <em>do not modify the actual computation</em> — the traced graph has already been fixed, and hooks run on a copy that is discarded. My initial steering had zero perceptible effect even at α = 100.</p>
+      <p>The solution is to monkey-patch the block's <code>forward</code> method directly:</p>
+      <pre><code class="language-python">original_forward = block.forward
+
+def patched_forward(*args, **kwargs):
+    out = original_forward(*args, **kwargs)
+    vec = mood_vector.to(out.device, out.dtype)
+    return out + alpha * vec.unsqueeze(0).unsqueeze(0)
+
+block.forward = patched_forward
+# ... generate ...
+block.forward = original_forward  # restore</code></pre>
+      <p>This replaces the bound method so the modification propagates through the compiled graph. The same pattern applies to any <code>@torch.compile</code>d model where you want to intervene on intermediate activations. I found no documentation of this issue in the existing mech interp literature for audio models — flagging it here for anyone who hits it.</p>
+
+      <h2 id="method">Method</h2>
+      <h3>Mood vector extraction</h3>
+      <p>I construct 50 contrastive prompt pairs — one with positive valence, one with negative — with musical genre held constant to isolate mood from style. Ten genres are covered (piano, acoustic guitar, jazz, electronic, strings, ambient, rock, folk, lo-fi, cinematic), 5 pairs each. Example pair:</p>
+      <blockquote>
+        "a bright cheerful acoustic guitar fingerpicking in a major key"<br>
+        "a dark and lonely acoustic guitar fingerpicking in a minor key"
+      </blockquote>
+      <p>For each pair, both prompts run through SA3 with forward hooks on all 24 DiT blocks. The mood direction at layer <em>l</em> is the unit-normalised mean-difference vector:</p>
+      <pre><code class="language-python">v_l = mean(acts_positive) - mean(acts_negative)
+v_l = v_l / torch.norm(v_l)   # unit normalise</code></pre>
+      <p>This is the same extraction method used in my LLM emotion post and in standard representation engineering [6]. It is intentionally minimal — no curated emotion vocabulary, no contrastive activation addition training, no SAE. The goal is to ask how much mileage you get from the simplest possible direction.</p>
+
+      <h3>Layer probing</h3>
+      <p>Logistic regression probes (5-fold CV) are fit on each layer's activations to predict valence (positive vs. negative). The top-5 layers by accuracy are the multi-layer steering targets.</p>
+
+      <h3>Steering</h3>
+      <p>At inference, the block's <code>forward</code> method is monkey-patched (see above) to add <code>α × v_l</code> to its output. α &gt; 0 steers toward positive affect; α &lt; 0 toward negative. Multi-layer steering patches the top-5 layers simultaneously. Evaluation uses CLAP cosine similarity to "happy music" minus "sad music" text anchors as an automated valence proxy.</p>
+
+      <h2 id="finding1">Finding 1 — Mood is linearly encoded in the middle layers</h2>
+      <p>Probe accuracy peaks at <strong>layer 11 (88.3%)</strong>, with a broad encoding window across layers 4–11 — roughly 17–46% of network depth. All 24 layers exceed chance (50%).</p>
+
+      <figure class="blog-figure">
+        <img src="../static/img/blog/audio-mood-steering/fig1_probe_accuracy.png" alt="Bar chart of logistic probe accuracy by DiT layer, peaking at layer 11 with 88.3%" loading="lazy" decoding="async">
+        <figcaption>Probe accuracy by DiT layer. Top-5: 11 (88.3%), 5 (86.7%), 7 (85.0%), 10 (85.0%), 4 (83.3%). The encoding window sits in the first half of the network; later layers fall but never collapse to chance.</figcaption>
+      </figure>
+
+      <p>This mirrors the emotion geometry finding in LLMs: affective content is encoded in the <em>middle</em> layers, not in early feature-extraction or late generation-committed layers. The window here (17–46% of depth) is consistent with the 33–44% window in Qwen3-8B [5] and with concurrent findings in other audio DiT architectures [3]. The consistency across architectures and modalities is the interesting signal: this appears to be a general property of Transformer residual streams, not a model-specific artefact.</p>
+
+      <p>One caveat: all layers exceed chance by a substantial margin, which suggests mood information is distributed throughout the network rather than sharply localised. The probe accuracy profile reflects where the information is most linearly concentrated, not where it exclusively lives.</p>
+
+      <div class="finding-box">
+        <div class="finding-label">Interpretation</div>
+        Early layers (0–3) extract low-level features from text conditioning and timestep embeddings. Middle layers (4–11) build higher-level semantic representations where valence is most linearly accessible. Later layers (12–23) appear to be more committed to generating specific timbral and rhythmic details — but mood information doesn't disappear there, it just becomes less linearly separable.
+      </div>
+
+      <h2 id="finding2">Finding 2 — Multi-layer steering shifts mood perceptibly across 10 genres</h2>
+      <p>Steering the top-5 layers simultaneously produces clear perceptible shifts. Each sweep below uses the same seed and same prompt — only α changes.</p>
+
+      
+
+      
+      <div class="audio-sweep">
+        <div class="audio-sweep-title">01 · Solo piano</div>
+
+        <div class="audio-row-label neutral">baseline</div>
+        <div class="audio-grid audio-grid-single">
+          <div class="audio-card baseline">
+            <div class="audio-card-label">neutral</div>
+            <div class="audio-card-alpha neutral">α = 0</div>
+            <audio controls src="../static/audio/mood-steering/01_piano/alpha_pos0.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label positive">😊 euphoric · energetic · dense <span class="row-dir">more positive →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +3</div>
+            <audio controls src="../static/audio/mood-steering/01_piano/alpha_pos3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +5</div>
+            <audio controls src="../static/audio/mood-steering/01_piano/alpha_pos5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +10</div>
+            <audio controls src="../static/audio/mood-steering/01_piano/alpha_pos10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most euphoric</div>
+            <div class="audio-card-alpha positive">α = +20</div>
+            <audio controls src="../static/audio/mood-steering/01_piano/alpha_pos20.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label negative">😢 melancholic · slow · sparse <span class="row-dir">more negative →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −3</div>
+            <audio controls src="../static/audio/mood-steering/01_piano/alpha_neg3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −5</div>
+            <audio controls src="../static/audio/mood-steering/01_piano/alpha_neg5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −10</div>
+            <audio controls src="../static/audio/mood-steering/01_piano/alpha_neg10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most melancholic</div>
+            <div class="audio-card-alpha negative">α = −20</div>
+            <audio controls src="../static/audio/mood-steering/01_piano/alpha_neg20.0.wav"></audio>
+          </div>
+        </div>
+        <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
+          ⚠ at α = −20 some genres produce a song-ending artifact — decaying notes, fading dynamics, silence. See <a href="#finding3" style="color:var(--text-faint);">Finding 3</a>.
+        </p>
+      </div>
+      
+      
+      <div class="audio-sweep">
+        <div class="audio-sweep-title">02 · Electronic / synthwave</div>
+
+        <div class="audio-row-label neutral">baseline</div>
+        <div class="audio-grid audio-grid-single">
+          <div class="audio-card baseline">
+            <div class="audio-card-label">neutral</div>
+            <div class="audio-card-alpha neutral">α = 0</div>
+            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_pos0.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label positive">😊 euphoric · energetic · dense <span class="row-dir">more positive →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +3</div>
+            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_pos3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +5</div>
+            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_pos5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +10</div>
+            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_pos10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most euphoric</div>
+            <div class="audio-card-alpha positive">α = +20</div>
+            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_pos20.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label negative">😢 melancholic · slow · sparse <span class="row-dir">more negative →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −3</div>
+            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_neg3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −5</div>
+            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_neg5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −10</div>
+            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_neg10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most melancholic</div>
+            <div class="audio-card-alpha negative">α = −20</div>
+            <audio controls src="../static/audio/mood-steering/02_synthwave/alpha_neg20.0.wav"></audio>
+          </div>
+        </div>
+        <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
+          ⚠ at α = −20 some genres produce a song-ending artifact — decaying notes, fading dynamics, silence. See <a href="#finding3" style="color:var(--text-faint);">Finding 3</a>.
+        </p>
+      </div>
+      
+      
+      <div class="audio-sweep">
+        <div class="audio-sweep-title">03 · Acoustic guitar</div>
+
+        <div class="audio-row-label neutral">baseline</div>
+        <div class="audio-grid audio-grid-single">
+          <div class="audio-card baseline">
+            <div class="audio-card-label">neutral</div>
+            <div class="audio-card-alpha neutral">α = 0</div>
+            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_pos0.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label positive">😊 euphoric · energetic · dense <span class="row-dir">more positive →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +3</div>
+            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_pos3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +5</div>
+            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_pos5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +10</div>
+            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_pos10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most euphoric</div>
+            <div class="audio-card-alpha positive">α = +20</div>
+            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_pos20.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label negative">😢 melancholic · slow · sparse <span class="row-dir">more negative →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −3</div>
+            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_neg3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −5</div>
+            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_neg5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −10</div>
+            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_neg10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most melancholic</div>
+            <div class="audio-card-alpha negative">α = −20</div>
+            <audio controls src="../static/audio/mood-steering/03_acoustic_guitar/alpha_neg20.0.wav"></audio>
+          </div>
+        </div>
+        <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
+          ⚠ at α = −20 some genres produce a song-ending artifact — decaying notes, fading dynamics, silence. See <a href="#finding3" style="color:var(--text-faint);">Finding 3</a>.
+        </p>
+      </div>
+      
+      
+      <div class="audio-sweep">
+        <div class="audio-sweep-title">04 · Jazz piano trio</div>
+
+        <div class="audio-row-label neutral">baseline</div>
+        <div class="audio-grid audio-grid-single">
+          <div class="audio-card baseline">
+            <div class="audio-card-label">neutral</div>
+            <div class="audio-card-alpha neutral">α = 0</div>
+            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_pos0.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label positive">😊 euphoric · energetic · dense <span class="row-dir">more positive →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +3</div>
+            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_pos3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +5</div>
+            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_pos5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +10</div>
+            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_pos10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most euphoric</div>
+            <div class="audio-card-alpha positive">α = +20</div>
+            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_pos20.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label negative">😢 melancholic · slow · sparse <span class="row-dir">more negative →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −3</div>
+            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_neg3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −5</div>
+            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_neg5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −10</div>
+            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_neg10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most melancholic</div>
+            <div class="audio-card-alpha negative">α = −20</div>
+            <audio controls src="../static/audio/mood-steering/04_jazz/alpha_neg20.0.wav"></audio>
+          </div>
+        </div>
+        <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
+          ⚠ at α = −20 some genres produce a song-ending artifact — decaying notes, fading dynamics, silence. See <a href="#finding3" style="color:var(--text-faint);">Finding 3</a>.
+        </p>
+      </div>
+      
+      
+      <div class="audio-sweep">
+        <div class="audio-sweep-title">05 · Orchestral strings</div>
+
+        <div class="audio-row-label neutral">baseline</div>
+        <div class="audio-grid audio-grid-single">
+          <div class="audio-card baseline">
+            <div class="audio-card-label">neutral</div>
+            <div class="audio-card-alpha neutral">α = 0</div>
+            <audio controls src="../static/audio/mood-steering/05_strings/alpha_pos0.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label positive">😊 euphoric · energetic · dense <span class="row-dir">more positive →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +3</div>
+            <audio controls src="../static/audio/mood-steering/05_strings/alpha_pos3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +5</div>
+            <audio controls src="../static/audio/mood-steering/05_strings/alpha_pos5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +10</div>
+            <audio controls src="../static/audio/mood-steering/05_strings/alpha_pos10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most euphoric</div>
+            <div class="audio-card-alpha positive">α = +20</div>
+            <audio controls src="../static/audio/mood-steering/05_strings/alpha_pos20.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label negative">😢 melancholic · slow · sparse <span class="row-dir">more negative →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −3</div>
+            <audio controls src="../static/audio/mood-steering/05_strings/alpha_neg3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −5</div>
+            <audio controls src="../static/audio/mood-steering/05_strings/alpha_neg5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −10</div>
+            <audio controls src="../static/audio/mood-steering/05_strings/alpha_neg10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most melancholic</div>
+            <div class="audio-card-alpha negative">α = −20</div>
+            <audio controls src="../static/audio/mood-steering/05_strings/alpha_neg20.0.wav"></audio>
+          </div>
+        </div>
+        <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
+          ⚠ at α = −20 some genres produce a song-ending artifact — decaying notes, fading dynamics, silence. See <a href="#finding3" style="color:var(--text-faint);">Finding 3</a>.
+        </p>
+      </div>
+      
+      
+      <div class="audio-sweep">
+        <div class="audio-sweep-title">06 · Lo-fi hip hop</div>
+
+        <div class="audio-row-label neutral">baseline</div>
+        <div class="audio-grid audio-grid-single">
+          <div class="audio-card baseline">
+            <div class="audio-card-label">neutral</div>
+            <div class="audio-card-alpha neutral">α = 0</div>
+            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_pos0.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label positive">😊 euphoric · energetic · dense <span class="row-dir">more positive →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +3</div>
+            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_pos3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +5</div>
+            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_pos5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +10</div>
+            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_pos10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most euphoric</div>
+            <div class="audio-card-alpha positive">α = +20</div>
+            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_pos20.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label negative">😢 melancholic · slow · sparse <span class="row-dir">more negative →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −3</div>
+            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_neg3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −5</div>
+            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_neg5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −10</div>
+            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_neg10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most melancholic</div>
+            <div class="audio-card-alpha negative">α = −20</div>
+            <audio controls src="../static/audio/mood-steering/06_lofi/alpha_neg20.0.wav"></audio>
+          </div>
+        </div>
+        <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
+          ⚠ at α = −20 some genres produce a song-ending artifact — decaying notes, fading dynamics, silence. See <a href="#finding3" style="color:var(--text-faint);">Finding 3</a>.
+        </p>
+      </div>
+      
+      
+      <div class="audio-sweep">
+        <div class="audio-sweep-title">07 · Ambient / atmospheric</div>
+
+        <div class="audio-row-label neutral">baseline</div>
+        <div class="audio-grid audio-grid-single">
+          <div class="audio-card baseline">
+            <div class="audio-card-label">neutral</div>
+            <div class="audio-card-alpha neutral">α = 0</div>
+            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_pos0.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label positive">😊 euphoric · energetic · dense <span class="row-dir">more positive →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +3</div>
+            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_pos3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +5</div>
+            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_pos5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +10</div>
+            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_pos10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most euphoric</div>
+            <div class="audio-card-alpha positive">α = +20</div>
+            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_pos20.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label negative">😢 melancholic · slow · sparse <span class="row-dir">more negative →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −3</div>
+            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_neg3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −5</div>
+            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_neg5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −10</div>
+            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_neg10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most melancholic</div>
+            <div class="audio-card-alpha negative">α = −20</div>
+            <audio controls src="../static/audio/mood-steering/07_ambient/alpha_neg20.0.wav"></audio>
+          </div>
+        </div>
+        <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
+          ⚠ at α = −20 some genres produce a song-ending artifact — decaying notes, fading dynamics, silence. See <a href="#finding3" style="color:var(--text-faint);">Finding 3</a>.
+        </p>
+      </div>
+      
+      
+      <div class="audio-sweep">
+        <div class="audio-sweep-title">08 · Folk / acoustic</div>
+
+        <div class="audio-row-label neutral">baseline</div>
+        <div class="audio-grid audio-grid-single">
+          <div class="audio-card baseline">
+            <div class="audio-card-label">neutral</div>
+            <div class="audio-card-alpha neutral">α = 0</div>
+            <audio controls src="../static/audio/mood-steering/08_folk/alpha_pos0.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label positive">😊 euphoric · energetic · dense <span class="row-dir">more positive →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +3</div>
+            <audio controls src="../static/audio/mood-steering/08_folk/alpha_pos3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +5</div>
+            <audio controls src="../static/audio/mood-steering/08_folk/alpha_pos5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +10</div>
+            <audio controls src="../static/audio/mood-steering/08_folk/alpha_pos10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most euphoric</div>
+            <div class="audio-card-alpha positive">α = +20</div>
+            <audio controls src="../static/audio/mood-steering/08_folk/alpha_pos20.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label negative">😢 melancholic · slow · sparse <span class="row-dir">more negative →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −3</div>
+            <audio controls src="../static/audio/mood-steering/08_folk/alpha_neg3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −5</div>
+            <audio controls src="../static/audio/mood-steering/08_folk/alpha_neg5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −10</div>
+            <audio controls src="../static/audio/mood-steering/08_folk/alpha_neg10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most melancholic</div>
+            <div class="audio-card-alpha negative">α = −20</div>
+            <audio controls src="../static/audio/mood-steering/08_folk/alpha_neg20.0.wav"></audio>
+          </div>
+        </div>
+        <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
+          ⚠ at α = −20 some genres produce a song-ending artifact — decaying notes, fading dynamics, silence. See <a href="#finding3" style="color:var(--text-faint);">Finding 3</a>.
+        </p>
+      </div>
+      
+      
+      <div class="audio-sweep">
+        <div class="audio-sweep-title">09 · Rock instrumental</div>
+
+        <div class="audio-row-label neutral">baseline</div>
+        <div class="audio-grid audio-grid-single">
+          <div class="audio-card baseline">
+            <div class="audio-card-label">neutral</div>
+            <div class="audio-card-alpha neutral">α = 0</div>
+            <audio controls src="../static/audio/mood-steering/09_rock/alpha_pos0.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label positive">😊 euphoric · energetic · dense <span class="row-dir">more positive →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +3</div>
+            <audio controls src="../static/audio/mood-steering/09_rock/alpha_pos3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +5</div>
+            <audio controls src="../static/audio/mood-steering/09_rock/alpha_pos5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +10</div>
+            <audio controls src="../static/audio/mood-steering/09_rock/alpha_pos10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most euphoric</div>
+            <div class="audio-card-alpha positive">α = +20</div>
+            <audio controls src="../static/audio/mood-steering/09_rock/alpha_pos20.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label negative">😢 melancholic · slow · sparse <span class="row-dir">more negative →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −3</div>
+            <audio controls src="../static/audio/mood-steering/09_rock/alpha_neg3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −5</div>
+            <audio controls src="../static/audio/mood-steering/09_rock/alpha_neg5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −10</div>
+            <audio controls src="../static/audio/mood-steering/09_rock/alpha_neg10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most melancholic</div>
+            <div class="audio-card-alpha negative">α = −20</div>
+            <audio controls src="../static/audio/mood-steering/09_rock/alpha_neg20.0.wav"></audio>
+          </div>
+        </div>
+        <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
+          ⚠ at α = −20 some genres produce a song-ending artifact — decaying notes, fading dynamics, silence. See <a href="#finding3" style="color:var(--text-faint);">Finding 3</a>.
+        </p>
+      </div>
+      
+      
+      <div class="audio-sweep">
+        <div class="audio-sweep-title">10 · Minimal techno</div>
+
+        <div class="audio-row-label neutral">baseline</div>
+        <div class="audio-grid audio-grid-single">
+          <div class="audio-card baseline">
+            <div class="audio-card-label">neutral</div>
+            <div class="audio-card-alpha neutral">α = 0</div>
+            <audio controls src="../static/audio/mood-steering/10_techno/alpha_pos0.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label positive">😊 euphoric · energetic · dense <span class="row-dir">more positive →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +3</div>
+            <audio controls src="../static/audio/mood-steering/10_techno/alpha_pos3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +5</div>
+            <audio controls src="../static/audio/mood-steering/10_techno/alpha_pos5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha positive">α = +10</div>
+            <audio controls src="../static/audio/mood-steering/10_techno/alpha_pos10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most euphoric</div>
+            <div class="audio-card-alpha positive">α = +20</div>
+            <audio controls src="../static/audio/mood-steering/10_techno/alpha_pos20.0.wav"></audio>
+          </div>
+        </div>
+
+        <div class="audio-row-label negative">😢 melancholic · slow · sparse <span class="row-dir">more negative →</span></div>
+        <div class="audio-grid">
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −3</div>
+            <audio controls src="../static/audio/mood-steering/10_techno/alpha_neg3.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −5</div>
+            <audio controls src="../static/audio/mood-steering/10_techno/alpha_neg5.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label"></div>
+            <div class="audio-card-alpha negative">α = −10</div>
+            <audio controls src="../static/audio/mood-steering/10_techno/alpha_neg10.0.wav"></audio>
+          </div>
+          <div class="audio-card">
+            <div class="audio-card-label">most melancholic</div>
+            <div class="audio-card-alpha negative">α = −20</div>
+            <audio controls src="../static/audio/mood-steering/10_techno/alpha_neg20.0.wav"></audio>
+          </div>
+        </div>
+        <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-faint); margin-top:0.4rem; margin-bottom:0;">
+          ⚠ at α = −20 some genres produce a song-ending artifact — decaying notes, fading dynamics, silence. See <a href="#finding3" style="color:var(--text-faint);">Finding 3</a>.
+        </p>
+      </div>
+      
+
+      <h2 id="finding3">Finding 3 — Three qualitative observations</h2>
+
+      <h3>The mood direction conflates valence and arousal</h3>
+      <p>A consistent pattern across all 10 genres: <strong>negative α reduces rhythmic density and energy; positive α increases it</strong>. At α = −10, most genres produce slower, sparser textures — fewer notes per bar, longer sustains, more silence. At α = +10, the same prompt yields busier, denser arrangements. The prompt hasn't changed. Only the internal direction has.</p>
+      <p>This means the extracted direction is better described as a <strong>positive/negative affect direction</strong> rather than a pure valence direction. It captures a mixture of valence (harmonic tone: major vs. minor) and arousal (energy: dense vs. sparse) — both axes of the circumplex model of affect [7]. This is expected: in music training data, happy tracks tend to be more energetic and sad tracks slower, so a mean-difference vector computed from happy/sad pairs will inevitably pick up both dimensions together. The same entanglement appeared in Qwen3-8B in my previous post.</p>
+      <p>Disentangling the two axes — extracting orthogonal valence and arousal directions and testing whether they can be controlled independently — is the most important next experiment.</p>
+
+      <h3>The "song ending" artifact at extreme negative α</h3>
+      <p>At α = −20, several genres (particularly piano, strings, ambient) produce audio that resembles the final bars of a piece — decaying notes, fading dynamics, a sense of resolution and closure rather than active music.</p>
+
+      <div class="finding-box">
+        <div class="finding-label">Interpretation</div>
+        The training data associates musical endings — ritardando, decrescendo, final cadences, silence — with negative emotional valence. When we push the model hard in the negative affect direction, it doesn't just make the music sadder; it makes it sound <em>finished</em>. The model has learned that endings carry negative valence. Whether this reflects music theory (resolutions feel bittersweet, codas convey finality) or a simpler statistical association (sad pieces end more quietly) is an open question — but the artifact is real and interpretable, not noise.
+      </div>
+
+      <h3>Genre-dependent steering effectiveness</h3>
+      <p>Quantified via CLAP valence scores (cosine similarity to "happy music" minus "sad music" text anchors):</p>
+
+      <figure class="blog-figure">
+        <img src="../static/img/blog/audio-mood-steering/fig3_all_genres_sweep.png" alt="2×5 grid showing CLAP valence score vs alpha for all 10 genres" loading="lazy" decoding="async">
+        <figcaption>CLAP valence vs. α across all 10 genres. Pink = strong monotone signal (ρ ≥ 0.85). Blue = moderate (ρ ≥ 0.65). Grey = weak. Harmonic genres show clean trends; rhythmic/electronic genres resist.</figcaption>
+      </figure>
+
+      <figure class="blog-figure">
+        <img src="../static/img/blog/audio-mood-steering/fig2_clap_by_genre.png" alt="Horizontal bar chart of Spearman rho by genre" loading="lazy" decoding="async">
+        <figcaption>Spearman ρ between α and CLAP valence score, by genre. Mean ρ = 0.713 across 10 genres.</figcaption>
+      </figure>
+
+      <p><strong>Harmonic genres</strong> (jazz ρ = 0.950, piano ρ = 0.933, folk ρ = 0.883, ambient ρ = 0.850) show the strongest signal. These genres rely on harmonic content — chord progressions, melodic phrasing, tonal colour — which maps directly onto what the mood direction was trained to separate (major vs. minor, bright vs. dark).</p>
+      <p><strong>Rhythmic/electronic genres</strong> (techno ρ = 0.300, lo-fi ρ = 0.367) show weak CLAP signal. This doesn't necessarily mean steering isn't working perceptually — it means CLAP assigns high positive valence to these genres by default, so even at α = −20 the CLAP score stays positive. The metric is biased for these genres. A human listening study would likely reveal more effect than CLAP reports.</p>
+
+      <h2 id="discussion">Discussion</h2>
+
+      <h3>Connection to the LLM emotion geometry</h3>
+      <p>The probe accuracy profile — peaking in layers 4–11 out of 24, roughly 17–46% of depth — closely mirrors the causal window in Qwen3-8B (33–44%). In both architectures, middle layers are the representational home of affective content. The linear representation hypothesis appears to hold across modality: whether the model generates text tokens or continuous audio latents, mood emerges as a decodable linear direction in the residual stream.</p>
+
+      <h3>The valence–arousal entanglement problem</h3>
+      <p>The most important limitation is also the most theoretically interesting observation: the mean-difference direction captures a joint valence+arousal signal. This is consistent with the circumplex model [7] — in music training data these dimensions are correlated — but it limits the precision of the intervention. To get true valence control without energy change (or vice versa), you'd need to extract two orthogonal directions from contrastive pairs designed to vary one dimension while holding the other constant: e.g., high-energy sad music vs. high-energy happy music for pure valence; high-energy vs. low-energy music in the same valence for pure arousal.</p>
+
+      <h3>CLAP as an evaluator: strengths and biases</h3>
+      <p>CLAP provides automated, scalable evaluation but is systematically biased for rhythmic genres that it associates with positive energy. Future work should cross-reference with at least one other audio-language model and include a human perceptual study with blind α-shuffled listening. The CLAP results are best read as a lower bound on steering effectiveness for rhythmic genres.</p>
+
+      <h2 id="conclusion">Conclusion</h2>
+      <p>Stable Audio 3 encodes a positive/negative affect direction as a linearly decodable vector in its DiT residual stream. Layer 11 achieves 88.3% probe accuracy separating happy from sad activations, within a broad encoding window at layers 4–11 (17–46% of network depth). Multi-layer steering across the top-5 layers shifts generated audio perceptibly across 10 musical genres — mean Spearman ρ = 0.713 against CLAP valence — with the same prompt and same weights.</p>
+      <p>Three qualitative findings accompany the quantitative result. The extracted direction conflates valence and arousal — negative α consistently reduces rhythmic density, not just harmonic tone. Extreme negative α produces song-ending artifacts, suggesting the model has learned that musical finality carries negative affect. Steering is strongest in harmonic genres and weakest in rhythmic ones, partly because CLAP is a biased evaluator for high-energy electronic music.</p>
+      <p>One practical finding that stands on its own: <code>@torch.compile</code> silently breaks <code>register_forward_hook</code>. Method monkey-patching is the correct approach for mechanistic interpretability on compiled models, and worth knowing before you spend hours debugging zero-effect steering.</p>
+      <p>The mood map is real, linearly encoded, and steerable. It lives in layers 4–11, it knows what the end of a song sounds like, and it conflates how sad something is with how quiet it gets — because in music training data, those things go together.</p>
+
+      <h2 id="related">Related Work</h2>
+      <p>Concurrent independent work [3] studies activation steering in audio diffusion models and reaches qualitatively similar conclusions about the localisability of musical concepts in Transformer layers. Earlier work on steering autoregressive music models [4] and a growing body of SAE-based audio interpretability work provide additional context. The emotion-geometry LLM literature [1, 5, 6] provides the conceptual framing for the cross-modal comparison.</p>
+
+    </div>
+  </article>
+
+  <aside class="blog-post-aside">
+    <div class="aside-section">
+      <div class="aside-title">Cite</div>
+      <pre id="cite-box" style="font-size:0.65rem; font-family:var(--font-mono); color:var(--text-muted); background:var(--bg-code); border-radius:var(--radius); padding:0.8rem; line-height:1.7; overflow-x:auto; white-space:pre; margin:0;">@misc{camporese2026mood,
+  author = {Camporese,
+            Guglielmo},
+  title  = {Mood Vectors in
+            Audio Diffusion},
+  year   = {2026},
+  month  = {May},
+  url    = {https://guglielmo
+            camporese.github.io/
+            blog/audio-mood-
+            steering}
+}</pre>
+      <button onclick="
+        const t='@misc{camporese2026mood,\n  author = {Camporese, Guglielmo},\n  title  = {Mood Vectors in Audio Diffusion: Steering Stable Audio 3},\n  year   = {2026},\n  month  = {May},\n  url    = {https://guglielmocamporese.github.io/blog/audio-mood-steering.html}\n}';
+        navigator.clipboard.writeText(t).then(()=>{this.textContent='copied!';setTimeout(()=>this.textContent='copy BibTeX',1500)});
+      " style="margin-top:0.5rem; width:100%; font-family:var(--font-mono); font-size:0.68rem; background:none; border:1px solid var(--border); color:var(--text-muted); padding:0.35rem; border-radius:var(--radius); cursor:pointer;">copy BibTeX</button>
+    </div>
+    <div class="aside-section aside-toc">
+      <div class="aside-title">Contents</div>
+      <ol>
+        <li><a href="#motivation">Motivation</a></li>
+        <li><a href="#model">Stable Audio 3</a></li>
+        <li><a href="#compile-problem">The @compile problem</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#finding1">Mood in layer 11</a></li>
+        <li><a href="#finding2">Multi-layer steering</a></li>
+        <li><a href="#finding3">Three observations</a></li>
+        <li><a href="#discussion">Discussion</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+        <li><a href="#related">Related Work</a></li>
+      </ol>
+    </div>
+    <div class="aside-section" id="references">
+      <div class="aside-title">References</div>
+      <p>[1] Sofroniew et al. (2026). <a href="https://transformer-circuits.pub/2026/emotions/index.html" target="_blank" rel="noopener noreferrer">Emotion Concepts and their Function in a Large Language Model</a>. Anthropic.</p>
+      <p>[2] Evans et al. (2026). <a href="https://arxiv.org/abs/2605.17991" target="_blank" rel="noopener noreferrer">Stable Audio 3</a>. Stability AI.</p>
+      <p>[3] Staniszewski et al. (2026). <a href="https://arxiv.org/abs/2602.11910" target="_blank" rel="noopener noreferrer">TADA! Tuning Audio Diffusion Models through Activation Steering</a>. arXiv:2602.11910.</p>
+      <p>[4] Singh et al. (2025). <a href="https://arxiv.org/abs/2510.19127" target="_blank" rel="noopener noreferrer">Steering Autoregressive Music Generation with Recursive Feature Machines</a>. ICLR 2026.</p>
+      <p>[5] Camporese (2026). <a href="../blog/emotion-geometry.html">Emotion Geometry in LLMs</a>.</p>
+      <p>[6] Zou et al. (2023). <a href="https://arxiv.org/abs/2310.01405" target="_blank" rel="noopener noreferrer">Representation Engineering</a>.</p>
+      <p>[7] Russell (1980). A circumplex model of affect. <em>JPSP</em>, 39(6).</p>
+    </div>
+    <div class="aside-section">
+      <div class="aside-title">Code</div>
+      <p><a href="https://github.com/guglielmocamporese/audioscope" target="_blank" rel="noopener noreferrer">github.com/guglielmocamporese/<br>audioscope</a></p>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+document.addEventListener('play', function(e) {
+  document.querySelectorAll('audio').forEach(function(a) {
+    if (a !== e.target) { a.pause(); a.currentTime = 0; }
+  });
+}, true);
+</script>
+
+  <footer id="footer">
+    &copy; 2026 Guglielmo Camporese
+  </footer>
+
+</div>
+<script src="../static/script.js"></script>
+</body>
+</html>
