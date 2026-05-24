@@ -33,3 +33,6 @@ flask/static/uploads/
 *.log
 .env.local
 .env.*.local
+flask/static/audio/mood-steering/demos/
+flask/static/audio/mood-steering/emoji/
+flask/static/audio/mood-steering/make_demos.py
